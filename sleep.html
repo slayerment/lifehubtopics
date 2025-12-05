@@ -1,0 +1,2727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>LifeHub Topic Demo – How do I fix my sleep?</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --bg-alt: #ffffff;
+      --bg-soft: #edf1fc;
+      --border-subtle: #d7d9e5;
+      --primary: #3046ff;
+      --primary-soft: rgba(48, 70, 255, 0.12);
+      --primary-strong: #1d2bcc;
+      --text-main: #111322;
+      --text-muted: #666a80;
+      --accent: #10b981;
+      --danger: #ef4444;
+      --radius-lg: 18px;
+      --radius-xl: 26px;
+      --shadow-soft: 0 18px 60px rgba(15, 23, 42, 0.12);
+      --sidebar-width: 484px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top left, #eef2ff 0, #f5f7fb 36%, #f9fafb 100%);
+      color: var(--text-main);
+      font-size: 18px;
+      line-height: 1.6;
+    }
+
+    .page {
+      max-width: 1580px;
+      margin: 0 auto;
+      padding: 32px 18px 60px;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+
+    .brand {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .brand-title {
+      font-size: 32px;
+      font-weight: 750;
+      letter-spacing: -0.04em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .brand-title span.dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 20%, #4ade80, #22c55e);
+      box-shadow: 0 0 0 8px rgba(34, 197, 94, 0.18);
+    }
+
+    .brand-sub {
+      font-size: 17px;
+      color: var(--text-muted);
+    }
+
+    .top-meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      font-size: 15px;
+      color: var(--text-muted);
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.85);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      font-size: 14px;
+      gap: 6px;
+    }
+
+    .pill-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #22c55e;
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: minmax(0, calc(100% - var(--sidebar-width) - 22px)) minmax(0, var(--sidebar-width));
+      gap: 22px;
+      align-items: flex-start;
+    }
+
+    @media (max-width: 980px) {
+      main {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    .panel {
+      background: var(--bg-alt);
+      border-radius: var(--radius-xl);
+      padding: 20px 20px 22px;
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      box-shadow: 0 18px 50px rgba(15, 23, 42, 0.08);
+    }
+
+    .panel + .panel {
+      margin-top: 16px;
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .panel-subtitle {
+      font-size: 15px;
+      color: var(--text-muted);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: var(--bg-soft);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      font-size: 13px;
+      color: var(--text-muted);
+      gap: 6px;
+    }
+
+    h1.topic-title {
+      font-size: 40px;
+      letter-spacing: -0.05em;
+      margin: 4px 0 4px;
+    }
+
+    .topic-subtitle {
+      font-size: 18px;
+      color: var(--text-muted);
+      max-width: 640px;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .chip {
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.04);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      font-size: 14px;
+      color: var(--text-muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .metric-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+      font-size: 15px;
+    }
+
+    .metric-pill {
+      border-radius: 999px;
+      padding: 6px 12px;
+      background: rgba(15, 23, 42, 0.03);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .metric-pill strong {
+      font-weight: 600;
+    }
+
+    .baseline-card {
+      background: radial-gradient(circle at 0 0, #dbeafe 0, #eef2ff 36%, #ffffff 100%);
+      border-radius: var(--radius-xl);
+      padding: 18px 18px 16px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 4px;
+    }
+
+    .baseline-card::after {
+      content: "";
+      position: absolute;
+      right: -40px;
+      top: -40px;
+      width: 180px;
+      height: 180px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 20%, rgba(59, 130, 246, 0.8), rgba(37, 99, 235, 0.08));
+      opacity: 0.5;
+      filter: blur(2px);
+    }
+
+    .baseline-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.4fr);
+      gap: 14px;
+      position: relative;
+      z-index: 1;
+    }
+
+    @media (max-width: 840px) {
+      .baseline-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .baseline-main-title {
+      font-size: 20px;
+      font-weight: 650;
+      letter-spacing: -0.03em;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .band-tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 13px;
+      gap: 6px;
+      background: rgba(59, 130, 246, 0.1);
+      color: #1d4ed8;
+      border: 1px solid rgba(96, 165, 250, 0.7);
+    }
+
+    .archetype-tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 13px;
+      gap: 6px;
+      background: rgba(34, 197, 94, 0.1);
+      color: #15803d;
+      border: 1px solid rgba(74, 222, 128, 0.7);
+    }
+
+    .lever-list {
+      list-style: none;
+      padding: 0;
+      margin: 8px 0 0;
+      font-size: 15px;
+    }
+
+    .lever-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+
+    .lever-list li span.rank {
+      width: 22px;
+      height: 22px;
+      border-radius: 999px;
+      background: var(--bg-alt);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+
+    .journeys-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .journey-pill {
+      border-radius: 999px;
+      padding: 6px 12px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(255, 255, 255, 0.9);
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+    }
+
+    .journey-pill span.label {
+      font-weight: 550;
+    }
+
+    .journey-pill span.meta {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .text-sm {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .section {
+      margin-top: 18px;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .section-title {
+      font-size: 20px;
+      font-weight: 650;
+      letter-spacing: -0.03em;
+    }
+
+    .section-subtitle {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .pill-tabs {
+      display: inline-flex;
+      gap: 6px;
+      background: rgba(15, 23, 42, 0.03);
+      border-radius: 999px;
+      padding: 3px;
+      border: 1px solid rgba(148, 163, 184, 0.45);
+    }
+
+    .pill-tabs button {
+      border-radius: 999px;
+      border: none;
+      padding: 4px 10px;
+      font-size: 13px;
+      background: transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+    }
+
+    .pill-tabs button.active {
+      background: white;
+      color: #020617;
+      font-weight: 550;
+      box-shadow: 0 1px 6px rgba(15, 23, 42, 0.18);
+    }
+
+    .pill-tabs button.disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    .positions-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .position-card {
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: rgba(255, 255, 255, 0.95);
+      padding: 10px 12px;
+      font-size: 15px;
+      transition: box-shadow 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+    }
+
+    .position-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 2px;
+    }
+
+    .position-name {
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+    .confidence-chip {
+      padding: 2px 7px;
+      border-radius: 999px;
+      border: 1px solid rgba(34, 197, 94, 0.4);
+      background: rgba(22, 163, 74, 0.06);
+      color: #15803d;
+      font-size: 12px;
+    }
+
+    .position-meta {
+      font-size: 13px;
+      color: var(--text-muted);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 3px;
+    }
+
+    .recommended-label {
+      display: none;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 12px;
+      background: rgba(34, 197, 94, 0.1);
+      border: 1px solid rgba(34, 197, 94, 0.6);
+      color: #15803d;
+      margin-left: 8px;
+      white-space: nowrap;
+    }
+
+    .position-card.recommended {
+      border-color: rgba(34, 197, 94, 0.9);
+      box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.35);
+      background: linear-gradient(135deg, #f0fdf4, #ffffff);
+    }
+
+    .lever-columns {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 840px) {
+      .lever-columns {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .lever-card {
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: rgba(255, 255, 255, 0.97);
+      padding: 10px 12px;
+      font-size: 15px;
+      transition: box-shadow 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+    }
+
+    .lever-card.highlighted {
+      border-color: rgba(34, 197, 94, 0.9);
+      box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.35);
+      background: linear-gradient(135deg, #f0fdf4, #ffffff);
+    }
+
+    .lever-card h4 {
+      margin: 0 0 3px;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .lever-tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 6px;
+      border-radius: 999px;
+      font-size: 12px;
+      color: var(--text-muted);
+      background: rgba(15, 23, 42, 0.03);
+      border: 1px solid rgba(148, 163, 184, 0.45);
+    }
+
+    /* JOURNEYS */
+
+    .journey-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .journey-card {
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.75);
+      background: radial-gradient(circle at 0 0, #e0f2fe, #f9fafb);
+      padding: 10px 12px;
+      font-size: 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 16px 40px rgba(15, 23, 42, 0.18);
+      border-left: 4px solid var(--primary);
+    }
+
+    .journey-card::after {
+      content: "";
+      position: absolute;
+      right: -40px;
+      top: -40px;
+      width: 140px;
+      height: 140px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 20%, rgba(129, 140, 248, 0.6), rgba(59, 130, 246, 0.05));
+      opacity: 0.5;
+    }
+
+    .journey-card > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .journey-header {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .journey-card h4 {
+      margin: 0;
+      font-size: 17px;
+      font-weight: 650;
+      letter-spacing: -0.02em;
+    }
+
+    .journey-meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .journey-meta-pill {
+      border-radius: 999px;
+      padding: 3px 8px;
+      background: rgba(15, 23, 42, 0.03);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+    }
+
+    .journey-modules-label {
+      font-size: 12px;
+      font-weight: 600;
+      margin-top: 4px;
+      color: rgba(15, 23, 42, 0.8);
+    }
+
+    .journey-modules-strip {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      margin-top: 4px;
+    }
+
+    .journey-modules-strip::-webkit-scrollbar {
+      height: 5px;
+    }
+
+    .journey-modules-strip::-webkit-scrollbar-thumb {
+      background: rgba(148, 163, 184, 0.7);
+      border-radius: 999px;
+    }
+
+    .journey-modules-strip::-webkit-scrollbar-track {
+      background: rgba(148, 163, 184, 0.2);
+      border-radius: 999px;
+    }
+
+    .journey-modules-strip .module-tile {
+      flex: 0 0 160px;
+      height: 100px;
+      font-size: 12px;
+      box-shadow: 0 6px 16px rgba(15, 23, 42, 0.16);
+    }
+
+    .journey-modules-strip .module-name {
+      font-size: 13px;
+    }
+
+    .journey-modules-strip .module-desc {
+      display: none;
+    }
+
+    .journey-stats-footnote {
+      margin-top: 4px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .journeyEmpty {
+      margin-top: 6px;
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .small-button {
+      border-radius: 999px;
+      border: none;
+      padding: 5px 10px;
+      font-size: 13px;
+      cursor: pointer;
+      background: var(--primary);
+      color: white;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 10px 24px rgba(37, 99, 235, 0.3);
+    }
+
+    .small-button.secondary {
+      background: white;
+      color: #020617;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      box-shadow: none;
+    }
+
+    /* MODULE CAROUSEL */
+
+    .modules-wrapper {
+      position: relative;
+      margin-top: 8px;
+    }
+
+    .modules-carousel {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding: 8px 36px 6px 36px;
+      scroll-snap-type: x mandatory;
+    }
+
+    .modules-carousel::-webkit-scrollbar {
+      height: 6px;
+    }
+
+    .modules-carousel::-webkit-scrollbar-thumb {
+      background: rgba(148, 163, 184, 0.7);
+      border-radius: 999px;
+    }
+
+    .modules-carousel::-webkit-scrollbar-track {
+      background: rgba(148, 163, 184, 0.2);
+      border-radius: 999px;
+    }
+
+    .module-tile {
+      flex: 0 0 190px;
+      height: 150px;
+      border-radius: 18px;
+      padding: 10px 11px;
+      font-size: 14px;
+      color: #020617;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.18);
+      scroll-snap-align: start;
+      border: 1px solid rgba(15, 23, 42, 0.08);
+    }
+
+    .module-name {
+      font-weight: 600;
+      font-size: 15px;
+      margin-bottom: 3px;
+    }
+
+    .module-meta {
+      font-size: 12px;
+      color: rgba(15, 23, 42, 0.8);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 2px;
+    }
+
+    .module-tag {
+      border-radius: 999px;
+      padding: 2px 7px;
+      background: rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.58);
+      font-size: 11px;
+      color: #020617;
+    }
+
+    .module-desc {
+      font-size: 12px;
+      color: rgba(15, 23, 42, 0.85);
+      margin-top: 4px;
+    }
+
+    .module-usage {
+      font-size: 11px;
+      color: rgba(15, 23, 42, 0.8);
+      margin-top: 4px;
+    }
+
+    /* Color variants */
+
+    .module-color-1 {
+      background: radial-gradient(circle at 0 0, #bfdbfe, #60a5fa);
+      color: #02172f;
+    }
+
+    .module-color-2 {
+      background: radial-gradient(circle at 0 0, #bbf7d0, #22c55e);
+      color: #022c22;
+    }
+
+    .module-color-3 {
+      background: radial-gradient(circle at 0 0, #fee2e2, #f97373);
+      color: #450a0a;
+    }
+
+    .module-color-4 {
+      background: radial-gradient(circle at 0 0, #fef3c7, #facc15);
+      color: #422006;
+    }
+
+    .module-color-5 {
+      background: radial-gradient(circle at 0 0, #fae8ff, #e879f9);
+      color: #4a044e;
+    }
+
+    .module-color-6 {
+      background: radial-gradient(circle at 0 0, #e0e7ff, #6366f1);
+      color: #020617;
+    }
+
+    .module-color-7 {
+      background: radial-gradient(circle at 0 0, #cffafe, #22d3ee);
+      color: #083344;
+    }
+
+    .module-color-8 {
+      background: radial-gradient(circle at 0 0, #fce7f3, #ec4899);
+      color: #4a044e;
+    }
+
+    .module-color-9 {
+      background: radial-gradient(circle at 0 0, #dcfce7, #16a34a);
+      color: #052e16;
+    }
+
+    .module-color-10 {
+      background: radial-gradient(circle at 0 0, #fee2e2, #fb923c);
+      color: #431407;
+    }
+
+    .modules-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 28px;
+      height: 56px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      background: rgba(15, 23, 42, 0.75);
+      color: white;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.4);
+      z-index: 2;
+    }
+
+    .modules-arrow.left {
+      left: 4px;
+    }
+
+    .modules-arrow.right {
+      right: 4px;
+    }
+
+    .modules-arrow span {
+      font-size: 20px;
+      line-height: 1;
+    }
+
+    @media (max-width: 640px) {
+      .modules-arrow {
+        width: 24px;
+        height: 48px;
+      }
+    }
+
+    /* EVIDENCE TABLE & CONSENSUS */
+
+    .evidence-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      margin-top: 6px;
+    }
+
+    .evidence-table th,
+    .evidence-table td {
+      padding: 7px 8px;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.35);
+      text-align: left;
+    }
+
+    .evidence-table th {
+      font-weight: 600;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .evidence-table a {
+      color: var(--primary-strong);
+      text-decoration: none;
+    }
+
+    .evidence-table a:hover {
+      text-decoration: underline;
+    }
+
+    .consensus-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 10px;
+      margin-top: 6px;
+      font-size: 14px;
+    }
+
+    @media (max-width: 840px) {
+      .consensus-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .consensus-col {
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(255, 255, 255, 0.97);
+      padding: 8px 10px;
+    }
+
+    .consensus-col h4 {
+      margin: 0 0 4px;
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .consensus-col ul {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    .story-card {
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(255, 255, 255, 0.98);
+      padding: 10px 12px;
+      font-size: 15px;
+    }
+
+    .story-card h4 {
+      margin: 0 0 4px;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .story-meta {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    /* FAQ accordion */
+
+    .faq-item {
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: rgba(255, 255, 255, 0.96);
+      padding: 8px 10px;
+      margin-bottom: 6px;
+      font-size: 15px;
+    }
+
+    .faq-q {
+      font-weight: 600;
+      margin-bottom: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .faq-toggle-icon {
+      font-size: 14px;
+      color: var(--text-muted);
+      transition: transform 0.18s ease;
+      margin-left: 8px;
+    }
+
+    .faq-a {
+      display: none;
+      margin-top: 4px;
+    }
+
+    .faq-item.open .faq-a {
+      display: block;
+    }
+
+    .faq-item.open .faq-toggle-icon {
+      transform: rotate(90deg);
+    }
+
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    @media (max-width: 780px) {
+      .related-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .related-card {
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(255, 255, 255, 0.98);
+      padding: 8px 10px;
+      font-size: 15px;
+    }
+
+    .related-card h4 {
+      margin: 0 0 3px;
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    /* Personalized side panel – sticky */
+
+    .personal-panel {
+      position: sticky;
+      top: 24px;
+      align-self: flex-start;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    @media (max-width: 980px) {
+      .personal-panel {
+        position: static;
+      }
+    }
+
+    .view-toggle-shell {
+      margin-bottom: 8px;
+    }
+
+    .view-toggle {
+      display: inline-flex;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.96);
+      color: white;
+      padding: 4px;
+      font-size: 14px;
+      box-shadow: 0 16px 40px rgba(15, 23, 42, 0.4);
+    }
+
+    .view-toggle button {
+      border: none;
+      background: transparent;
+      color: rgba(255, 255, 255, 0.68);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 14px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 500;
+    }
+
+    .view-toggle button.active {
+      background: white;
+      color: #020617;
+    }
+
+    .side-header {
+      font-size: 18px;
+      font-weight: 650;
+      letter-spacing: -0.03em;
+      margin-bottom: 4px;
+    }
+
+    .side-sub {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .side-note {
+      font-size: 13px;
+      color: var(--text-muted);
+      border-radius: 14px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(15, 23, 42, 0.01);
+      padding: 8px 9px;
+    }
+
+    footer {
+      margin-top: 40px;
+      font-size: 13px;
+      color: var(--text-muted);
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="brand">
+        <div class="brand-title">
+          <span class="dot"></span>
+          <span>LifeHub</span>
+        </div>
+        <div class="brand-sub">
+          Topic demo • Personalized from your LifeMap
+        </div>
+        <div class="top-meta">
+          <span class="pill"><span class="pill-dot"></span>Topic • How do I fix my sleep?</span>
+          <span class="pill">Updated 3 days ago</span>
+          <span class="pill">3,870 journeys • early access view</span>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- LEFT COLUMN -->
+      <div id="topicColumn">
+        <section class="panel">
+          <div class="panel-header">
+            <div>
+              <h1 class="topic-title">How do I fix my sleep?</h1>
+              <div class="topic-subtitle">
+                Not just “go to bed earlier” — a clear view of what actually helps, what’s debated,
+                and how your LifeMap changes the plan.
+              </div>
+            </div>
+            <div>
+              <span class="badge">LifeMap-aware</span>
+            </div>
+          </div>
+
+          <div class="chips">
+            <span class="chip">🌙 Goal: fall asleep faster, stay asleep, wake restored</span>
+            <span class="chip">🧪 Topics: insomnia, stress, screens, light, meds, schedule</span>
+            <span class="chip">📊 Inputs: schedule, stress, caffeine, screens, health, kids, work</span>
+          </div>
+
+          <!-- TL;DR -->
+          <div class="section" style="margin-top:18px;">
+            <div class="section-header">
+              <div>
+                <div class="section-title">TL;DR for this topic</div>
+                <div class="section-subtitle">
+                  “Fix my sleep” rarely has a single tip. It’s usually a small set of levers: light, routine,
+                  thoughts, stress, health conditions, and schedule constraints.
+                </div>
+              </div>
+            </div>
+            <p style="margin:4px 0 4px;">
+              This topic helps you move from <strong>random sleep hacks</strong> to
+              <strong>a specific strategy</strong>: the few levers that matter most for your body, your life,
+              and your responsibilities.
+            </p>
+            <div class="metric-row">
+              <div class="metric-pill">
+                <strong>3,870</strong> logged sleep-related journeys
+              </div>
+              <div class="metric-pill">
+                <strong>~61%</strong> report better sleep in 4–6 weeks
+              </div>
+              <div class="metric-pill">
+                <strong>Top levers:</strong> light timing, wind-down, thoughts, caffeine/alcohol, schedule
+              </div>
+            </div>
+          </div>
+
+          <!-- BASELINE -->
+          <div class="section" style="margin-top:20px;">
+            <div class="section-header">
+              <div>
+                <div class="section-title">Baseline for this topic</div>
+                <div class="section-subtitle">
+                  Default view is generic. Personalized view uses your LifeMap: schedule, kids, stress, meds,
+                  mental health, snoring risk, and more.
+                </div>
+              </div>
+            </div>
+
+            <!-- Default baseline -->
+            <div class="baseline-card" id="baselineDefault">
+              <div class="baseline-grid">
+                <div>
+                  <div class="baseline-main-title">
+                    <span>Where most people start</span>
+                  </div>
+                  <p style="margin:6px 0 8px; font-size:15px;">
+                    In Default view, we assume your sleep is <strong>not great</strong>: trouble falling asleep,
+                    waking at night, waking up tired, or all three — but we don’t know why yet.
+                  </p>
+                  <p style="margin:6px 0 8px; font-size:15px;">
+                    We don’t assume your workload, health status, or whether you have kids, shift work,
+                    or a partner who snores. You’ll see how most people move from chaos to a
+                    <strong>repeatable sleep pattern</strong> without needing a perfect life.
+                  </p>
+                  <div class="text-sm">
+                    Connect a LifeMap to tune this baseline: bedtime/wake time, commute, parenting, meds,
+                    anxiety, pain, and breathing issues all change which plan makes sense.
+                  </div>
+                </div>
+                <div>
+                  <div style="font-size:15px; font-weight:600; margin-bottom:4px;">
+                    Generic starting levers
+                  </div>
+                  <ul class="lever-list">
+                    <li>
+                      <span class="rank">1</span>
+                      <span><strong>Light timing</strong> – how much bright light you get in morning vs at night.</span>
+                    </li>
+                    <li>
+                      <span class="rank">2</span>
+                      <span><strong>Wind-down & screens</strong> – what you’re doing in the 60–90 minutes before bed.</span>
+                    </li>
+                    <li>
+                      <span class="rank">3</span>
+                      <span><strong>Thoughts & stress</strong> – racing mind, worry, rumination in bed.</span>
+                    </li>
+                  </ul>
+                  <div style="margin-top:10px;">
+                    <div style="font-size:15px; font-weight:600; margin-bottom:3px;">
+                      Generic starting journeys
+                    </div>
+                    <div class="journeys-list">
+                      <div class="journey-pill">
+                        <span class="label">7-Day Sleep Audit</span>
+                        <span class="meta">Track, notice, change little</span>
+                      </div>
+                      <div class="journey-pill">
+                        <span class="label">14-Day Wind-Down Reset</span>
+                        <span class="meta">Screens, light, routine</span>
+                      </div>
+                    </div>
+                    <div class="text-sm" style="margin-top:6px;">
+                      In Default view, these journeys are built for “average” visitors. Personalized view reshapes them
+                      for new parents, shift workers, anxious minds, or suspected apnea very differently.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Personalized baseline -->
+            <div class="baseline-card" id="baselinePersonal" style="display:none;">
+              <!-- LifeMap A -->
+              <div class="baseline-grid lifemap-baseline" id="baselinePersonalA">
+                <div>
+                  <div class="baseline-main-title">
+                    <span>Where you fit – LifeMap A</span>
+                  </div>
+                  <div style="display:flex; flex-wrap:wrap; gap:6px; margin-bottom:4px;">
+                    <span class="band-tag">
+                      <span>🧑‍💻</span> Band: Younger / generally healthy
+                    </span>
+                    <span class="archetype-tag">
+                      <span>📱</span> Archetype: Late screens & drifting schedule
+                    </span>
+                  </div>
+                  <p style="margin:6px 0 8px; font-size:15px;">
+                    You don’t have huge health problems or kids waking you. Sleep suffers from
+                    <strong>late scrolling, inconsistent bedtimes, social nights, or gaming/work bleed-over.</strong>
+                  </p>
+                  <div class="text-sm">
+                    Baseline built from: usual bedtime/wake time, screen habits, caffeine, alcohol, exercise,
+                    and whether you get morning daylight.
+                  </div>
+                </div>
+                <div>
+                  <div style="font-size:15px; font-weight:600; margin-bottom:4px;">
+                    Top 3 levers for this LifeMap
+                  </div>
+                  <ul class="lever-list">
+                    <li>
+                      <span class="rank">1</span>
+                      <span><strong>Light anchors</strong> – more light in your morning, less in your late evening.</span>
+                    </li>
+                    <li>
+                      <span class="rank">2</span>
+                      <span><strong>Wind-down guardrails</strong> – a simple, consistent 30–60 minute pre-bed routine.</span>
+                    </li>
+                    <li>
+                      <span class="rank">3</span>
+                      <span><strong>Caffeine cut-off</strong> – moving your last caffeine earlier.</span>
+                    </li>
+                  </ul>
+                  <div style="margin-top:10px;">
+                    <div style="font-size:15px; font-weight:600; margin-bottom:3px;">
+                      Suggested starting journeys
+                    </div>
+                    <div class="journeys-list">
+                      <div class="journey-pill">
+                        <span class="label">14-Day Screen & Sleep Reset</span>
+                        <span class="meta">Tech + light + bedtime</span>
+                      </div>
+                      <div class="journey-pill">
+                        <span class="label">21-Day Consistent Wake-Up</span>
+                        <span class="meta">Anchor mornings first</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- LifeMap B -->
+              <div class="baseline-grid lifemap-baseline" id="baselinePersonalB" style="display:none;">
+                <div>
+                  <div class="baseline-main-title">
+                    <span>Where you fit – LifeMap B</span>
+                  </div>
+                  <div style="display:flex; flex-wrap:wrap; gap:6px; margin-bottom:4px;">
+                    <span class="band-tag">
+                      <span>👨‍👩‍👧‍👦</span> Band: Caregiver / parent / high load
+                    </span>
+                    <span class="archetype-tag">
+                      <span>🔥</span> Archetype: Exhausted but trapped in schedule
+                    </span>
+                  </div>
+                  <p style="margin:6px 0 8px; font-size:15px;">
+                    You’re juggling kids, caregiving, or a demanding job. Nights are short or fragmented,
+                    and “just sleep more” isn’t realistic without shifting the system around you.
+                  </p>
+                  <div class="text-sm">
+                    Baseline built from: kid ages, partner’s schedule, commute, chores, stress, health issues,
+                    and how much control you have over your time.
+                  </div>
+                </div>
+                <div>
+                  <div style="font-size:15px; font-weight:600; margin-bottom:4px;">
+                    Top 3 levers for this LifeMap
+                  </div>
+                  <ul class="lever-list">
+                    <li>
+                      <span class="rank">1</span>
+                      <span><strong>System-level tweaks</strong> – shifting tasks, help, bedtime for kids, and expectations.</span>
+                    </li>
+                    <li>
+                      <span class="rank">2</span>
+                      <span><strong>Wind-down that fits chaos</strong> – small routines that survive interruptions.</span>
+                    </li>
+                    <li>
+                      <span class="rank">3</span>
+                      <span><strong>Worry & rumination offload</strong> – scheduled worry time, lists, or support.</span>
+                    </li>
+                  </ul>
+                  <div style="margin-top:10px;">
+                    <div style="font-size:15px; font-weight:600; margin-bottom:3px;">
+                      Suggested starting journeys
+                    </div>
+                    <div class="journeys-list">
+                      <div class="journey-pill">
+                        <span class="label">21-Day Parent-Friendly Sleep Repair</span>
+                        <span class="meta">Micro-levers, not perfection</span>
+                      </div>
+                      <div class="journey-pill">
+                        <span class="label">14-Day Evening Stress Unwind</span>
+                        <span class="meta">Turn down the mental volume</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- LifeMap C -->
+              <div class="baseline-grid lifemap-baseline" id="baselinePersonalC" style="display:none;">
+                <div>
+                  <div class="baseline-main-title">
+                    <span>Where you fit – LifeMap C</span>
+                  </div>
+                  <div style="display:flex; flex-wrap:wrap; gap:6px; margin-bottom:4px;">
+                    <span class="band-tag">
+                      <span>🧑‍⚕️</span> Band: Shift worker / high performer
+                    </span>
+                    <span class="archetype-tag">
+                      <span>⚙️</span> Archetype: Schedule constraints or optimization geek
+                    </span>
+                  </div>
+                  <p style="margin:6px 0 8px; font-size:15px;">
+                    Your sleep is pulled around by <strong>rotating shifts, night work, or intense workload</strong>.
+                    You may also be trying to optimize performance and recovery.
+                  </p>
+                  <div class="text-sm">
+                    Baseline built from: shift pattern, training, commute, naps, caffeine, and how stable your schedule is.
+                  </div>
+                </div>
+                <div>
+                  <div style="font-size:15px; font-weight:600; margin-bottom:4px;">
+                    Top 3 levers for this LifeMap
+                  </div>
+                  <ul class="lever-list">
+                    <li>
+                      <span class="rank">1</span>
+                      <span><strong>Shift-aware light plan</strong> – strategic bright light and darkness.</span>
+                    </li>
+                    <li>
+                      <span class="rank">2</span>
+                      <span><strong>Sleep opportunity blocks</strong> – realistic windows for main sleep + naps.</span>
+                    </li>
+                    <li>
+                      <span class="rank">3</span>
+                      <span><strong>Noise & environment control</strong> – bedroom conditions for off-hours sleep.</span>
+                    </li>
+                  </ul>
+                  <div style="margin-top:10px;">
+                    <div style="font-size:15px; font-weight:600; margin-bottom:3px;">
+                      Suggested starting journeys
+                    </div>
+                    <div class="journeys-list">
+                      <div class="journey-pill">
+                        <span class="label">28-Day Shift Worker Sleep Strategy</span>
+                        <span class="meta">Light, naps, routine</span>
+                      </div>
+                      <div class="journey-pill">
+                        <span class="label">6-Week Recovery & Performance Sleep</span>
+                        <span class="meta">Training + sleep alignment</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- POSITIONS -->
+          <div class="section">
+            <div class="section-header">
+              <div>
+                <div class="section-title">Different ways people fix their sleep</div>
+                <div class="section-subtitle">
+                  A few common positions. In practice, many people end up with a blend of these.
+                </div>
+              </div>
+              <div class="pill-tabs">
+                <button class="active">Plain view</button>
+                <button>Evidence & nuance</button>
+              </div>
+            </div>
+
+            <div class="positions-grid">
+              <div class="position-card" id="positionMedication">
+                <div class="position-card-header">
+                  <div>
+                    <span class="position-name">Start with routine, light, and environment</span>
+                    <span class="recommended-label" id="positionRecommendLabel">Recommended for you</span>
+                  </div>
+                  <div class="confidence-chip">Strong default for many</div>
+                </div>
+                <div class="panel-subtitle">
+                  Focus first on a consistent wake time, better light timing, and a simple wind-down routine,
+                  before going deep into therapy or medications.
+                </div>
+                <div class="position-meta">
+                  <span>✅ Low risk, often helpful</span>
+                  <span>⚠️ Not enough if insomnia or health issues are severe</span>
+                  <span>🎯 Great for: many LifeMap A, some B</span>
+                </div>
+              </div>
+
+              <div class="position-card" id="positionCarb">
+                <div class="position-card-header">
+                  <div>
+                    <span class="position-name">Treat insomnia & root causes like a real condition</span>
+                    <span class="recommended-label">Recommended for you</span>
+                  </div>
+                  <div class="confidence-chip">High-impact when needed</div>
+                </div>
+                <div class="panel-subtitle">
+                  When sleep has been broken for months or years, you treat it as a condition:
+                  CBT-I, mental health care, medical workup (e.g., sleep apnea) and system-level changes.
+                </div>
+                <div class="position-meta">
+                  <span>✅ Addresses chronic insomnia and underlying issues</span>
+                  <span>⚠️ Requires effort, support, and sometimes clinicians</span>
+                  <span>🎯 Great for: many LifeMap B/C, long-standing insomnia</span>
+                </div>
+              </div>
+
+              <div class="position-card" id="positionWhole">
+                <div class="position-card-header">
+                  <div>
+                    <span class="position-name">Adapt sleep to your life constraints (not fantasy life)</span>
+                    <span class="recommended-label">Recommended for you</span>
+                  </div>
+                  <div class="confidence-chip">Realistic for high-load lives</div>
+                </div>
+                <div class="panel-subtitle">
+                  Instead of aiming for 8 perfect hours, you design the best sleep you can
+                  around kids, shifts, or caregiving, using naps, micro-changes, and boundaries.
+                </div>
+                <div class="position-meta">
+                  <span>✅ Matches reality, reduces guilt</span>
+                  <span>⚠️ May accept less-than-ideal total sleep for a while</span>
+                  <span>🎯 Great for: many LifeMap B, shift workers</span>
+                </div>
+              </div>
+
+              <div class="position-card" id="positionWeight">
+                <div class="position-card-header">
+                  <div>
+                    <span class="position-name">Optimize sleep for performance & long-term health</span>
+                    <span class="recommended-label">Recommended for you</span>
+                  </div>
+                  <div class="confidence-chip">Useful for high performers</div>
+                </div>
+                <div class="panel-subtitle">
+                  You treat sleep like training: total duration, timing, depth, and consistency, plus environment,
+                  stimulants, and recovery windows.
+                </div>
+                <div class="position-meta">
+                  <span>✅ Ties sleep to performance and health markers</span>
+                  <span>⚠️ Can become obsessive or rigid if not balanced</span>
+                  <span>🎯 Great for: many LifeMap C, some A</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- TOP LEVERS -->
+          <div class="section">
+            <div class="section-header">
+              <div>
+                <div class="section-title">Top levers: in general vs personalized</div>
+                <div class="section-subtitle">
+                  The core “knobs” of sleep, and how a LifeMap changes their order and weight.
+                </div>
+              </div>
+            </div>
+
+            <div class="lever-columns">
+              <div class="lever-card">
+                <h4>For most people on this topic</h4>
+                <div class="panel-subtitle">
+                  These levers show up again and again, regardless of your exact situation.
+                </div>
+                <ul class="lever-list">
+                  <li><span class="rank">1</span><span><strong>Wake time & light</strong> – consistent wake time and bright light early.</span></li>
+                  <li><span class="rank">2</span><span><strong>Wind-down routine</strong> – what you do in the hour before bed.</span></li>
+                  <li><span class="rank">3</span><span><strong>Caffeine, alcohol & heavy food</strong> – what and when you consume.</span></li>
+                  <li><span class="rank">4</span><span><strong>Thoughts & stress</strong> – racing mind, late-night work, unresolved worries.</span></li>
+                  <li><span class="rank">5</span><span><strong>Environment & health</strong> – light, noise, temperature, pain, breathing issues.</span></li>
+                </ul>
+              </div>
+              <div class="lever-card" id="leverPersonalCard">
+                <h4>Personalized column</h4>
+                <span class="lever-tag">LifeMap variants A / B / C</span>
+
+                <!-- Default (no LifeMap) -->
+                <div id="leverPersonalDefault">
+                  <p style="margin:6px 0 4px; font-size:15px;">
+                    In Default view, we don’t know your schedule, kids, health, or work pattern.
+                    This column stays generic and explains that LifeHub will <strong>reweight these levers</strong>
+                    once your LifeMap is connected.
+                  </p>
+                  <p class="text-sm">
+                    Example: a 24-year-old coder, a 40-year-old parent, and a nurse with rotating shifts should
+                    not get the same sleep advice. The physics of sleep are shared; the <em>levers</em> are weighted
+                    very differently.
+                  </p>
+                </div>
+
+                <!-- Personalized view -->
+                <div id="leverPersonalPersonal" style="display:none;">
+                  <!-- LifeMap A -->
+                  <div class="lifemap-levers" id="leverPersonalA">
+                    <p style="margin:6px 0 4px; font-size:15px;">
+                      For LifeMap A, the biggest wins are <strong>light anchors and better evenings</strong>,
+                      not perfection or strict rules.
+                    </p>
+                    <ul class="lever-list">
+                      <li><span class="rank">1</span><span><strong>Morning light + consistent wake</strong> – even on days off.</span></li>
+                      <li><span class="rank">2</span><span><strong>Screen & stimulation cutoff</strong> – a time when you move off intense content.</span></li>
+                      <li><span class="rank">3</span><span><strong>Caffeine timing</strong> – bringing the last dose earlier in the day.</span></li>
+                      <li><span class="rank">4</span><span><strong>Late work boundaries</strong> – reducing “just one more task” at night.</span></li>
+                    </ul>
+                  </div>
+
+                  <!-- LifeMap B -->
+                  <div class="lifemap-levers" id="leverPersonalB" style="display:none;">
+                    <p style="margin:6px 0 4px; font-size:15px;">
+                      For LifeMap B, you win by <strong>rearranging the system just enough</strong>
+                      that sleep can exist at all — then adding nervous system downshifts.
+                    </p>
+                    <ul class="lever-list">
+                      <li><span class="rank">1</span><span><strong>Load redistribution</strong> – tiny shifts in chores, help, or bedtime for kids.</span></li>
+                      <li><span class="rank">2</span><span><strong>Wind-down in small pieces</strong> – short, repeatable rituals even on chaotic nights.</span></li>
+                      <li><span class="rank">3</span><span><strong>Scheduled worry / planning</strong> – moving mental load out of the pillow hours.</span></li>
+                      <li><span class="rank">4</span><span><strong>Sleep opportunity protection</strong> – choosing at least a few nights per week that are non-negotiable.</span></li>
+                    </ul>
+                  </div>
+
+                  <!-- LifeMap C -->
+                  <div class="lifemap-levers" id="leverPersonalC" style="display:none;">
+                    <p style="margin:6px 0 4px; font-size:15px;">
+                      For LifeMap C, <strong>pattern design and environment engineering</strong> dominate,
+                      especially around shift rotations or heavy training.
+                    </p>
+                    <ul class="lever-list">
+                      <li><span class="rank">1</span><span><strong>Shift-aware schedule</strong> – a realistic template across your rotation or busy weeks.</span></li>
+                      <li><span class="rank">2</span><span><strong>Light & darkness strategy</strong> – timed bright light, blocking, and bedroom darkness.</span></li>
+                      <li><span class="rank">3</span><span><strong>Noise & temperature control</strong> – optimizing the environment for off-hours sleep.</span></li>
+                      <li><span class="rank">4</span><span><strong>Caffeine & nap rules</strong> – structured stimulants and naps that help, not hurt.</span></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- JOURNEYS -->
+          <div class="section">
+            <div class="section-header">
+              <div>
+                <div class="section-title">Journeys: default vs personalized</div>
+                <div class="section-subtitle">
+                  Default journeys are generic. Personalized journeys shift based on your LifeMap’s schedule, stress, and constraints.
+                </div>
+              </div>
+              <div class="pill-tabs" id="journeyTabs">
+                <button id="tabRecommended">Recommended</button>
+                <button id="tabPopular" class="active">Most popular</button>
+                <button id="tabGentle">Gentle</button>
+                <button id="tabIntensive">More intensive</button>
+              </div>
+            </div>
+
+            <div class="journey-grid" id="journeyGrid">
+              <!-- Default journeys -->
+              <div class="journey-card" data-view="default" data-tags="popular,gentle">
+                <div class="journey-header">
+                  <h4>7-Day Sleep Audit</h4>
+                  <div class="journey-meta-row">
+                    <span class="journey-meta-pill">🧪 Experiment</span>
+                    <span class="journey-meta-pill">7 days</span>
+                    <span class="journey-meta-pill">~10–15 min/day</span>
+                  </div>
+                </div>
+                <p style="margin:4px 0 2px;">
+                  A week of noticing: bedtime, wake time, naps, screens, caffeine, and stress —
+                  with no obligation to “fix” anything yet.
+                </p>
+                <div class="journey-modules-label">Modules in this journey</div>
+                <div class="journey-modules-strip">
+                  <div class="module-tile module-color-1">
+                    <div>
+                      <div class="module-name">Sleep Log Basics</div>
+                      <div class="module-meta">
+                        <span class="module-tag">Awareness</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="module-tile module-color-7">
+                    <div>
+                      <div class="module-name">Energy & Mood Check</div>
+                      <div class="module-meta">
+                        <span class="module-tag">Signals</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="module-tile module-color-6">
+                    <div>
+                      <div class="module-name">Pattern Highlights</div>
+                      <div class="module-meta">
+                        <span class="module-tag">Insight</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="journey-stats-footnote">
+                  Often used before any change plan, especially if your sleep story is complicated.
+                </div>
+              </div>
+
+              <div class="journey-card" data-view="default" data-tags="popular,intensive">
+                <div class="journey-header">
+                  <h4>14-Day Wind-Down Reset</h4>
+                  <div class="journey-meta-row">
+                    <span class="journey-meta-pill">🌙 Foundation</span>
+                    <span class="journey-meta-pill">14 days</span>
+                    <span class="journey-meta-pill">~15–20 min/night</span>
+                  </div>
+                </div>
+                <p style="margin:4px 0 2px;">
+                  Two weeks dedicated to changing the 60–90 minutes before bed: screens, light, rituals,
+                  caffeine/alcohol, and how you land the day.
+                </p>
+                <div class="journey-modules-label">Modules in this journey</div>
+                <div class="journey-modules-strip">
+                  <div class="module-tile module-color-2">
+                    <div>
+                      <div class="module-name">Wind-Down Menu</div>
+                      <div class="module-meta">
+                        <span class="module-tag">Routine</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="module-tile module-color-9">
+                    <div>
+                      <div class="module-name">Evening Screen Rules</div>
+                      <div class="module-meta">
+                        <span class="module-tag">Screens</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="module-tile module-color-3">
+                    <div>
+                      <div class="module-name">Night-time Light Tweaks</div>
+                      <div class="module-meta">
+                        <span class="module-tag">Light</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="journey-stats-footnote">
+                  Good generic journey if you’re not sure where to start but know evenings are messy.
+                </div>
+              </div>
+
+              <!-- Personalized journeys -->
+              <div class="journey-card" data-view="personal" data-tags="recommended,popular,gentle" data-lifemap="A">
+                <div class="journey-header">
+                  <h4>14-Day Tech & Sleep Reset</h4>
+                  <div class="journey-meta-row">
+                    <span class="journey-meta-pill">🧑‍💻 LifeMap A</span>
+                    <span class="journey-meta-pill">14 days</span>
+                    <span class="journey-meta-pill">~15 min/night</span>
+                  </div>
+                </div>
+                <p style="margin:4px 0 2px;">
+                  For LifeMap A: reduce late-night stimulation, set a “screens taper”, and anchor wake time
+                  without nuking your social or work life.
+                </p>
+                <div class="journey-modules-label">Modules in this journey</div>
+                <div class="journey-modules-strip">
+                  <div class="module-tile module-color-1">
+                    <div>
+                      <div class="module-name">Sleep Log Basics</div>
+                      <div class="module-meta">
+                        <span class="module-tag">Awareness</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="module-tile module-color-4">
+                    <div>
+                      <div class="module-name">Screen Taper Window</div>
+                      <div class="module-meta">
+                        <span class="module-tag">Screens</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="module-tile module-color-9">
+                    <div>
+                      <div class="module-name">Morning Light Anchor</div>
+                      <div class="module-meta">
+                        <span class="module-tag">Light</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="journey-stats-footnote">
+                  Common outcome: easier wind-down, fewer “accidental 2 a.m. scroll” nights.
+                </div>
+              </div>
+
+              <div class="journey-card" data-view="personal" data-tags="recommended,popular,gentle" data-lifemap="B">
+                <div class="journey-header">
+                  <h4>21-Day Parent-Friendly Sleep Repair</h4>
+                  <div class="journey-meta-row">
+                    <span class="journey-meta-pill">👨‍👩‍👧‍👦 LifeMap B</span>
+                    <span class="journey-meta-pill">21 days</span>
+                    <span class="journey-meta-pill">Micro steps</span>
+                  </div>
+                </div>
+                <p style="margin:4px 0 2px;">
+                  For LifeMap B: reduce chaos where possible, create small pockets for sleep,
+                  and lower evening stress without pretending kids don’t exist.
+                </p>
+                <div class="journey-modules-label">Modules in this journey</div>
+                <div class="journey-modules-strip">
+                  <div class="module-tile module-color-5">
+                    <div>
+                      <div class="module-name">Evening Chore Map</div>
+                      <div class="module-meta">
+                        <span class="module-tag">System</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="module-tile module-color-8">
+                    <div>
+                      <div class="module-name">Micro Wind-Down Rituals</div>
+                      <div class="module-meta">
+                        <span class="module-tag">Routine</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="module-tile module-color-2">
+                    <div>
+                      <div class="module-name">Scheduled Worry Time</div>
+                      <div class="module-meta">
+                        <span class="module-tag">Thoughts</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="journey-stats-footnote">
+                  Common outcome: slightly more sleep, much less evening overwhelm.
+                </div>
+              </div>
+
+              <div class="journey-card" data-view="personal" data-tags="recommended,popular,intensive" data-lifemap="C">
+                <div class="journey-header">
+                  <h4>28-Day Shift Worker Sleep Strategy</h4>
+                  <div class="journey-meta-row">
+                    <span class="journey-meta-pill">🧑‍⚕️ LifeMap C</span>
+                    <span class="journey-meta-pill">28 days</span>
+                    <span class="journey-meta-pill">~20–30 min/week</span>
+                  </div>
+                </div>
+                <p style="margin:4px 0 2px;">
+                  For LifeMap C: design a shift-aware schedule with light, naps, and bedroom environment
+                  tailored to your rotation.
+                </p>
+                <div class="journey-modules-label">Modules in this journey</div>
+                <div class="journey-modules-strip">
+                  <div class="module-tile module-color-3">
+                    <div>
+                      <div class="module-name">Shift Pattern Map</div>
+                      <div class="module-meta">
+                        <span class="module-tag">Schedule</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="module-tile module-color-6">
+                    <div>
+                      <div class="module-name">Strategic Light Plan</div>
+                      <div class="module-meta">
+                        <span class="module-tag">Light</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="module-tile module-color-10">
+                    <div>
+                      <div class="module-name">Nap & Caffeine Rules</div>
+                      <div class="module-meta">
+                        <span class="module-tag">Energy</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="journey-stats-footnote">
+                  Common outcome: more predictable sleep and less brutal shift transitions.
+                </div>
+              </div>
+            </div>
+
+            <div id="journeyEmpty" class="journeyEmpty" style="display:none;">
+              No journeys in this category for this view yet.
+            </div>
+
+            <div style="margin-top:10px;">
+              <button class="small-button">
+                🌙 Build my own sleep journey
+              </button>
+              <button class="small-button secondary" style="margin-left:6px;">
+                ✏️ Start from a template
+              </button>
+            </div>
+          </div>
+
+          <!-- MODULES -->
+          <div class="section">
+            <div class="section-header">
+              <div>
+                <div class="section-title">Modules: building blocks of better sleep</div>
+                <div class="section-subtitle">
+                  Each module is a small, concrete step that nudges your sleep in the right direction.
+                </div>
+              </div>
+              <div class="pill-tabs" id="moduleTabs">
+                <button id="moduleTabRecommended">Recommended</button>
+                <button id="moduleTabPopular" class="active">Most popular</button>
+                <button id="moduleTabGentle">Gentle</button>
+                <button id="moduleTabIntensive">More intensive</button>
+              </div>
+            </div>
+
+            <!-- Default modules -->
+            <div class="modules-wrapper" id="modulesWrapperDefault">
+              <button class="modules-arrow left" type="button">
+                <span>◂</span>
+              </button>
+              <div class="modules-carousel" id="modulesDefault">
+                <div class="module-tile modules-base-tile module-color-9" data-view="default" data-tags="popular,gentle">
+                  <div>
+                    <div class="module-name">Sleep Log Basics</div>
+                    <div class="module-meta">
+                      <span class="module-tag">Awareness</span>
+                      <span class="module-tag">7 days</span>
+                    </div>
+                    <div class="module-desc">
+                      Quickly track bedtime, wake time, awakenings, naps, caffeine, and screens.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="module-tile modules-base-tile module-color-2" data-view="default" data-tags="popular,intensive">
+                  <div>
+                    <div class="module-name">Wind-Down Menu</div>
+                    <div class="module-meta">
+                      <span class="module-tag">Routine</span>
+                    </div>
+                    <div class="module-desc">
+                      Build a 15–60 minute menu of low-stimulation activities you actually like.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="module-tile modules-base-tile module-color-3" data-view="default" data-tags="popular,intensive">
+                  <div>
+                    <div class="module-name">Evening Screen Rules</div>
+                    <div class="module-meta">
+                      <span class="module-tag">Screens</span>
+                    </div>
+                    <div class="module-desc">
+                      Define a “screen taper” period and specific rules for scrolling, shows, and work.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="module-tile modules-base-tile module-color-1" data-view="default" data-tags="popular,gentle">
+                  <div>
+                    <div class="module-name">Morning Light Anchor</div>
+                    <div class="module-meta">
+                      <span class="module-tag">Light</span>
+                    </div>
+                    <div class="module-desc">
+                      Add 10–30 minutes of bright light soon after waking, matched to your life.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="module-tile modules-base-tile module-color-7" data-view="default" data-tags="gentle">
+                  <div>
+                    <div class="module-name">Caffeine Check</div>
+                    <div class="module-meta">
+                      <span class="module-tag">Intake</span>
+                    </div>
+                    <div class="module-desc">
+                      Map your caffeine pattern and choose a realistic cut-off time experiment.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="module-tile modules-base-tile module-color-6" data-view="default" data-tags="popular,gentle">
+                  <div>
+                    <div class="module-name">Bedroom Audit</div>
+                    <div class="module-meta">
+                      <span class="module-tag">Environment</span>
+                    </div>
+                    <div class="module-desc">
+                      Quickly score light, noise, temperature, and comfort — then tweak 1–2 things.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="module-tile modules-base-tile module-color-4" data-view="default" data-tags="gentle">
+                  <div>
+                    <div class="module-name">Quick Calm Practice</div>
+                    <div class="module-meta">
+                      <span class="module-tag">Nervous system</span>
+                    </div>
+                    <div class="module-desc">
+                      A 3–5 minute breathing or relaxation exercise you can repeat nightly.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="module-tile modules-base-tile module-color-5" data-view="default" data-tags="popular,intensive">
+                  <div>
+                    <div class="module-name">Thought Parking Lot</div>
+                    <div class="module-meta">
+                      <span class="module-tag">Thoughts</span>
+                    </div>
+                    <div class="module-desc">
+                      Move worries and to-dos from your head to paper at a specific time before bed.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="module-tile modules-base-tile module-color-8" data-view="default" data-tags="gentle">
+                  <div>
+                    <div class="module-name">Snooze Rules</div>
+                    <div class="module-meta">
+                      <span class="module-tag">Wake</span>
+                    </div>
+                    <div class="module-desc">
+                      Create clear, realistic rules for your alarm and snooze use.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="module-tile modules-base-tile module-color-10" data-view="default" data-tags="intensive">
+                  <div>
+                    <div class="module-name">Basic Insomnia Pattern Review</div>
+                    <div class="module-meta">
+                      <span class="module-tag">CBT-I style</span>
+                    </div>
+                    <div class="module-desc">
+                      Map how long your sleep has been disrupted and which patterns keep it stuck.
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button class="modules-arrow right" type="button">
+                <span>▸</span>
+              </button>
+            </div>
+
+            <!-- Personalized modules -->
+            <div class="modules-wrapper" id="modulesWrapperPersonal" style="display:none;">
+              <button class="modules-arrow left" type="button">
+                <span>◂</span>
+              </button>
+              <div class="modules-carousel" id="modulesPersonal">
+                <div class="module-tile modules-base-tile module-color-2" data-view="personal" data-tags="recommended,popular,gentle" data-lifemap="A">
+                  <div>
+                    <div class="module-name">Screen Taper Window</div>
+                    <div class="module-meta">
+                      <span class="module-tag">Screens</span>
+                    </div>
+                    <div class="module-desc">
+                      Uses your LifeMap to suggest when to start tapering intense screens and how.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="module-tile modules-base-tile module-color-9" data-view="personal" data-tags="recommended,popular,gentle" data-lifemap="A,B,C">
+                  <div>
+                    <div class="module-name">Morning Light Plan</div>
+                    <div class="module-meta">
+                      <span class="module-tag">Light</span>
+                    </div>
+                    <div class="module-desc">
+                      Adjusts light timing based on your wake time, commute, and local environment.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="module-tile modules-base-tile module-color-1" data-view="personal" data-tags="popular,gentle" data-lifemap="B">
+                  <div>
+                    <div class="module-name">Evening Chore Map</div>
+                    <div class="module-meta">
+                      <span class="module-tag">System</span>
+                    </div>
+                    <div class="module-desc">
+                      Redistributes tasks across adults or days to carve a small wind-down window.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="module-tile modules-base-tile module-color-4" data-view="personal" data-tags="recommended,gentle" data-lifemap="B">
+                  <div>
+                    <div class="module-name">Scheduled Worry Time</div>
+                    <div class="module-meta">
+                      <span class="module-tag">Thoughts</span>
+                    </div>
+                    <div class="module-desc">
+                      A specific time earlier in the evening to write down and plan for worries.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="module-tile modules-base-tile module-color-5" data-view="personal" data-tags="popular,intensive" data-lifemap="C">
+                  <div>
+                    <div class="module-name">Shift Pattern Map</div>
+                    <div class="module-meta">
+                      <span class="module-tag">Schedule</span>
+                    </div>
+                    <div class="module-desc">
+                      Maps your rotation and designs realistic sleep and nap windows across it.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="module-tile modules-base-tile module-color-3" data-view="personal" data-tags="popular,intensive" data-lifemap="C">
+                  <div>
+                    <div class="module-name">Nap & Caffeine Rules</div>
+                    <div class="module-meta">
+                      <span class="module-tag">Energy</span>
+                    </div>
+                    <div class="module-desc">
+                      Creates guardrails for naps and stimulants so they help rather than sabotage sleep.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="module-tile modules-base-tile module-color-8" data-view="personal" data-tags="gentle" data-lifemap="A,B">
+                  <div>
+                    <div class="module-name">Gentle Thought De-Fusion</div>
+                    <div class="module-meta">
+                      <span class="module-tag">Mind</span>
+                    </div>
+                    <div class="module-desc">
+                      Simple CBT-style exercises to relate to thoughts differently when they show up at night.
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button class="modules-arrow right" type="button">
+                <span>▸</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- EVIDENCE -->
+          <div class="section">
+            <div class="section-header">
+              <div>
+                <div class="section-title">Evidence & what’s debated</div>
+                <div class="section-subtitle">
+                  Sleep research is strong in some areas, weaker in others.
+                </div>
+              </div>
+              <span class="badge">Nerd lane available</span>
+            </div>
+
+            <div class="consensus-grid">
+              <div class="consensus-col">
+                <h4>What’s broadly agreed on</h4>
+                <ul>
+                  <li>Getting enough total sleep and regular sleep timing matters for health, mood, and performance.</li>
+                  <li>Bright light in the morning and less bright light at night help anchor your circadian rhythm.</li>
+                  <li>CBT-I (cognitive behavioral therapy for insomnia) is a first-line treatment for chronic insomnia.</li>
+                  <li>Alcohol, late heavy meals, and late caffeine can all degrade sleep quality.</li>
+                </ul>
+              </div>
+              <div class="consensus-col">
+                <h4>Where experts still debate</h4>
+                <ul>
+                  <li>Exactly how many hours individuals “need” and how to measure “enough” for any one person.</li>
+                  <li>Optimal napping strategies, especially for shift workers and performers.</li>
+                  <li>How wearable-derived sleep scores should influence real-world decisions.</li>
+                  <li>The roles of supplements and over-the-counter sleep aids in different contexts.</li>
+                </ul>
+              </div>
+            </div>
+
+            <table class="evidence-table">
+              <thead>
+                <tr>
+                  <th>Study (link)</th>
+                  <th>Classification</th>
+                  <th>Funding source</th>
+                  <th>Population</th>
+                  <th>Control</th>
+                  <th>Size (n)</th>
+                  <th>Design</th>
+                  <th>Trust score</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <a href="https://doi.org/10.1001/archinte.167.1.47" target="_blank" rel="noopener">
+                      CBT-I vs control for chronic insomnia
+                    </a>
+                  </td>
+                  <td>Insomnia treatment (CBT-I)</td>
+                  <td>Public / academic</td>
+                  <td>Adults with chronic insomnia</td>
+                  <td>Waitlist / usual care</td>
+                  <td>~100</td>
+                  <td>Randomized trial</td>
+                  <td>High</td>
+                </tr>
+                <tr>
+                  <td>
+                    <a href="https://doi.org/10.1164/rccm.200608-1374OC" target="_blank" rel="noopener">
+                      Sleep apnea treatment & outcomes</a>
+                  </td>
+                  <td>Sleep-disordered breathing</td>
+                  <td>Mixed (public / device)</td>
+                  <td>Adults with obstructive sleep apnea</td>
+                  <td>Untreated / different therapies</td>
+                  <td>Hundreds</td>
+                  <td>Prospective trial</td>
+                  <td>Moderate–High</td>
+                </tr>
+                <tr>
+                  <td>
+                    <a href="https://doi.org/10.1210/jc.2014-3456" target="_blank" rel="noopener">
+                      Light exposure & circadian phase</a>
+                  </td>
+                  <td>Light / circadian</td>
+                  <td>Public / academic</td>
+                  <td>Healthy adults</td>
+                  <td>Different light protocols</td>
+                  <td>Dozens</td>
+                  <td>Experimental</td>
+                  <td>Moderate</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="text-sm" style="margin-top:4px;">
+              In a real product, this section would expand into a full evidence browser for insomnia, shift work,
+              sleep apnea, restless legs, and more — plus caveats for things like depression, bipolar disorder,
+              PTSD, and pregnancy.
+            </div>
+          </div>
+
+          <!-- STORIES -->
+          <div class="section">
+            <div class="section-header">
+              <div>
+                <div class="section-title">Stories from people like you</div>
+                <div class="section-subtitle">
+                  Anonymized examples of how different LifeMaps repaired (or improved) sleep.
+                </div>
+              </div>
+            </div>
+
+            <div class="story-card">
+              <h4>“I stopped thinking I was ‘bad at sleep’ and started adjusting levers.”</h4>
+              <div class="story-meta">
+                Sam, 36 • LifeMap B • two kids, full-time job, anxiety
+              </div>
+              <p style="margin:4px 0 4px;">
+                Sam thought “I just can’t sleep” and blamed themselves. Their LifeMap showed a brutal
+                combination of late chores, no wind-down, and nightly worry about work. Using a
+                parent-friendly journey, they rerouted 20 minutes of tasks, added a scheduled “worry time”,
+                and made a simple wind-down. Sleep is still not perfect, but it’s dramatically more predictable —
+                and their brain stopped seeing bedtime as another failure.
+              </p>
+              <div class="text-sm">
+                Key levers: evening system tweaks, scheduled worry time, morning light, realistic expectations.
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ & RELATED -->
+          <div class="section">
+            <div class="section-header">
+              <div>
+                <div class="section-title">FAQ & related topics</div>
+                <div class="section-subtitle">
+                  Questions people actually ask when trying to fix their sleep.
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-q">
+                <span>How many hours of sleep do I really need?</span>
+                <span class="faq-toggle-icon">▸</span>
+              </div>
+              <div class="faq-a">
+                Most adults land somewhere around 7–9 hours as a rough range, but the real question is:
+                <em>how do you feel, function, and perform</em> across your days?
+                Your LifeMap plus your experience are more useful than a rigid number.
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-q">
+                <span>Should I fix my bedtime or my wake time first?</span>
+                <span class="faq-toggle-icon">▸</span>
+              </div>
+              <div class="faq-a">
+                For many people, anchoring a realistic wake time and pairing it with morning light is a powerful first step.
+                Bedtime often drifts into place once mornings are more consistent — especially if you also adjust evenings.
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-q">
+                <span>Is it bad to use melatonin or sleep medication?</span>
+                <span class="faq-toggle-icon">▸</span>
+              </div>
+              <div class="faq-a">
+                It depends on dose, duration, and your health context. Short-term or targeted use can be appropriate
+                for some people, but it’s best discussed with a qualified professional — especially if you have other conditions
+                or take multiple medications.
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-q">
+                <span>What if I’ve had insomnia for years?</span>
+                <span class="faq-toggle-icon">▸</span>
+              </div>
+              <div class="faq-a">
+                Chronic insomnia is more than “bad habits” — CBT-I and medical evaluation (for things like sleep apnea,
+                restless legs, depression, or anxiety) are often warranted. This topic can help you prep and track changes,
+                but isn’t a replacement for proper care.
+              </div>
+            </div>
+
+            <div class="section" style="margin-top:14px;">
+              <div class="section-title">Related topics that often matter here</div>
+              <div class="section-subtitle">
+                These topics frequently sit underneath “How do I fix my sleep?”.
+              </div>
+              <div class="related-grid">
+                <div class="related-card">
+                  <h4>Anxiety, Stress & Racing Thoughts</h4>
+                  <div class="text-sm">
+                    Many “sleep problems” are actually brains that never get a chance to turn down.
+                  </div>
+                </div>
+                <div class="related-card">
+                  <h4>Workload, Burnout & Boundaries</h4>
+                  <div class="text-sm">
+                    If there’s never time to rest, your sleep plan must include changing the system around you.
+                  </div>
+                </div>
+                <div class="related-card">
+                  <h4>Shift Work & Irregular Schedules</h4>
+                  <div class="text-sm">
+                    Shift workers need different rules for naps, light, and sleep opportunity windows.
+                  </div>
+                </div>
+                <div class="related-card">
+                  <h4>Substances, Pain & Health Conditions</h4>
+                  <div class="text-sm">
+                    Alcohol, pain, and medical issues can silently wreck sleep and need their own plans.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="section" style="margin-top:14px;">
+              <div class="section-title">Safety / When to get medical help</div>
+              <div class="section-subtitle">
+                LifeHub is not your doctor, therapist, or emergency service.
+              </div>
+              <div class="faq-item open" style="border-color: rgba(248,113,113,0.9); background: rgba(254,242,242,0.9);">
+                <div class="faq-q">
+                  <span style="color:#b91c1c;">If sleep is severely broken or you feel unsafe</span>
+                  <span class="faq-toggle-icon">▸</span>
+                </div>
+                <div class="faq-a">
+                  If you are falling asleep while driving, have severe daytime sleepiness, wake up choking,
+                  stop breathing in your sleep (or your partner notices), have very loud snoring, or have thoughts
+                  of self-harm or suicide, you should seek urgent medical or mental health care. Changes to sleep
+                  can interact with meds and health conditions in ways this app can’t monitor in real time.
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- RIGHT COLUMN: PERSONALIZED MODE -->
+      <aside class="personal-panel" id="personalColumn">
+        <div class="view-toggle-shell">
+          <div class="view-toggle">
+            <button class="active" id="viewDefault">
+              <span>🌐</span> Default view
+            </button>
+            <button id="viewPersonal">
+              <span>✨</span> Personalized view
+            </button>
+          </div>
+          <div class="text-sm" style="margin-top:6px; max-width:320px;">
+            Toggle between a generic topic page and a version shaped by example LifeMaps. In a real app,
+            this would be <strong>your</strong> sleep patterns, schedule, and health.
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="side-header">LifeMap snapshot</div>
+          <div class="side-sub">
+            How this sleep topic plugs into three example LifeMaps.
+          </div>
+
+          <div class="pill-tabs" id="lifeMapTabs">
+            <button id="lifeMapA" class="active">LifeMap A</button>
+            <button id="lifeMapB">LifeMap B</button>
+            <button id="lifeMapC">LifeMap C</button>
+          </div>
+
+          <div class="side-note" id="lifeMapSnapshot" style="margin-top:8px;">
+            <strong>Default view (no LifeMap loaded):</strong><br />
+            • Domains: wake/bed times, naps, stress, kids, work, health – but no specific data yet.<br />
+            • Traits: we assume you care about feeling human during the day, not just hitting a sleep score.<br />
+            • Constraints: unknown whether you have shift work, kids, snoring, pain, or mental health factors.<br /><br />
+            Connect or create a LifeMap to see your schedule, responsibilities, and health history populate here —
+            and watch positions, levers, modules, and journeys reconfigure around you.
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <footer>
+      * Demo numbers are placeholders for design purposes only. This page is educational only and not medical advice.<br />
+      LifeHub Topic Demo • How do I fix my sleep? • 2025
+    </footer>
+  </div>
+
+  <script>
+    // --- DOM references ---
+    const viewDefaultBtn = document.getElementById("viewDefault");
+    const viewPersonalBtn = document.getElementById("viewPersonal");
+
+    const baselineDefault = document.getElementById("baselineDefault");
+    const baselinePersonal = document.getElementById("baselinePersonal");
+
+    const baselinePersonalA = document.getElementById("baselinePersonalA");
+    const baselinePersonalB = document.getElementById("baselinePersonalB");
+    const baselinePersonalC = document.getElementById("baselinePersonalC");
+
+    const leverPersonalDefault = document.getElementById("leverPersonalDefault");
+    const leverPersonalPersonal = document.getElementById("leverPersonalPersonal");
+    const leverPersonalA = document.getElementById("leverPersonalA");
+    const leverPersonalB = document.getElementById("leverPersonalB");
+    const leverPersonalC = document.getElementById("leverPersonalC");
+    const leverPersonalCard = document.getElementById("leverPersonalCard");
+
+    const lifeMapSnapshot = document.getElementById("lifeMapSnapshot");
+    const lifeMapATab = document.getElementById("lifeMapA");
+    const lifeMapBTab = document.getElementById("lifeMapB");
+    const lifeMapCTab = document.getElementById("lifeMapC");
+
+    const positionCards = document.querySelectorAll(".position-card");
+    const positionLabels = document.querySelectorAll(".position-card .recommended-label");
+
+    const tabRecommended = document.getElementById("tabRecommended");
+    const tabPopular = document.getElementById("tabPopular");
+    const tabGentle = document.getElementById("tabGentle");
+    const tabIntensive = document.getElementById("tabIntensive");
+
+    const journeyCards = document.querySelectorAll(".journey-card");
+    const journeyEmpty = document.getElementById("journeyEmpty");
+
+    const modulesWrapperDefault = document.getElementById("modulesWrapperDefault");
+    const modulesWrapperPersonal = document.getElementById("modulesWrapperPersonal");
+
+    const moduleTabRecommended = document.getElementById("moduleTabRecommended");
+    const moduleTabPopular = document.getElementById("moduleTabPopular");
+    const moduleTabGentle = document.getElementById("moduleTabGentle");
+    const moduleTabIntensive = document.getElementById("moduleTabIntensive");
+
+    const moduleTiles = document.querySelectorAll(".modules-base-tile");
+
+    const lifeMapTemplates = {
+      default:
+        "<strong>Default view (no LifeMap loaded):</strong><br />" +
+        "• Domains: wake/bed times, naps, stress, kids, work, health – but no specific data yet.<br />" +
+        "• Traits: we assume you care about feeling human during the day, not just hitting a sleep score.<br />" +
+        "• Constraints: unknown whether you have shift work, kids, snoring, pain, or mental health factors.<br /><br />" +
+        "Connect or create a LifeMap to see your schedule, responsibilities, and health history populate here — " +
+        "and watch positions, levers, modules, and journeys reconfigure around you.",
+      A:
+        "<strong>LifeMap A • Younger / generally healthy, late screens & drifting schedule</strong><br />" +
+        "• Context: few health issues, no kids, flexible evenings that easily stretch late with screens or social life.<br />" +
+        "• Pattern: inconsistent bedtime, irregular wake time, often tired in the morning, wired at night.<br />" +
+        "• Strengths: flexibility, capacity to experiment, fewer external constraints.<br /><br />" +
+        "Implication for this topic: emphasize light anchors, better evenings, and realistic wake time before advanced tools.",
+      B:
+        "<strong>LifeMap B • Caregiver / parent / high-load life</strong><br />" +
+        "• Context: kids or dependents, early mornings, evening chores, guilt about taking time for yourself.<br />" +
+        "• Pattern: short or fragmented sleep, high stress, occasional collapse nights, feeling trapped by schedule.<br />" +
+        "• Strengths: strong reasons to improve sleep, some levers if you can see them clearly.<br /><br />" +
+        "Implication for this topic: emphasize small system shifts, micro wind-downs, and nervous system downshifts.",
+      C:
+        "<strong>LifeMap C • Shift worker or high performer</strong><br />" +
+        "• Context: rotating shifts, night work, or intense training / workload; often using caffeine and willpower to cope.<br />" +
+        "• Pattern: unstable sleep windows, misaligned light, naps that sometimes help and sometimes hurt.<br />" +
+        "• Strengths: tolerance for structure, willingness to optimize systems, strong motivation.<br /><br />" +
+        "Implication for this topic: design a shift-aware schedule with light, naps, and environment as core tools."
+    };
+
+    let currentViewMode = "default";     // "default" | "personal"
+    let currentJourneyTab = "popular";   // "recommended" | "popular" | "gentle" | "intensive"
+    let currentModuleTab = "popular";    // same
+    let currentLifeMap = "A";            // "A" | "B" | "C"
+
+    // --- Recommended position logic ---
+    function updateRecommendedPosition() {
+      positionCards.forEach(card => card.classList.remove("recommended"));
+      positionLabels.forEach(label => label.style.display = "none");
+
+      if (currentViewMode !== "personal") return;
+
+      let recommendedId;
+      // Mapping: A -> routine/light; B/C -> treat insomnia / root causes
+      if (currentLifeMap === "A") {
+        recommendedId = "positionMedication";
+      } else {
+        recommendedId = "positionCarb";
+      }
+
+      const card = document.getElementById(recommendedId);
+      if (!card) return;
+
+      card.classList.add("recommended");
+      const label = card.querySelector(".recommended-label");
+      if (label) label.style.display = "inline-flex";
+    }
+
+    // --- Journeys display logic ---
+    function updateJourneysDisplay() {
+      let anyVisible = false;
+      journeyCards.forEach(card => {
+        const view = card.dataset.view || "default";
+        const tags = (card.dataset.tags || "").split(",").map(t => t.trim());
+        const lifemapAttr = card.dataset.lifemap || "all";
+        const lifemaps = lifemapAttr.split(",").map(t => t.trim());
+        const viewMatch = (view === currentViewMode || view === "both");
+        const tagMatch = tags.includes(currentJourneyTab);
+        const lifemapMatch = lifemapAttr === "all" || lifemaps.includes(currentLifeMap);
+
+        if (viewMatch && tagMatch && lifemapMatch) {
+          card.style.display = "";
+          anyVisible = true;
+        } else {
+          card.style.display = "none";
+        }
+      });
+
+      journeyEmpty.style.display = anyVisible ? "none" : "block";
+    }
+
+    function updateJourneyTabUI() {
+      const mapping = {
+        recommended: tabRecommended,
+        popular: tabPopular,
+        gentle: tabGentle,
+        intensive: tabIntensive
+      };
+
+      Object.entries(mapping).forEach(([name, btn]) => {
+        btn.classList.toggle("active", name === currentJourneyTab);
+      });
+
+      updateJourneysDisplay();
+    }
+
+    function setJourneyTab(tab) {
+      if (tab === "recommended" && currentViewMode === "default") {
+        return; // disabled in default view
+      }
+      currentJourneyTab = tab;
+      updateJourneyTabUI();
+    }
+
+    // --- Modules display logic ---
+    function updateModulesDisplay() {
+      moduleTiles.forEach(tile => {
+        const view = tile.dataset.view || "default";
+        const tags = (tile.dataset.tags || "").split(",").map(t => t.trim());
+        const lifemapAttr = tile.dataset.lifemap || "all";
+        const lifemaps = lifemapAttr.split(",").map(t => t.trim());
+        const viewMatch = (view === currentViewMode || view === "both");
+        const tagMatch = tags.includes(currentModuleTab);
+        const lifemapMatch = lifemapAttr === "all" || lifemaps.includes(currentLifeMap);
+
+        if (viewMatch && tagMatch && lifemapMatch) {
+          tile.style.display = "flex";
+        } else {
+          tile.style.display = "none";
+        }
+      });
+    }
+
+    function updateModuleTabUI() {
+      const mapping = {
+        recommended: moduleTabRecommended,
+        popular: moduleTabPopular,
+        gentle: moduleTabGentle,
+        intensive: moduleTabIntensive
+      };
+
+      Object.entries(mapping).forEach(([name, btn]) => {
+        btn.classList.toggle("active", name === currentModuleTab);
+      });
+
+      updateModulesDisplay();
+    }
+
+    function setModuleTab(tab) {
+      if (tab === "recommended" && currentViewMode === "default") {
+        return; // disabled in default view
+      }
+      currentModuleTab = tab;
+      updateModuleTabUI();
+    }
+
+    // --- LifeMap UI helpers ---
+    function updateLifeMapTabUI() {
+      const mapping = { A: lifeMapATab, B: lifeMapBTab, C: lifeMapCTab };
+      Object.entries(mapping).forEach(([name, btn]) => {
+        btn.classList.toggle("active", name === currentLifeMap);
+      });
+    }
+
+    function updateLifeMapDependentUI() {
+      if (currentViewMode !== "personal") return;
+
+      // Snapshot text
+      lifeMapSnapshot.innerHTML = lifeMapTemplates[currentLifeMap];
+
+      // Baseline variants
+      [baselinePersonalA, baselinePersonalB, baselinePersonalC].forEach(el => {
+        if (!el) return;
+        el.style.display = "none";
+      });
+      if (currentLifeMap === "A") baselinePersonalA.style.display = "grid";
+      if (currentLifeMap === "B") baselinePersonalB.style.display = "grid";
+      if (currentLifeMap === "C") baselinePersonalC.style.display = "grid";
+
+      // Lever variants
+      [leverPersonalA, leverPersonalB, leverPersonalC].forEach(el => {
+        if (!el) return;
+        el.style.display = "none";
+      });
+      if (currentLifeMap === "A") leverPersonalA.style.display = "block";
+      if (currentLifeMap === "B") leverPersonalB.style.display = "block";
+      if (currentLifeMap === "C") leverPersonalC.style.display = "block";
+
+      // Journeys + modules depend on LifeMap
+      updateJourneysDisplay();
+      updateModulesDisplay();
+    }
+
+    function setLifeMap(lm) {
+      if (currentViewMode === "default") return; // Only meaningful in personalized view
+      currentLifeMap = lm;
+      updateLifeMapTabUI();
+      updateLifeMapDependentUI();
+      updateRecommendedPosition();
+    }
+
+    // --- View toggle logic ---
+    function setView(mode) {
+      const isDefault = mode === "default";
+      currentViewMode = mode;
+
+      // Button states
+      viewDefaultBtn.classList.toggle("active", isDefault);
+      viewPersonalBtn.classList.toggle("active", !isDefault);
+
+      // Baseline
+      baselineDefault.style.display = isDefault ? "block" : "none";
+      baselinePersonal.style.display = isDefault ? "none" : "block";
+
+      // Lever column
+      leverPersonalDefault.style.display = isDefault ? "block" : "none";
+      leverPersonalPersonal.style.display = isDefault ? "none" : "block";
+
+      // Highlight personalized lever column only in personalized view
+      if (isDefault) {
+        leverPersonalCard.classList.remove("highlighted");
+      } else {
+        leverPersonalCard.classList.add("highlighted");
+      }
+
+      // LifeMap tabs enabled/disabled + snapshot text
+      const lifeMapButtons = [lifeMapATab, lifeMapBTab, lifeMapCTab];
+      if (isDefault) {
+        lifeMapButtons.forEach(btn => {
+          btn.classList.add("disabled");
+          btn.setAttribute("aria-disabled", "true");
+        });
+        lifeMapSnapshot.innerHTML = lifeMapTemplates.default;
+      } else {
+        lifeMapButtons.forEach(btn => {
+          btn.classList.remove("disabled");
+          btn.removeAttribute("aria-disabled");
+        });
+        updateLifeMapTabUI();
+        updateLifeMapDependentUI();
+      }
+
+      // Modules wrapper switch
+      if (isDefault) {
+        modulesWrapperDefault.style.display = "block";
+        modulesWrapperPersonal.style.display = "none";
+      } else {
+        modulesWrapperDefault.style.display = "none";
+        modulesWrapperPersonal.style.display = "block";
+      }
+
+      // Journey tabs: enable/disable "Recommended"
+      if (isDefault) {
+        tabRecommended.classList.add("disabled");
+        tabRecommended.setAttribute("aria-disabled", "true");
+        if (currentJourneyTab === "recommended") {
+          currentJourneyTab = "popular";
+        }
+      } else {
+        tabRecommended.classList.remove("disabled");
+        tabRecommended.removeAttribute("aria-disabled");
+        currentJourneyTab = "recommended";
+      }
+      updateJourneyTabUI();
+
+      // Module tabs: enable/disable "Recommended"
+      if (isDefault) {
+        moduleTabRecommended.classList.add("disabled");
+        moduleTabRecommended.setAttribute("aria-disabled", "true");
+        if (currentModuleTab === "recommended") {
+          currentModuleTab = "popular";
+        }
+      } else {
+        moduleTabRecommended.classList.remove("disabled");
+        moduleTabRecommended.removeAttribute("aria-disabled");
+        currentModuleTab = "recommended";
+      }
+      updateModuleTabUI();
+
+      // Recommended position highlight
+      updateRecommendedPosition();
+    }
+
+    // --- Modules carousel arrow logic ---
+    const moduleWrappers = document.querySelectorAll(".modules-wrapper");
+    moduleWrappers.forEach(wrapper => {
+      const carousel = wrapper.querySelector(".modules-carousel");
+      const leftBtn = wrapper.querySelector(".modules-arrow.left");
+      const rightBtn = wrapper.querySelector(".modules-arrow.right");
+      const scrollAmount = 260;
+
+      if (!carousel || !leftBtn || !rightBtn) return;
+
+      leftBtn.addEventListener("click", () => {
+        carousel.scrollBy({ left: -scrollAmount, behavior: "smooth" });
+      });
+
+      rightBtn.addEventListener("click", () => {
+        carousel.scrollBy({ left: scrollAmount, behavior: "smooth" });
+      });
+    });
+
+    // FAQ accordions
+    const faqItems = document.querySelectorAll(".faq-item");
+    faqItems.forEach(item => {
+      const question = item.querySelector(".faq-q");
+      question.addEventListener("click", () => {
+        item.classList.toggle("open");
+      });
+    });
+
+    // --- Event listeners ---
+    viewDefaultBtn.addEventListener("click", () => setView("default"));
+    viewPersonalBtn.addEventListener("click", () => setView("personal"));
+
+    tabRecommended.addEventListener("click", () => setJourneyTab("recommended"));
+    tabPopular.addEventListener("click", () => setJourneyTab("popular"));
+    tabGentle.addEventListener("click", () => setJourneyTab("gentle"));
+    tabIntensive.addEventListener("click", () => setJourneyTab("intensive"));
+
+    moduleTabRecommended.addEventListener("click", () => setModuleTab("recommended"));
+    moduleTabPopular.addEventListener("click", () => setModuleTab("popular"));
+    moduleTabGentle.addEventListener("click", () => setModuleTab("gentle"));
+    moduleTabIntensive.addEventListener("click", () => setModuleTab("intensive"));
+
+    lifeMapATab.addEventListener("click", () => setLifeMap("A"));
+    lifeMapBTab.addEventListener("click", () => setLifeMap("B"));
+    lifeMapCTab.addEventListener("click", () => setLifeMap("C"));
+
+    // Initialize
+    setView("default");
+  </script>
+</body>
+</html>

@@ -1,0 +1,1859 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>LifeHub Topic Demo – Type 2 Diabetes</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --bg-alt: #ffffff;
+      --bg-soft: #edf1fc;
+      --border-subtle: #d7d9e5;
+      --primary: #3046ff;
+      --primary-soft: rgba(48, 70, 255, 0.12);
+      --primary-strong: #1d2bcc;
+      --text-main: #111322;
+      --text-muted: #666a80;
+      --accent: #10b981;
+      --danger: #ef4444;
+      --radius-lg: 18px;
+      --radius-xl: 26px;
+      --shadow-soft: 0 18px 60px rgba(15, 23, 42, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top left, #eef2ff 0, #f5f7fb 36%, #f9fafb 100%);
+      color: var(--text-main);
+      font-size: 18px; /* larger than default */
+      line-height: 1.6;
+    }
+
+    .page {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 32px 18px 60px;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+
+    .brand {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .brand-title {
+      font-size: 32px;
+      font-weight: 750;
+      letter-spacing: -0.04em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .brand-title span.dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 20%, #4ade80, #22c55e);
+      box-shadow: 0 0 0 8px rgba(34, 197, 94, 0.18);
+    }
+
+    .brand-sub {
+      font-size: 17px;
+      color: var(--text-muted);
+    }
+
+    .top-meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      font-size: 15px;
+      color: var(--text-muted);
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.85);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      font-size: 14px;
+      gap: 6px;
+    }
+
+    .pill-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #22c55e;
+    }
+
+    .view-toggle {
+      display: inline-flex;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      color: white;
+      padding: 4px;
+      font-size: 14px;
+      box-shadow: 0 16px 40px rgba(15, 23, 42, 0.4);
+    }
+
+    .view-toggle button {
+      border: none;
+      background: transparent;
+      color: rgba(255, 255, 255, 0.68);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 14px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 500;
+    }
+
+    .view-toggle button.active {
+      background: white;
+      color: #020617;
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: minmax(0, 2.2fr) minmax(0, 1.4fr);
+      gap: 22px;
+      align-items: flex-start;
+    }
+
+    @media (max-width: 980px) {
+      main {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    .panel {
+      background: var(--bg-alt);
+      border-radius: var(--radius-xl);
+      padding: 20px 20px 22px;
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      box-shadow: 0 18px 50px rgba(15, 23, 42, 0.08);
+    }
+
+    .panel + .panel {
+      margin-top: 16px;
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .panel-title {
+      font-size: 22px;
+      font-weight: 650;
+      letter-spacing: -0.03em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .panel-subtitle {
+      font-size: 15px;
+      color: var(--text-muted);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: var(--bg-soft);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      font-size: 13px;
+      color: var(--text-muted);
+      gap: 6px;
+    }
+
+    h1.topic-title {
+      font-size: 40px;
+      letter-spacing: -0.05em;
+      margin: 4px 0 4px;
+    }
+
+    .topic-subtitle {
+      font-size: 18px;
+      color: var(--text-muted);
+      max-width: 640px;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .chip {
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.04);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      font-size: 14px;
+      color: var(--text-muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .metric-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+      font-size: 15px;
+    }
+
+    .metric-pill {
+      border-radius: 999px;
+      padding: 6px 12px;
+      background: rgba(15, 23, 42, 0.03);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .metric-pill strong {
+      font-weight: 600;
+    }
+
+    .baseline-card {
+      background: radial-gradient(circle at 0 0, #e0f2fe 0, #eff6ff 36%, #ffffff 100%);
+      border-radius: var(--radius-xl);
+      padding: 18px 18px 16px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 4px;
+    }
+
+    .baseline-card::after {
+      content: "";
+      position: absolute;
+      right: -40px;
+      top: -40px;
+      width: 180px;
+      height: 180px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 20%, rgba(52, 211, 153, 0.8), rgba(5, 150, 105, 0.1));
+      opacity: 0.5;
+      filter: blur(2px);
+    }
+
+    .baseline-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.4fr);
+      gap: 14px;
+      position: relative;
+      z-index: 1;
+    }
+
+    @media (max-width: 840px) {
+      .baseline-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .baseline-main-title {
+      font-size: 20px;
+      font-weight: 650;
+      letter-spacing: -0.03em;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .band-tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 13px;
+      gap: 6px;
+      background: rgba(239, 68, 68, 0.08);
+      color: #b91c1c;
+      border: 1px solid rgba(248, 113, 113, 0.5);
+    }
+
+    .archetype-tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 13px;
+      gap: 6px;
+      background: rgba(37, 99, 235, 0.08);
+      color: #1d4ed8;
+      border: 1px solid rgba(96, 165, 250, 0.6);
+    }
+
+    .lever-list {
+      list-style: none;
+      padding: 0;
+      margin: 8px 0 0;
+      font-size: 15px;
+    }
+
+    .lever-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+
+    .lever-list li span.rank {
+      width: 22px;
+      height: 22px;
+      border-radius: 999px;
+      background: var(--bg-alt);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+
+    .journeys-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .journey-pill {
+      border-radius: 999px;
+      padding: 6px 12px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(255, 255, 255, 0.9);
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+    }
+
+    .journey-pill span.label {
+      font-weight: 550;
+    }
+
+    .journey-pill span.meta {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .text-sm {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .section {
+      margin-top: 18px;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .section-title {
+      font-size: 20px;
+      font-weight: 650;
+      letter-spacing: -0.03em;
+    }
+
+    .section-subtitle {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .pill-tabs {
+      display: inline-flex;
+      gap: 6px;
+      background: rgba(15, 23, 42, 0.03);
+      border-radius: 999px;
+      padding: 3px;
+      border: 1px solid rgba(148, 163, 184, 0.45);
+    }
+
+    .pill-tabs button {
+      border-radius: 999px;
+      border: none;
+      padding: 4px 10px;
+      font-size: 13px;
+      background: transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+    }
+
+    .pill-tabs button.active {
+      background: white;
+      color: #020617;
+      font-weight: 550;
+      box-shadow: 0 1px 6px rgba(15, 23, 42, 0.18);
+    }
+
+    .positions-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .position-card {
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: rgba(255, 255, 255, 0.95);
+      padding: 10px 12px;
+      font-size: 15px;
+    }
+
+    .position-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 2px;
+    }
+
+    .position-name {
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+    .confidence-chip {
+      padding: 2px 7px;
+      border-radius: 999px;
+      border: 1px solid rgba(34, 197, 94, 0.4);
+      background: rgba(22, 163, 74, 0.06);
+      color: #15803d;
+      font-size: 12px;
+    }
+
+    .position-meta {
+      font-size: 13px;
+      color: var(--text-muted);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 3px;
+    }
+
+    .lever-columns {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 840px) {
+      .lever-columns {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .lever-card {
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: rgba(255, 255, 255, 0.97);
+      padding: 10px 12px;
+      font-size: 15px;
+    }
+
+    .lever-card h4 {
+      margin: 0 0 3px;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .lever-tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 6px;
+      border-radius: 999px;
+      font-size: 12px;
+      color: var(--text-muted);
+      background: rgba(15, 23, 42, 0.03);
+      border: 1px solid rgba(148, 163, 184, 0.45);
+    }
+
+    .journey-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .journey-card {
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(255, 255, 255, 0.98);
+      padding: 10px 12px;
+      font-size: 15px;
+      display: grid;
+      grid-template-columns: minmax(0, 2.2fr) minmax(0, 1.3fr);
+      gap: 8px;
+    }
+
+    @media (max-width: 840px) {
+      .journey-card {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .journey-card h4 {
+      margin: 0 0 2px;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .journey-meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 2px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .journey-meta-pill {
+      border-radius: 999px;
+      padding: 3px 8px;
+      background: rgba(15, 23, 42, 0.03);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+    }
+
+    .journey-stats {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .journey-cta {
+      margin-top: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
+      color: var(--primary-strong);
+      cursor: pointer;
+    }
+
+    .journey-cta span.arrow {
+      font-size: 15px;
+    }
+
+    .small-button {
+      border-radius: 999px;
+      border: none;
+      padding: 5px 10px;
+      font-size: 13px;
+      cursor: pointer;
+      background: var(--primary);
+      color: white;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 10px 24px rgba(37, 99, 235, 0.3);
+    }
+
+    .small-button.secondary {
+      background: white;
+      color: #020617;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      box-shadow: none;
+    }
+
+    .modules-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 8px;
+    }
+
+    .module-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 10px;
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(255, 255, 255, 0.96);
+      font-size: 15px;
+    }
+
+    .module-name {
+      font-weight: 550;
+    }
+
+    .module-meta {
+      font-size: 13px;
+      color: var(--text-muted);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tag {
+      border-radius: 999px;
+      padding: 2px 7px;
+      font-size: 12px;
+      background: rgba(15, 23, 42, 0.03);
+      border: 1px solid rgba(148, 163, 184, 0.45);
+    }
+
+    .evidence-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      margin-top: 6px;
+    }
+
+    .evidence-table th,
+    .evidence-table td {
+      padding: 7px 8px;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.35);
+      text-align: left;
+    }
+
+    .evidence-table th {
+      font-weight: 600;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .consensus-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 10px;
+      margin-top: 6px;
+      font-size: 14px;
+    }
+
+    @media (max-width: 840px) {
+      .consensus-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .consensus-col {
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(255, 255, 255, 0.97);
+      padding: 8px 10px;
+    }
+
+    .consensus-col h4 {
+      margin: 0 0 4px;
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .consensus-col ul {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    .story-card {
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(255, 255, 255, 0.98);
+      padding: 10px 12px;
+      font-size: 15px;
+    }
+
+    .story-card h4 {
+      margin: 0 0 4px;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .story-meta {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .faq-item {
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: rgba(255, 255, 255, 0.96);
+      padding: 8px 10px;
+      margin-bottom: 6px;
+      font-size: 15px;
+    }
+
+    .faq-q {
+      font-weight: 600;
+      margin-bottom: 3px;
+    }
+
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    @media (max-width: 780px) {
+      .related-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .related-card {
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(255, 255, 255, 0.98);
+      padding: 8px 10px;
+      font-size: 15px;
+    }
+
+    .related-card h4 {
+      margin: 0 0 3px;
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    /* Coach mode side panel */
+
+    .coach-panel {
+      position: sticky;
+      top: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .coach-header {
+      font-size: 18px;
+      font-weight: 650;
+      letter-spacing: -0.03em;
+      margin-bottom: 4px;
+    }
+
+    .coach-sub {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .coach-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .coach-client-chip {
+      border-radius: 14px;
+      padding: 7px 9px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.02);
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .coach-client-chip.active {
+      background: rgba(37, 99, 235, 0.09);
+      border-color: rgba(37, 99, 235, 0.8);
+    }
+
+    .coach-client-main {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+
+    .coach-client-name {
+      font-weight: 600;
+    }
+
+    .coach-client-meta {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .coach-tag {
+      font-size: 11px;
+      padding: 2px 6px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.06);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+    }
+
+    .baseline-mini {
+      border-radius: 16px;
+      border: 1px dashed rgba(148, 163, 184, 0.9);
+      background: rgba(255, 255, 255, 0.96);
+      padding: 8px 9px;
+      font-size: 13px;
+    }
+
+    .baseline-mini strong {
+      font-weight: 600;
+    }
+
+    .coach-note {
+      font-size: 13px;
+      color: var(--text-muted);
+      border-radius: 14px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(15, 23, 42, 0.01);
+      padding: 8px 9px;
+    }
+
+    footer {
+      margin-top: 40px;
+      font-size: 13px;
+      color: var(--text-muted);
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="brand">
+        <div class="brand-title">
+          <span class="dot"></span>
+          <span>LifeHub</span>
+        </div>
+        <div class="brand-sub">
+          Topic demo • Personalized from your LifeMap
+        </div>
+        <div class="top-meta">
+          <span class="pill"><span class="pill-dot"></span>Topic • Type 2 Diabetes</span>
+          <span class="pill">Updated 2 days ago</span>
+          <span class="pill">143 journeys • early access view</span>
+        </div>
+      </div>
+      <div style="display:flex; flex-direction:column; align-items:flex-end; gap:10px;">
+        <div class="view-toggle">
+          <button class="active" id="viewDefault">
+            <span>🌐</span> Default view
+          </button>
+          <button id="viewUser">
+            <span>👤</span> User view
+          </button>
+          <button id="viewCoach">
+            <span>🧑‍🏫</span> Coach mode
+          </button>
+        </div>
+        <div class="text-sm" style="max-width:320px; text-align:right;">
+          Switch views to see the same topic as a generic page, personalized from a LifeMap, or through a coach’s lens.
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- LEFT COLUMN: TOPIC VIEW -->
+      <div id="userColumn">
+        <section class="panel">
+          <div class="panel-header">
+            <div>
+              <h1 class="topic-title">Type 2 Diabetes</h1>
+              <div class="topic-subtitle">
+                A topic page that can be generic, or deeply personalized from a LifeMap when available.
+              </div>
+            </div>
+            <div>
+              <span class="badge">LifeMap-aware</span>
+            </div>
+          </div>
+
+          <div class="chips">
+            <span class="chip">🎯 Goal: Better blood sugar & more energy</span>
+            <span class="chip">⏱ Typical journey: 30–90 days</span>
+            <span class="chip">📊 Avg A1C change: −0.8 in 3–6 months*</span>
+          </div>
+
+          <div class="section" style="margin-top:18px;">
+            <div class="section-header">
+              <div>
+                <div class="section-title">TL;DR for this topic</div>
+                <div class="section-subtitle">
+                  The short version of what actually moves the needle for most people.
+                </div>
+              </div>
+            </div>
+            <p style="margin:4px 0 4px;">
+              For most people, Type 2 Diabetes is <strong>highly responsive</strong> to a few big levers:
+              how much and when you eat carbs, your weight and movement, your meds, and your sleep/stress.
+              You don’t need a perfect plan — you need a <strong>doable starting plan</strong> that fits your life
+              and gets you feeling more in control in the next 7–30 days.
+            </p>
+            <div class="metric-row">
+              <div class="metric-pill">
+                <strong>143</strong> journeys logged on this topic
+              </div>
+              <div class="metric-pill">
+                <strong>~80%</strong> report feeling more in control after 30 days
+              </div>
+              <div class="metric-pill">
+                <strong>Top levers:</strong> carbs, walking, sleep, weight, meds
+              </div>
+            </div>
+          </div>
+
+          <!-- BASELINE CARDS -->
+          <div class="section" style="margin-top:20px;">
+            <div class="section-header">
+              <div>
+                <div class="section-title">Baseline for this topic</div>
+                <div class="section-subtitle">
+                  Default view shows generic info. User view personalizes this from a LifeMap.
+                </div>
+              </div>
+            </div>
+
+            <!-- Default baseline (no LifeMap) -->
+            <div class="baseline-card" id="baselineDefault">
+              <div class="baseline-grid">
+                <div>
+                  <div class="baseline-main-title">
+                    <span>Where most people fit</span>
+                  </div>
+                  <p style="margin:6px 0 8px; font-size:15px;">
+                    Without a LifeMap, we treat you as a “generic” visitor on this topic.
+                    That means we assume nothing about your schedule, stress, or constraints,
+                    and we show what tends to matter for <strong>most</strong> people with elevated blood sugar.
+                  </p>
+                  <p style="margin:6px 0 8px; font-size:15px;">
+                    You’ll still see core bands (like at-risk, pre-diabetes, T2D),
+                    but the page won’t guess your band or archetype until you connect more information.
+                  </p>
+                  <div class="text-sm">
+                    Connect or create a LifeMap to turn this into a personalized baseline based on your sleep, stress,
+                    movement, money, and journey history.
+                  </div>
+                </div>
+                <div>
+                  <div style="font-size:15px; font-weight:600; margin-bottom:4px;">
+                    Generic starting levers
+                  </div>
+                  <ul class="lever-list">
+                    <li>
+                      <span class="rank">1</span>
+                      <span><strong>Carb exposure</strong> – especially sugary drinks, desserts, and refined carbs.</span>
+                    </li>
+                    <li>
+                      <span class="rank">2</span>
+                      <span><strong>Weight & waist</strong> – carrying extra weight, especially around the middle.</span>
+                    </li>
+                    <li>
+                      <span class="rank">3</span>
+                      <span><strong>Daily movement</strong> – sitting all day vs regular walking or activity.</span>
+                    </li>
+                  </ul>
+                  <div style="margin-top:10px;">
+                    <div style="font-size:15px; font-weight:600; margin-bottom:3px;">
+                      Generic starting journeys
+                    </div>
+                    <div class="journeys-list">
+                      <div class="journey-pill">
+                        <span class="label">7-Day Blood Sugar Check-In</span>
+                        <span class="meta">Learn your patterns • super light</span>
+                      </div>
+                      <div class="journey-pill">
+                        <span class="label">30-Day Core Basics</span>
+                        <span class="meta">Food, movement, and simple tracking</span>
+                      </div>
+                    </div>
+                    <div class="text-sm" style="margin-top:6px;">
+                      In Default view, these are designed for “average” visitors. User view swaps these for journeys
+                      tuned to a specific LifeMap.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Personalized baseline (LifeMap-based) -->
+            <div class="baseline-card" id="baselineUser" style="display:none;">
+              <div class="baseline-grid">
+                <div>
+                  <div class="baseline-main-title">
+                    <span>Where you fit</span>
+                  </div>
+                  <div style="display:flex; flex-wrap:wrap; gap:6px; margin-bottom:4px;">
+                    <span class="band-tag">
+                      <span>⏱</span> Band: Moderate / Needs attention
+                    </span>
+                    <span class="archetype-tag">
+                      <span>🧩</span> Archetype: Overloaded night-shift parent
+                    </span>
+                  </div>
+                  <p style="margin:6px 0 8px; font-size:15px;">
+                    Based on your sleep, work schedule, stress, and past journeys,
+                    your numbers have been elevated for a while and
+                    evenings are a high-risk time for snacking and crash decisions.
+                    You can absolutely improve this, but the plan has to respect your
+                    <strong>time, energy, and money stress</strong>.
+                  </p>
+                  <div class="text-sm">
+                    Baseline built from: your LifeMap (sleep, stress, movement, money),
+                    past experiments, and key health metrics.
+                  </div>
+                </div>
+                <div>
+                  <div style="font-size:15px; font-weight:600; margin-bottom:4px;">
+                    Top 3 levers for <em>you</em>
+                  </div>
+                  <ul class="lever-list">
+                    <li>
+                      <span class="rank">1</span>
+                      <span><strong>Evening carbs & late-night snacking</strong> – your biggest current driver of blood sugar spikes.</span>
+                    </li>
+                    <li>
+                      <span class="rank">2</span>
+                      <span><strong>Short walks after meals</strong> – high payoff, low friction for your schedule and joint history.</span>
+                    </li>
+                    <li>
+                      <span class="rank">3</span>
+                      <span><strong>Sleep regularity</strong> – even +30–45 minutes/night (within your shift pattern) helps decisions, hunger, and glucose.</span>
+                    </li>
+                  </ul>
+
+                  <div style="margin-top:10px;">
+                    <div style="font-size:15px; font-weight:600; margin-bottom:3px;">
+                      Suggested starting journeys
+                    </div>
+                    <div class="journeys-list">
+                      <div class="journey-pill">
+                        <span class="label">7-Day Night Shift Reset</span>
+                        <span class="meta">Low pressure • momentum & confidence</span>
+                      </div>
+                      <div class="journey-pill">
+                        <span class="label">30-Day Basics (Evenings & Walks)</span>
+                        <span class="meta">Build habits • A1C & energy focus</span>
+                      </div>
+                    </div>
+                    <div class="text-sm" style="margin-top:6px;">
+                      These are <strong>options</strong>, not orders. You can always customize or build your own.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- POSITIONS -->
+          <div class="section">
+            <div class="section-header">
+              <div>
+                <div class="section-title">Different ways people approach T2D</div>
+                <div class="section-subtitle">
+                  These are the main “positions” people take. LifeHub doesn’t force one on you — we show trade-offs.
+                </div>
+              </div>
+              <div class="pill-tabs">
+                <button class="active">Plain view</button>
+                <button>Evidence-focused</button>
+              </div>
+            </div>
+
+            <div class="positions-grid">
+              <div class="position-card">
+                <div class="position-card-header">
+                  <div class="position-name">Low-carb / Keto-first</div>
+                  <div class="confidence-chip">Strong evidence for glucose</div>
+                </div>
+                <div class="panel-subtitle">
+                  Lower carbs sharply to reduce blood sugar and insulin demand.
+                </div>
+                <div class="position-meta">
+                  <span>✅ Often fast changes in glucose & weight</span>
+                  <span>⚠️ Harder socially & long-term for some people</span>
+                  <span>🎯 Best for: highly motivated, willing to change food fast</span>
+                </div>
+              </div>
+
+              <div class="position-card">
+                <div class="position-card-header">
+                  <div class="position-name">Mediterranean-ish whole-foods</div>
+                  <div class="confidence-chip">Strong long-term data</div>
+                </div>
+                <div class="panel-subtitle">
+                  Whole foods, moderate carbs, healthy fats, daily movement.
+                </div>
+                <div class="position-meta">
+                  <span>✅ Well-studied for heart & metabolic health</span>
+                  <span>⚠️ Requires some cooking & planning</span>
+                  <span>🎯 Best for: “slow & steady” lifestyle shift</span>
+                </div>
+              </div>
+
+              <div class="position-card">
+                <div class="position-card-header">
+                  <div class="position-name">Plant-forward (high-fiber)</div>
+                  <div class="confidence-chip">Growing evidence</div>
+                </div>
+                <div class="panel-subtitle">
+                  High-fiber, mostly plants, lower calorie density.
+                </div>
+                <div class="position-meta">
+                  <span>✅ Good for weight, fullness, nutrients</span>
+                  <span>⚠️ Needs careful carb planning with T2D</span>
+                  <span>🎯 Best for: people who like plants & cooking</span>
+                </div>
+              </div>
+
+              <div class="position-card">
+                <div class="position-card-header">
+                  <div class="position-name">Meds-first, lifestyle-light</div>
+                  <div class="confidence-chip">Standard of care</div>
+                </div>
+                <div class="panel-subtitle">
+                  Use medications strongly while adding “doable” lifestyle tweaks.
+                </div>
+                <div class="position-meta">
+                  <span>✅ Can stabilize quickly, especially when numbers are high</span>
+                  <span>⚠️ Side effects; doesn’t address all root levers</span>
+                  <span>🎯 Best for: overwhelmed, high-risk, or limited capacity</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- LEVERS -->
+          <div class="section">
+            <div class="section-header">
+              <div>
+                <div class="section-title">Top levers: in general vs personalized</div>
+                <div class="section-subtitle">
+                  The big “knobs” that most affect this topic, and how a LifeMap can reorder them.
+                </div>
+              </div>
+            </div>
+
+            <div class="lever-columns">
+              <div class="lever-card">
+                <h4>For most people on this topic</h4>
+                <div class="panel-subtitle">
+                  These are the most important levers on average across all journeys.
+                </div>
+                <ul class="lever-list">
+                  <li><span class="rank">1</span><span><strong>Carb exposure</strong> (how much, how refined, and when).</span></li>
+                  <li><span class="rank">2</span><span><strong>Weight / body fat</strong> (especially around the waist).</span></li>
+                  <li><span class="rank">3</span><span><strong>Daily movement</strong> (steps & post-meal activity).</span></li>
+                  <li><span class="rank">4</span><span><strong>Meds adherence</strong> (taking what you and your clinician agree on).</span></li>
+                  <li><span class="rank">5</span><span><strong>Sleep & stress</strong> (they affect hunger, cravings, and decisions).</span></li>
+                </ul>
+              </div>
+              <div class="lever-card">
+                <h4>Personalized column</h4>
+                <span class="lever-tag">Switch views to see this change</span>
+
+                <!-- Default (no LifeMap) -->
+                <div id="leverPersonalDefault">
+                  <p style="margin:6px 0 4px; font-size:15px;">
+                    In Default view, we can’t see your LifeMap yet. This column stays generic and simply reminds you that,
+                    once connected, LifeHub will <strong>reorder these levers</strong> based on your traits,
+                    constraints, and journey history.
+                  </p>
+                  <p class="text-sm">
+                    Example: for someone with joint pain and money stress, we might emphasize gentle movement,
+                    budget-friendly food changes, and meds rhythm over “get a trainer and go all-in at the gym.”
+                  </p>
+                </div>
+
+                <!-- User view (LifeMap-based) -->
+                <div id="leverPersonalUser" style="display:none;">
+                  <p style="margin:6px 0 4px; font-size:15px;">
+                    Your bottlenecks aren’t just “knowledge” — they’re time, energy, and stress.
+                    So we prioritize high-payoff, low-friction levers that fit your schedule.
+                  </p>
+                  <ul class="lever-list">
+                    <li><span class="rank">1</span><span><strong>Evening carbs & late snacks</strong> – lots of calories & glucose when you’re tired and stressed.</span></li>
+                    <li><span class="rank">2</span><span><strong>Short post-meal walks</strong> – 5–10 minutes after meals match your current activity & joints.</span></li>
+                    <li><span class="rank">3</span><span><strong>Sleep regularity</strong> – mild improvement here makes every other lever easier.</span></li>
+                    <li><span class="rank">4</span><span><strong>Meds rhythm</strong> – simple cues/reminders so doses aren’t missed on shift days.</span></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- JOURNEYS -->
+          <div class="section">
+            <div class="section-header">
+              <div>
+                <div class="section-title">Journeys: default vs personalized</div>
+                <div class="section-subtitle">
+                  Default view shows generic journeys. User view swaps in journeys tuned to a LifeMap.
+                </div>
+              </div>
+              <div class="pill-tabs">
+                <button class="active">For you / default</button>
+                <button>Most popular</button>
+                <button>Gentle</button>
+                <button>Aggressive</button>
+              </div>
+            </div>
+
+            <!-- Default journeys -->
+            <div class="journey-grid" id="journeysDefault">
+              <div class="journey-card">
+                <div>
+                  <h4>7-Day Blood Sugar Awareness</h4>
+                  <div class="journey-meta-row">
+                    <span class="journey-meta-pill">🧪 Experiment</span>
+                    <span class="journey-meta-pill">7 days</span>
+                    <span class="journey-meta-pill">~10–15 min/day</span>
+                  </div>
+                  <p style="margin:6px 0 4px;">
+                    A simple, generic starter: lightly track what you eat and how you feel, notice patterns,
+                    and try one or two easy adjustments. This works even if we know nothing about your LifeMap yet.
+                  </p>
+                  <div class="journey-cta">
+                    <span class="arrow">→</span>
+                    <span>Preview what this includes</span>
+                  </div>
+                </div>
+                <div class="journey-stats">
+                  <div><strong>Modules:</strong> Food Log Lite • Energy Check-In • One Small Swap</div>
+                  <div style="margin-top:4px;">
+                    <strong>Good for:</strong><br />
+                    • People just getting curious about their blood sugar<br />
+                    • Anyone not ready for a bigger commitment
+                  </div>
+                </div>
+              </div>
+
+              <div class="journey-card">
+                <div>
+                  <h4>30-Day Core Basics</h4>
+                  <div class="journey-meta-row">
+                    <span class="journey-meta-pill">🌱 Foundation</span>
+                    <span class="journey-meta-pill">30 days</span>
+                    <span class="journey-meta-pill">~20–30 min/day</span>
+                  </div>
+                  <p style="margin:6px 0 4px;">
+                    A generic, “good for many people” plan focused on ultra-processed food, basic movement,
+                    and simple checking in on meds and sleep.
+                  </p>
+                  <div class="journey-cta">
+                    <span class="arrow">→</span>
+                    <span>View weekly structure</span>
+                  </div>
+                </div>
+                <div class="journey-stats">
+                  <div><strong>Modules:</strong> Ultra-Processed Audit • Steps Goal • Weekly Check-In</div>
+                  <div style="margin-top:4px;">
+                    <strong>Good for:</strong><br />
+                    • People with mixed schedules and no clear constraints yet<br />
+                    • First-time experiments before deeper personalization
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Personalized journeys -->
+            <div class="journey-grid" id="journeysUser" style="display:none;">
+              <div class="journey-card">
+                <div>
+                  <h4>7-Day Night Shift Reset</h4>
+                  <div class="journey-meta-row">
+                    <span class="journey-meta-pill">🧪 Experiment</span>
+                    <span class="journey-meta-pill">7 days</span>
+                    <span class="journey-meta-pill">~15–20 min/day</span>
+                  </div>
+                  <p style="margin:6px 0 4px;">
+                    A one-week experiment to prove to yourself that change is possible,
+                    without blowing up your schedule. Focuses on evening carbs, one short walk,
+                    and a simple night wind-down.
+                  </p>
+                  <div class="journey-cta">
+                    <span class="arrow">→</span>
+                    <span>See if this fits my life</span>
+                  </div>
+                </div>
+                <div class="journey-stats">
+                  <div><strong>Modules:</strong> Evening Carb Swap • 10-Min Post-Meal Walk • Mini Sleep Routine</div>
+                  <div style="margin-top:4px;">
+                    <strong>Results from similar LifeMaps:</strong><br />
+                    • 72% feel more in control by day 7<br />
+                    • Most continue with a longer plan after this
+                  </div>
+                </div>
+              </div>
+
+              <div class="journey-card">
+                <div>
+                  <h4>30-Day Basics: Evenings & Walks</h4>
+                  <div class="journey-meta-row">
+                    <span class="journey-meta-pill">🌱 Foundation</span>
+                    <span class="journey-meta-pill">30 days</span>
+                    <span class="journey-meta-pill">~25–35 min/day</span>
+                  </div>
+                  <p style="margin:6px 0 4px;">
+                    A practical, “real human” starter plan focused on the biggest levers for you:
+                    taming evenings, stacking short walks, and keeping sleep as stable as your shift allows.
+                  </p>
+                  <div class="journey-cta">
+                    <span class="arrow">→</span>
+                    <span>Preview weekly rhythm</span>
+                  </div>
+                </div>
+                <div class="journey-stats">
+                  <div><strong>Modules:</strong> Liquid Sugar Audit • After-Dinner Walk • Weekend Prep • Gentle Sleep Guardrails</div>
+                  <div style="margin-top:4px;">
+                    <strong>Results from similar LifeMaps:</strong><br />
+                    • Typical A1C change: −0.5 to −0.8 over 3 months<br />
+                    • Reported: more energy, fewer “screw-it” nights
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div style="margin-top:10px;">
+              <button class="small-button">
+                🧩 Build my own journey
+              </button>
+              <button class="small-button secondary" style="margin-left:6px;">
+                ✏️ Start from a template
+              </button>
+            </div>
+          </div>
+
+          <!-- MODULES -->
+          <div class="section">
+            <div class="section-header">
+              <div>
+                <div class="section-title">Modules: building blocks you can mix & match</div>
+                <div class="section-subtitle">
+                  Each module is a small, concrete behavior or experiment you can plug into any journey.
+                </div>
+              </div>
+            </div>
+
+            <div class="modules-grid">
+              <div class="module-row">
+                <div>
+                  <div class="module-name">Evening Carb Swap</div>
+                  <div class="module-meta">
+                    <span class="tag">Food • 10–15 min/day</span>
+                    <span class="tag">High payoff for you*</span>
+                  </div>
+                  <div class="text-sm" style="margin-top:3px;">
+                    Trade one late-carb habit (like dessert or chips) for a lower-carb alternative 5–6 nights/week.
+                  </div>
+                </div>
+                <div class="text-sm">
+                  Used in <strong>67</strong> journeys<br />
+                  +Glucose benefit in <strong>~60%</strong> of similar LifeMaps
+                </div>
+              </div>
+
+              <div class="module-row">
+                <div>
+                  <div class="module-name">10-Min Post-Meal Walk</div>
+                  <div class="module-meta">
+                    <span class="tag">Movement • 10 min/meal</span>
+                    <span class="tag">Joint-friendly</span>
+                  </div>
+                  <div class="text-sm" style="margin-top:3px;">
+                    A short walk after main meals to help your muscles soak up glucose and smooth out spikes.
+                  </div>
+                </div>
+                <div class="text-sm">
+                  Used in <strong>89</strong> journeys<br />
+                  Often reported as easiest “forever habit”
+                </div>
+              </div>
+
+              <div class="module-row">
+                <div>
+                  <div class="module-name">Mini Sleep Routine (Shift-Friendly)</div>
+                  <div class="module-meta">
+                    <span class="tag">Sleep • 10–20 min</span>
+                    <span class="tag">Flexible for shift work</span>
+                  </div>
+                  <div class="text-sm" style="margin-top:3px;">
+                    A 3–step wind-down that fits your current schedule to improve quality and consistency of sleep.
+                  </div>
+                </div>
+                <div class="text-sm">
+                  Used in <strong>54</strong> journeys<br />
+                  Strong spillover into stress & food decisions
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- EVIDENCE & CONSENSUS -->
+          <div class="section">
+            <div class="section-header">
+              <div>
+                <div class="section-title">Evidence & what’s debated</div>
+                <div class="section-subtitle">
+                  A quick sense of what’s solid, what’s still being argued, and how that shapes this topic.
+                </div>
+              </div>
+              <span class="badge">Nerd lane available</span>
+            </div>
+
+            <div class="consensus-grid">
+              <div class="consensus-col">
+                <h4>What’s broadly agreed on</h4>
+                <ul>
+                  <li>Reducing excess weight and abdominal fat improves T2D control.</li>
+                  <li>Cutting back refined carbs and ultra-processed foods helps most people.</li>
+                  <li>Daily movement (especially post-meal) improves glucose handling.</li>
+                  <li>Better sleep and less chronic stress tend to make food and habit changes easier.</li>
+                </ul>
+              </div>
+              <div class="consensus-col">
+                <h4>Where experts still debate</h4>
+                <ul>
+                  <li>Which macro split (low-carb vs balanced vs plant-forward) is “best” long-term.</li>
+                  <li>How aggressive weight loss should be and for whom.</li>
+                  <li>The exact role of different fats and food processing in long-term risk.</li>
+                  <li>How much meds vs lifestyle to prioritize in early vs later disease.</li>
+                </ul>
+              </div>
+            </div>
+
+            <table class="evidence-table">
+              <thead>
+                <tr>
+                  <th>Summary</th>
+                  <th>Type</th>
+                  <th>Funding</th>
+                  <th>Trust</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Trials showing that reducing refined carbs and total energy intake improves A1C and weight for many with T2D.</td>
+                  <td>Multiple RCTs, meta-analyses</td>
+                  <td>Mixed (public & industry)</td>
+                  <td>High</td>
+                </tr>
+                <tr>
+                  <td>Long-term cohorts linking activity and cardiorespiratory fitness to lower T2D and heart risk.</td>
+                  <td>Cohort studies</td>
+                  <td>Mostly public</td>
+                  <td>High</td>
+                </tr>
+                <tr>
+                  <td>Studies comparing low-carb vs higher-carb whole-food patterns for T2D remission and maintenance.</td>
+                  <td>RCTs, ongoing</td>
+                  <td>Mixed</td>
+                  <td>Moderate (still evolving)</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="text-sm" style="margin-top:4px;">
+              You can open the “For nerds & pros” lane on this topic to see more detailed evidence tables and methodology.
+            </div>
+          </div>
+
+          <!-- STORIES -->
+          <div class="section">
+            <div class="section-header">
+              <div>
+                <div class="section-title">Stories from people like you</div>
+                <div class="section-subtitle">
+                  Anonymized examples of how similar LifeMaps moved through this topic.
+                </div>
+              </div>
+            </div>
+
+            <div class="story-card">
+              <h4>“I stopped feeling doomed in 6 weeks.”</h4>
+              <div class="story-meta">
+                Alex, 42 • night-shift worker • 2 kids • starting A1C 8.1 → 7.3 (3 months)
+              </div>
+              <p style="margin:4px 0 4px;">
+                Alex started with the 7-Day Night Shift Reset, then moved into the 30-Day Basics plan.
+                The biggest changes were cutting late-night drive-through runs 4 nights/week and adding a
+                10-minute loop after main meals. Sleep improved by ~40 minutes/night. The scale moved, but
+                the biggest shift was feeling like their numbers weren’t “random punishment” anymore.
+              </p>
+              <div class="text-sm">
+                Key levers: evening carbs → lighter options, short walks, slightly earlier wind-down on non-shift days.
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ & RELATED -->
+          <div class="section">
+            <div class="section-header">
+              <div>
+                <div class="section-title">FAQ & related topics</div>
+                <div class="section-subtitle">
+                  Questions people actually ask, and nearby topics that usually matter.
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-q">Is it really possible for me to reverse or improve this?</div>
+              <div>
+                Many people with LifeMaps similar to yours see meaningful improvement — and sometimes remission —
+                when they consistently work a few big levers for 3–12 months. There are no guarantees, but your
+                baseline suggests you have room to improve, especially around evenings, walking, and sleep.
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-q">Do I have to cut out all carbs forever?</div>
+              <div>
+                No. Some people choose that; many don’t. In your case, LifeHub is prioritizing
+                <strong>when</strong> and <strong>how</strong> you eat carbs (especially late and ultra-processed ones)
+                rather than banning everything you enjoy.
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-q">What if my doctor disagrees with this plan?</div>
+              <div>
+                LifeHub is not a replacement for medical care. You can export your baseline and journey as a
+                one-page summary for your clinician and discuss adjustments together. If there’s conflict,
+                we’ll help you prepare good questions to ask.
+              </div>
+            </div>
+
+            <div class="section" style="margin-top:14px;">
+              <div class="section-title">Related topics that often matter here</div>
+              <div class="section-subtitle">
+                These topics often shape how easy or hard this feels.
+              </div>
+              <div class="related-grid">
+                <div class="related-card">
+                  <h4>Sleep & Recovery</h4>
+                  <div class="text-sm">
+                    Top lever: a realistic minimum sleep floor for your schedule. Better sleep makes food and movement changes way easier.
+                  </div>
+                </div>
+                <div class="related-card">
+                  <h4>Stress & Burnout</h4>
+                  <div class="text-sm">
+                    Chronic stress drives cravings, “screw-it” eating, and missed meds. Small stress levers can amplify T2D changes.
+                  </div>
+                </div>
+                <div class="related-card">
+                  <h4>Movement & Activity</h4>
+                  <div class="text-sm">
+                    From “I hate gyms” to “I like walking more than I thought.” Movement is one of the most forgiving levers.
+                  </div>
+                </div>
+                <div class="related-card">
+                  <h4>Money & Food Choices</h4>
+                  <div class="text-sm">
+                    Money stress shapes food options. We can pair this topic with “Money” to create realistic food plans on a budget.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="section" style="margin-top:14px;">
+              <div class="section-title">Safety</div>
+              <div class="section-subtitle">
+                When this is not a DIY problem.
+              </div>
+              <div class="faq-item" style="border-color: rgba(248,113,113,0.9); background: rgba(254,242,242,0.9);">
+                <div class="faq-q" style="color:#b91c1c;">If you have very high numbers or feel acutely unwell</div>
+                <div>
+                  If you’re having severe symptoms (like very high glucose with vomiting, breathing issues,
+                  or confusion), this is a <strong>medical urgency</strong>. Please seek in-person care or
+                  emergency services. LifeHub is here to support your journey, not replace urgent medical care.
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- RIGHT COLUMN: COACH MODE + LIFEMAP SNAPSHOT -->
+      <aside class="coach-panel" id="coachColumn">
+        <div class="panel">
+          <div class="coach-header">Coach mode snapshot</div>
+          <div class="coach-sub">
+            See how this topic looks through different LifeMaps. Click a profile to compare baselines and levers.
+          </div>
+
+          <div class="coach-list">
+            <div class="coach-client-chip active" data-client="anna">
+              <div class="coach-client-main">
+                <div class="coach-client-name">Anna • 39</div>
+                <div class="coach-client-meta">Night-shift parent • T2D mild</div>
+              </div>
+              <span class="coach-tag">Time-poor • Money stress</span>
+            </div>
+            <div class="coach-client-chip" data-client="ben">
+              <div class="coach-client-main">
+                <div class="coach-client-name">Ben • 33</div>
+                <div class="coach-client-meta">Office job • Gym-regular</div>
+              </div>
+              <span class="coach-tag">Time-flexible • Data nerd</span>
+            </div>
+            <div class="coach-client-chip" data-client="carmen">
+              <div class="coach-client-main">
+                <div class="coach-client-name">Carmen • 58</div>
+                <div class="coach-client-meta">On multiple meds • Fixed income</div>
+              </div>
+              <span class="coach-tag">Safety-focused • Low tech</span>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="section-title" style="font-size:16px;">Baseline contrasts for this topic</div>
+            <div id="coachBaselines">
+              <div class="baseline-mini" data-client-baseline="anna">
+                <strong>Anna:</strong> Moderate / needs attention • Overloaded night-shift parent<br />
+                Top levers: evening carbs, short walks, sleep regularity.<br />
+                Best journeys: 7-Day Reset → 30-Day Basics. Avoid complex tracking & heavy cooking.
+              </div>
+              <div class="baseline-mini" data-client-baseline="ben" style="display:none;">
+                <strong>Ben:</strong> Pre-diabetes band • High-achieving data nerd<br />
+                Top levers: structured training, food quality, alcohol & snacks.<br />
+                Best journeys: 30-Day Metrics Sprint, 90-Day Performance Reset. Lean into tracking & gym work.
+              </div>
+              <div class="baseline-mini" data-client-baseline="carmen" style="display:none;">
+                <strong>Carmen:</strong> T2D moderate/severe • Polypharmacy • Fixed income<br />
+                Top levers: meds adherence, simple food shifts within budget, gentle activity.<br />
+                Best journeys: Safety-first 30 Days, Budget-Friendly Food Adjustments. Avoid overloading with new apps.
+              </div>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="section-title" style="font-size:16px;">Coach-only notes & tools</div>
+            <div class="coach-note" id="coachNote">
+              <strong>Anna coaching angle:</strong><br />
+              Start with short experiments and visible wins (evenings & walks) before adding deeper food or stress work.
+              Frame changes around energy for kids and “future self”, not just lab numbers. Be gentle about money stress.
+            </div>
+          </div>
+
+          <div class="section">
+            <button class="small-button" style="width:100%; justify-content:center; font-size:14px;">
+              🧠 Open full Coach Console for this topic
+            </button>
+          </div>
+        </div>
+
+        <!-- LIFEMAP SNAPSHOT PANEL -->
+        <div class="panel">
+          <div class="coach-header">LifeMap snapshot</div>
+          <div class="coach-sub">
+            This card shows a compact LifeMap view. In Default view it’s generic, in User view it’s “you”, and in Coach mode it follows the selected profile.
+          </div>
+          <div class="coach-note" id="lifeMapSnapshot">
+            <strong>Default view (no LifeMap loaded):</strong><br />
+            • Domains: health, money, relationships, work – no specific data yet.<br />
+            • Traits: not assessed; we assume an “average” pattern.<br />
+            • Constraints: unknown schedule, energy, or budget.<br />
+            <br />
+            Connect or create a LifeMap to see concrete traits, constraints, and past journeys populate here, and watch the topic page reconfigure itself.
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <footer>
+      * Demo numbers are placeholders for design purposes only.<br />
+      LifeHub Topic Demo • Type 2 Diabetes • 2025
+    </footer>
+  </div>
+
+  <script>
+    // View toggling + LifeMap snapshot + coach profile swapping
+
+    const viewDefaultBtn = document.getElementById("viewDefault");
+    const viewUserBtn = document.getElementById("viewUser");
+    const viewCoachBtn = document.getElementById("viewCoach");
+    const userColumn = document.getElementById("userColumn");
+    const coachColumn = document.getElementById("coachColumn");
+
+    const baselineDefault = document.getElementById("baselineDefault");
+    const baselineUser = document.getElementById("baselineUser");
+    const leverPersonalDefault = document.getElementById("leverPersonalDefault");
+    const leverPersonalUser = document.getElementById("leverPersonalUser");
+    const journeysDefault = document.getElementById("journeysDefault");
+    const journeysUser = document.getElementById("journeysUser");
+    const lifeMapSnapshot = document.getElementById("lifeMapSnapshot");
+
+    const clientChips = document.querySelectorAll(".coach-client-chip");
+    const baselineBlocks = document.querySelectorAll("[data-client-baseline]");
+    const coachNote = document.getElementById("coachNote");
+
+    let currentView = "default";
+
+    const notesByClient = {
+      anna:
+        "<strong>Anna coaching angle:</strong><br />" +
+        "Start with short experiments and visible wins (evenings & walks) before adding deeper food or stress work. " +
+        "Frame changes around energy for kids and “future self”, not just lab numbers. Be gentle about money stress.",
+      ben:
+        "<strong>Ben coaching angle:</strong><br />" +
+        "Lean into his love of metrics. Co-create a structured plan with weekly data reviews. " +
+        "Watch for perfectionism and “all-or-nothing” thinking; build in recovery weeks.",
+      carmen:
+        "<strong>Carmen coaching angle:</strong><br />" +
+        "Safety and trust come first. Keep tech minimal, focus on simple routines tied to existing habits. " +
+        "Coordinate closely with her clinician on meds and monitor for overwhelm."
+    };
+
+    const lifeMapTemplates = {
+      default:
+        "<strong>Default view (no LifeMap loaded):</strong><br />" +
+        "• Domains: health, money, relationships, work – no specific data yet.<br />" +
+        "• Traits: not assessed; we assume an “average” pattern.<br />" +
+        "• Constraints: unknown schedule, energy, or budget.<br /><br />" +
+        "Connect or create a LifeMap to see concrete traits, constraints, and past journeys populate here, and watch the topic page reconfigure itself.",
+      anna:
+        "<strong>Anna • LifeMap snapshot</strong><br />" +
+        "• Domains: health = moderate risk (T2D mild), money = high stress, relationships = tension but stable.<br />" +
+        "• Traits: high openness, low conscientiousness, prefers short content over long reading.<br />" +
+        "• Constraints: 2 kids, night-shift work, ~20 min/day realistic capacity.<br />" +
+        "• History: completes short 7-day experiments, drops long bootcamps by week 3.<br />" +
+        "• Implication for this topic: emphasize evening carbs, short walks, and sleep regularity over complex diets or tracking.",
+      ben:
+        "<strong>Ben • LifeMap snapshot</strong><br />" +
+        "• Domains: health = at-risk (pre-diabetes), money = stable, relationships = low conflict.<br />" +
+        "• Traits: very data-driven, high conscientiousness, enjoys structure and metrics.<br />" +
+        "• Constraints: 9–5 office work, gym access, decent cooking skills.<br />" +
+        "• History: sticks well to structured plans, tends to overdo intensity then crash.<br />" +
+        "• Implication for this topic: lean into metric-driven training and food quality while building in planned deload weeks.",
+      carmen:
+        "<strong>Carmen • LifeMap snapshot</strong><br />" +
+        "• Domains: health = T2D moderate/severe, multiple meds; money = tight, on fixed income.<br />" +
+        "• Traits: cautious, low tech comfort, values stability and routine.<br />" +
+        "• Constraints: limited energy, limited budget, caregiver for grandchild.<br />" +
+        "• History: overwhelmed by complex plans, responds to simple, repeated routines.<br />" +
+        "• Implication for this topic: prioritize meds adherence, budget-friendly food changes, and gentle activity; avoid heavy app use or complex logging."
+    };
+
+    function setView(mode) {
+      currentView = mode;
+
+      // Toggle button states
+      viewDefaultBtn.classList.toggle("active", mode === "default");
+      viewUserBtn.classList.toggle("active", mode === "user");
+      viewCoachBtn.classList.toggle("active", mode === "coach");
+
+      if (mode === "default") {
+        userColumn.style.opacity = "1";
+        userColumn.style.pointerEvents = "auto";
+        coachColumn.style.opacity = "0.25";
+        coachColumn.style.pointerEvents = "none";
+
+        baselineDefault.style.display = "block";
+        baselineUser.style.display = "none";
+        journeysDefault.style.display = "grid";
+        journeysUser.style.display = "none";
+        leverPersonalDefault.style.display = "block";
+        leverPersonalUser.style.display = "none";
+
+        lifeMapSnapshot.innerHTML = lifeMapTemplates["default"];
+      } else if (mode === "user") {
+        userColumn.style.opacity = "1";
+        userColumn.style.pointerEvents = "auto";
+        coachColumn.style.opacity = "0.6";
+        coachColumn.style.pointerEvents = "none";
+
+        baselineDefault.style.display = "none";
+        baselineUser.style.display = "block";
+        journeysDefault.style.display = "none";
+        journeysUser.style.display = "grid";
+        leverPersonalDefault.style.display = "none";
+        leverPersonalUser.style.display = "block";
+
+        // Use Anna as the sample LifeMap for User view
+        lifeMapSnapshot.innerHTML = lifeMapTemplates["anna"];
+      } else if (mode === "coach") {
+        userColumn.style.opacity = "0.25";
+        userColumn.style.pointerEvents = "none";
+        coachColumn.style.opacity = "1";
+        coachColumn.style.pointerEvents = "auto";
+
+        // Keep personalized content visible in coach mode
+        baselineDefault.style.display = "none";
+        baselineUser.style.display = "block";
+        journeysDefault.style.display = "none";
+        journeysUser.style.display = "grid";
+        leverPersonalDefault.style.display = "none";
+        leverPersonalUser.style.display = "block";
+
+        const activeChip = document.querySelector(".coach-client-chip.active");
+        const activeId = activeChip ? activeChip.getAttribute("data-client") : "anna";
+        lifeMapSnapshot.innerHTML = lifeMapTemplates[activeId] || lifeMapTemplates["default"];
+      }
+    }
+
+    viewDefaultBtn.addEventListener("click", () => setView("default"));
+    viewUserBtn.addEventListener("click", () => setView("user"));
+    viewCoachBtn.addEventListener("click", () => setView("coach"));
+
+    clientChips.forEach(chip => {
+      chip.addEventListener("click", () => {
+        const id = chip.getAttribute("data-client");
+
+        clientChips.forEach(c => c.classList.remove("active"));
+        chip.classList.add("active");
+
+        baselineBlocks.forEach(block => {
+          block.style.display =
+            block.getAttribute("data-client-baseline") === id ? "block" : "none";
+        });
+
+        coachNote.innerHTML = notesByClient[id] || "";
+
+        // Only change LifeMap snapshot when coach mode is active,
+        // but it's fine if it updates in the background too.
+        if (currentView === "coach") {
+          lifeMapSnapshot.innerHTML = lifeMapTemplates[id] || lifeMapTemplates["default"];
+        }
+      });
+    });
+
+    // Initialize in default view
+    setView("default");
+  </script>
+</body>
+</html>

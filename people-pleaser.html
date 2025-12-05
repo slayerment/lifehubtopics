@@ -1,0 +1,1858 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>LifeHub Topic Demo – People Pleaser</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --bg-alt: #ffffff;
+      --bg-soft: #edf1fc;
+      --border-subtle: #d7d9e5;
+      --primary: #3046ff;
+      --primary-soft: rgba(48, 70, 255, 0.12);
+      --primary-strong: #1d2bcc;
+      --text-main: #111322;
+      --text-muted: #666a80;
+      --accent: #10b981;
+      --danger: #ef4444;
+      --radius-lg: 18px;
+      --radius-xl: 26px;
+      --shadow-soft: 0 18px 60px rgba(15, 23, 42, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top left, #eef2ff 0, #f5f7fb 36%, #f9fafb 100%);
+      color: var(--text-main);
+      font-size: 18px; /* larger than default */
+      line-height: 1.6;
+    }
+
+    .page {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 32px 18px 60px;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+
+    .brand {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .brand-title {
+      font-size: 32px;
+      font-weight: 750;
+      letter-spacing: -0.04em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .brand-title span.dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 20%, #4ade80, #22c55e);
+      box-shadow: 0 0 0 8px rgba(34, 197, 94, 0.18);
+    }
+
+    .brand-sub {
+      font-size: 17px;
+      color: var(--text-muted);
+    }
+
+    .top-meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      font-size: 15px;
+      color: var(--text-muted);
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.85);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      font-size: 14px;
+      gap: 6px;
+    }
+
+    .pill-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #22c55e;
+    }
+
+    .view-toggle {
+      display: inline-flex;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      color: white;
+      padding: 4px;
+      font-size: 14px;
+      box-shadow: 0 16px 40px rgba(15, 23, 42, 0.4);
+    }
+
+    .view-toggle button {
+      border: none;
+      background: transparent;
+      color: rgba(255, 255, 255, 0.68);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 14px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 500;
+    }
+
+    .view-toggle button.active {
+      background: white;
+      color: #020617;
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: minmax(0, 2.2fr) minmax(0, 1.4fr);
+      gap: 22px;
+      align-items: flex-start;
+    }
+
+    @media (max-width: 980px) {
+      main {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    .panel {
+      background: var(--bg-alt);
+      border-radius: var(--radius-xl);
+      padding: 20px 20px 22px;
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      box-shadow: 0 18px 50px rgba(15, 23, 42, 0.08);
+    }
+
+    .panel + .panel {
+      margin-top: 16px;
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .panel-title {
+      font-size: 22px;
+      font-weight: 650;
+      letter-spacing: -0.03em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .panel-subtitle {
+      font-size: 15px;
+      color: var(--text-muted);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: var(--bg-soft);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      font-size: 13px;
+      color: var(--text-muted);
+      gap: 6px;
+    }
+
+    h1.topic-title {
+      font-size: 40px;
+      letter-spacing: -0.05em;
+      margin: 4px 0 4px;
+    }
+
+    .topic-subtitle {
+      font-size: 18px;
+      color: var(--text-muted);
+      max-width: 640px;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .chip {
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.04);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      font-size: 14px;
+      color: var(--text-muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .metric-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+      font-size: 15px;
+    }
+
+    .metric-pill {
+      border-radius: 999px;
+      padding: 6px 12px;
+      background: rgba(15, 23, 42, 0.03);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .metric-pill strong {
+      font-weight: 600;
+    }
+
+    .baseline-card {
+      background: radial-gradient(circle at 0 0, #e0f2fe 0, #eff6ff 36%, #ffffff 100%);
+      border-radius: var(--radius-xl);
+      padding: 18px 18px 16px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 4px;
+    }
+
+    .baseline-card::after {
+      content: "";
+      position: absolute;
+      right: -40px;
+      top: -40px;
+      width: 180px;
+      height: 180px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 20%, rgba(52, 211, 153, 0.8), rgba(5, 150, 105, 0.1));
+      opacity: 0.5;
+      filter: blur(2px);
+    }
+
+    .baseline-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.4fr);
+      gap: 14px;
+      position: relative;
+      z-index: 1;
+    }
+
+    @media (max-width: 840px) {
+      .baseline-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .baseline-main-title {
+      font-size: 20px;
+      font-weight: 650;
+      letter-spacing: -0.03em;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .band-tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 13px;
+      gap: 6px;
+      background: rgba(249, 115, 22, 0.1);
+      color: #c2410c;
+      border: 1px solid rgba(251, 146, 60, 0.7);
+    }
+
+    .archetype-tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 13px;
+      gap: 6px;
+      background: rgba(37, 99, 235, 0.08);
+      color: #1d4ed8;
+      border: 1px solid rgba(96, 165, 250, 0.6);
+    }
+
+    .lever-list {
+      list-style: none;
+      padding: 0;
+      margin: 8px 0 0;
+      font-size: 15px;
+    }
+
+    .lever-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+
+    .lever-list li span.rank {
+      width: 22px;
+      height: 22px;
+      border-radius: 999px;
+      background: var(--bg-alt);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+
+    .journeys-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .journey-pill {
+      border-radius: 999px;
+      padding: 6px 12px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(255, 255, 255, 0.9);
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+    }
+
+    .journey-pill span.label {
+      font-weight: 550;
+    }
+
+    .journey-pill span.meta {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .text-sm {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .section {
+      margin-top: 18px;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .section-title {
+      font-size: 20px;
+      font-weight: 650;
+      letter-spacing: -0.03em;
+    }
+
+    .section-subtitle {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .pill-tabs {
+      display: inline-flex;
+      gap: 6px;
+      background: rgba(15, 23, 42, 0.03);
+      border-radius: 999px;
+      padding: 3px;
+      border: 1px solid rgba(148, 163, 184, 0.45);
+    }
+
+    .pill-tabs button {
+      border-radius: 999px;
+      border: none;
+      padding: 4px 10px;
+      font-size: 13px;
+      background: transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+    }
+
+    .pill-tabs button.active {
+      background: white;
+      color: #020617;
+      font-weight: 550;
+      box-shadow: 0 1px 6px rgba(15, 23, 42, 0.18);
+    }
+
+    .positions-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .position-card {
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: rgba(255, 255, 255, 0.95);
+      padding: 10px 12px;
+      font-size: 15px;
+    }
+
+    .position-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 2px;
+    }
+
+    .position-name {
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+    .confidence-chip {
+      padding: 2px 7px;
+      border-radius: 999px;
+      border: 1px solid rgba(34, 197, 94, 0.4);
+      background: rgba(22, 163, 74, 0.06);
+      color: #15803d;
+      font-size: 12px;
+    }
+
+    .position-meta {
+      font-size: 13px;
+      color: var(--text-muted);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 3px;
+    }
+
+    .lever-columns {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 840px) {
+      .lever-columns {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .lever-card {
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: rgba(255, 255, 255, 0.97);
+      padding: 10px 12px;
+      font-size: 15px;
+    }
+
+    .lever-card h4 {
+      margin: 0 0 3px;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .lever-tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 6px;
+      border-radius: 999px;
+      font-size: 12px;
+      color: var(--text-muted);
+      background: rgba(15, 23, 42, 0.03);
+      border: 1px solid rgba(148, 163, 184, 0.45);
+    }
+
+    .journey-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .journey-card {
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(255, 255, 255, 0.98);
+      padding: 10px 12px;
+      font-size: 15px;
+      display: grid;
+      grid-template-columns: minmax(0, 2.2fr) minmax(0, 1.3fr);
+      gap: 8px;
+    }
+
+    @media (max-width: 840px) {
+      .journey-card {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .journey-card h4 {
+      margin: 0 0 2px;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .journey-meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 2px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .journey-meta-pill {
+      border-radius: 999px;
+      padding: 3px 8px;
+      background: rgba(15, 23, 42, 0.03);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+    }
+
+    .journey-stats {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .journey-cta {
+      margin-top: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
+      color: var(--primary-strong);
+      cursor: pointer;
+    }
+
+    .journey-cta span.arrow {
+      font-size: 15px;
+    }
+
+    .small-button {
+      border-radius: 999px;
+      border: none;
+      padding: 5px 10px;
+      font-size: 13px;
+      cursor: pointer;
+      background: var(--primary);
+      color: white;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 10px 24px rgba(37, 99, 235, 0.3);
+    }
+
+    .small-button.secondary {
+      background: white;
+      color: #020617;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      box-shadow: none;
+    }
+
+    .modules-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 8px;
+    }
+
+    .module-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 10px;
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(255, 255, 255, 0.96);
+      font-size: 15px;
+    }
+
+    .module-name {
+      font-weight: 550;
+    }
+
+    .module-meta {
+      font-size: 13px;
+      color: var(--text-muted);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tag {
+      border-radius: 999px;
+      padding: 2px 7px;
+      font-size: 12px;
+      background: rgba(15, 23, 42, 0.03);
+      border: 1px solid rgba(148, 163, 184, 0.45);
+    }
+
+    .evidence-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      margin-top: 6px;
+    }
+
+    .evidence-table th,
+    .evidence-table td {
+      padding: 7px 8px;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.35);
+      text-align: left;
+    }
+
+    .evidence-table th {
+      font-weight: 600;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .consensus-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 10px;
+      margin-top: 6px;
+      font-size: 14px;
+    }
+
+    @media (max-width: 840px) {
+      .consensus-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .consensus-col {
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(255, 255, 255, 0.97);
+      padding: 8px 10px;
+    }
+
+    .consensus-col h4 {
+      margin: 0 0 4px;
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .consensus-col ul {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    .story-card {
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(255, 255, 255, 0.98);
+      padding: 10px 12px;
+      font-size: 15px;
+    }
+
+    .story-card h4 {
+      margin: 0 0 4px;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .story-meta {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .faq-item {
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: rgba(255, 255, 255, 0.96);
+      padding: 8px 10px;
+      margin-bottom: 6px;
+      font-size: 15px;
+    }
+
+    .faq-q {
+      font-weight: 600;
+      margin-bottom: 3px;
+    }
+
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    @media (max-width: 780px) {
+      .related-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .related-card {
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(255, 255, 255, 0.98);
+      padding: 8px 10px;
+      font-size: 15px;
+    }
+
+    .related-card h4 {
+      margin: 0 0 3px;
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    /* Coach mode side panel */
+
+    .coach-panel {
+      position: sticky;
+      top: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .coach-header {
+      font-size: 18px;
+      font-weight: 650;
+      letter-spacing: -0.03em;
+      margin-bottom: 4px;
+    }
+
+    .coach-sub {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .coach-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .coach-client-chip {
+      border-radius: 14px;
+      padding: 7px 9px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.02);
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .coach-client-chip.active {
+      background: rgba(37, 99, 235, 0.09);
+      border-color: rgba(37, 99, 235, 0.8);
+    }
+
+    .coach-client-main {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+
+    .coach-client-name {
+      font-weight: 600;
+    }
+
+    .coach-client-meta {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .coach-tag {
+      font-size: 11px;
+      padding: 2px 6px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.06);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+    }
+
+    .baseline-mini {
+      border-radius: 16px;
+      border: 1px dashed rgba(148, 163, 184, 0.9);
+      background: rgba(255, 255, 255, 0.96);
+      padding: 8px 9px;
+      font-size: 13px;
+    }
+
+    .baseline-mini strong {
+      font-weight: 600;
+    }
+
+    .coach-note {
+      font-size: 13px;
+      color: var(--text-muted);
+      border-radius: 14px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(15, 23, 42, 0.01);
+      padding: 8px 9px;
+    }
+
+    footer {
+      margin-top: 40px;
+      font-size: 13px;
+      color: var(--text-muted);
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="brand">
+        <div class="brand-title">
+          <span class="dot"></span>
+          <span>LifeHub</span>
+        </div>
+        <div class="brand-sub">
+          Topic demo • Personalized from your LifeMap
+        </div>
+        <div class="top-meta">
+          <span class="pill"><span class="pill-dot"></span>Topic • People Pleaser</span>
+          <span class="pill">Updated 5 days ago</span>
+          <span class="pill">187 journeys • early access view</span>
+        </div>
+      </div>
+      <div style="display:flex; flex-direction:column; align-items:flex-end; gap:10px;">
+        <div class="view-toggle">
+          <button class="active" id="viewDefault">
+            <span>🌐</span> Default view
+          </button>
+          <button id="viewUser">
+            <span>👤</span> User view
+          </button>
+          <button id="viewCoach">
+            <span>🧑‍🏫</span> Coach mode
+          </button>
+        </div>
+        <div class="text-sm" style="max-width:320px; text-align:right;">
+          Switch views to see this topic as a generic page, personalized from a LifeMap, or through a coach’s lens.
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- LEFT COLUMN: TOPIC VIEW -->
+      <div id="userColumn">
+        <section class="panel">
+          <div class="panel-header">
+            <div>
+              <h1 class="topic-title">People Pleaser</h1>
+              <div class="topic-subtitle">
+                A topic page for chronic “yes”-sayers, overfunctioners, and conflict-avoiders — with or without a LifeMap.
+              </div>
+            </div>
+            <div>
+              <span class="badge">LifeMap-aware</span>
+            </div>
+          </div>
+
+          <div class="chips">
+            <span class="chip">🧠 Goal: Kind <em>and</em> honest, not exhausted</span>
+            <span class="chip">⏱ Typical journey: 21–90 days</span>
+            <span class="chip">💬 Avg “no” success: +3–5 healthy boundaries/month*</span>
+          </div>
+
+          <div class="section" style="margin-top:18px;">
+            <div class="section-header">
+              <div>
+                <div class="section-title">TL;DR for this topic</div>
+                <div class="section-subtitle">
+                  The short version of what tends to help people-pleasers the most.
+                </div>
+              </div>
+            </div>
+            <p style="margin:4px 0 4px;">
+              People-pleasing usually isn’t about being “too nice” — it’s about
+              <strong>fear, guilt, and old patterns</strong> running the show.
+              The big levers: noticing your auto-yes moments, tolerating small doses of discomfort,
+              practicing simple boundary scripts, and seeing that the world doesn’t end when
+              you disappoint someone <em>a little</em>.
+            </p>
+            <div class="metric-row">
+              <div class="metric-pill">
+                <strong>187</strong> journeys logged on this topic
+              </div>
+              <div class="metric-pill">
+                <strong>~75%</strong> report clearer boundaries after 60 days
+              </div>
+              <div class="metric-pill">
+                <strong>Top levers:</strong> scripts, nervous system, self-story, environment
+              </div>
+            </div>
+          </div>
+
+          <!-- BASELINE CARDS -->
+          <div class="section" style="margin-top:20px;">
+            <div class="section-header">
+              <div>
+                <div class="section-title">Baseline for this topic</div>
+                <div class="section-subtitle">
+                  Default view shows generic info. User view personalizes this from a LifeMap.
+                </div>
+              </div>
+            </div>
+
+            <!-- Default baseline (no LifeMap) -->
+            <div class="baseline-card" id="baselineDefault">
+              <div class="baseline-grid">
+                <div>
+                  <div class="baseline-main-title">
+                    <span>Where most people fit</span>
+                  </div>
+                  <p style="margin:6px 0 8px; font-size:15px;">
+                    Without a LifeMap, we treat you as a “generic” people-pleaser:
+                    someone who often says yes when they mean no, worries about others’ reactions,
+                    and feels resentful or exhausted later.
+                  </p>
+                  <p style="margin:6px 0 8px; font-size:15px;">
+                    You’ll still see common patterns (work, family, friendships),
+                    but the page won’t guess your specific triggers or history until we know more about your life.
+                  </p>
+                  <div class="text-sm">
+                    Connect or create a LifeMap to tune this to your real context:
+                    work role, relationship dynamics, nervous-system patterns, and past journeys.
+                  </div>
+                </div>
+                <div>
+                  <div style="font-size:15px; font-weight:600; margin-bottom:4px;">
+                    Generic starting levers
+                  </div>
+                  <ul class="lever-list">
+                    <li>
+                      <span class="rank">1</span>
+                      <span><strong>Pause before yes</strong> – create a reflex of “let me check and get back to you”.</span>
+                    </li>
+                    <li>
+                      <span class="rank">2</span>
+                      <span><strong>Simple boundary scripts</strong> – a few ready-made lines you can lean on.</span>
+                    </li>
+                    <li>
+                      <span class="rank">3</span>
+                      <span><strong>De-shaming the “no”</strong> – reframing boundaries as care for both sides, not selfishness.</span>
+                    </li>
+                  </ul>
+                  <div style="margin-top:10px;">
+                    <div style="font-size:15px; font-weight:600; margin-bottom:3px;">
+                      Generic starting journeys
+                    </div>
+                    <div class="journeys-list">
+                      <div class="journey-pill">
+                        <span class="label">7-Day Boundary Awareness</span>
+                        <span class="meta">Notice patterns • zero pressure</span>
+                      </div>
+                      <div class="journey-pill">
+                        <span class="label">21-Day Tiny Boundaries</span>
+                        <span class="meta">Small “no” reps in low-stakes places</span>
+                      </div>
+                    </div>
+                    <div class="text-sm" style="margin-top:6px;">
+                      In Default view, these are designed for “average” visitors. User view swaps these for journeys
+                      tuned to a specific LifeMap.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Personalized baseline (LifeMap-based) -->
+            <div class="baseline-card" id="baselineUser" style="display:none;">
+              <div class="baseline-grid">
+                <div>
+                  <div class="baseline-main-title">
+                    <span>Where you fit</span>
+                  </div>
+                  <div style="display:flex; flex-wrap:wrap; gap:6px; margin-bottom:4px;">
+                    <span class="band-tag">
+                      <span>🧯</span> Band: High impact / Burnout risk
+                    </span>
+                    <span class="archetype-tag">
+                      <span>🧩</span> Archetype: Over-responsible fixer
+                    </span>
+                  </div>
+                  <p style="margin:6px 0 8px; font-size:15px;">
+                    Based on your LifeMap, you’re the one everyone leans on —
+                    at work, in family, and in crisis. You say yes to avoid guilt, conflict,
+                    or being seen as “selfish”. You feel responsible for others’ feelings,
+                    often at the cost of your own energy and health.
+                  </p>
+                  <div class="text-sm">
+                    Baseline built from: your LifeMap (relationships, work, stress),
+                    self-talk patterns, and past journeys in burnout, boundaries, and conflict.
+                  </div>
+                </div>
+                <div>
+                  <div style="font-size:15px; font-weight:600; margin-bottom:4px;">
+                    Top 3 levers for <em>you</em>
+                  </div>
+                  <ul class="lever-list">
+                    <li>
+                      <span class="rank">1</span>
+                      <span><strong>Workload at home + work</strong> – chronic overfunctioning and rescuing others.</span>
+                    </li>
+                    <li>
+                      <span class="rank">2</span>
+                      <span><strong>Guilt & self-story</strong> – “I’m a bad person if I let people down.”</span>
+                    </li>
+                    <li>
+                      <span class="rank">3</span>
+                      <span><strong>Nervous system</strong> – anxiety spike when you imagine conflict or disapproval.</span>
+                    </li>
+                  </ul>
+
+                  <div style="margin-top:10px;">
+                    <div style="font-size:15px; font-weight:600; margin-bottom:3px;">
+                      Suggested starting journeys
+                    </div>
+                    <div class="journeys-list">
+                      <div class="journey-pill">
+                        <span class="label">14-Day “Pause Before Yes”</span>
+                        <span class="meta">Micro pauses • nervous system first</span>
+                      </div>
+                      <div class="journey-pill">
+                        <span class="label">30-Day Boundaries Lite</span>
+                        <span class="meta">Scripted “no” in 2–3 key areas</span>
+                      </div>
+                    </div>
+                    <div class="text-sm" style="margin-top:6px;">
+                      These are <strong>options</strong>, not orders. You can always customize or build your own.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- POSITIONS -->
+          <div class="section">
+            <div class="section-header">
+              <div>
+                <div class="section-title">Different ways people approach people-pleasing</div>
+                <div class="section-subtitle">
+                  These are the main “positions” people take. LifeHub doesn’t force one on you — we show trade-offs.
+                </div>
+              </div>
+              <div class="pill-tabs">
+                <button class="active">Plain view</button>
+                <button>Depth & evidence</button>
+              </div>
+            </div>
+
+            <div class="positions-grid">
+              <div class="position-card">
+                <div class="position-card-header">
+                  <div class="position-name">Boundaries-first</div>
+                  <div class="confidence-chip">Strong skills focus</div>
+                </div>
+                <div class="panel-subtitle">
+                  Practice saying no, setting limits, and making clear requests, even before unpacking deeper history.
+                </div>
+                <div class="position-meta">
+                  <span>✅ Fast, visible change</span>
+                  <span>⚠️ Can feel harsh or scary at first</span>
+                  <span>🎯 Best for: ready for reps, wants tools now</span>
+                </div>
+              </div>
+
+              <div class="position-card">
+                <div class="position-card-header">
+                  <div class="position-name">Insight-first</div>
+                  <div class="confidence-chip">Deeper roots</div>
+                </div>
+                <div class="panel-subtitle">
+                  Explore where patterns came from (family, culture, trauma) to soften shame and build self-compassion.
+                </div>
+                <div class="position-meta">
+                  <span>✅ Reduces self-blame</span>
+                  <span>⚠️ Can stay in “understanding” without action</span>
+                  <span>🎯 Best for: reflective types, therapy-friendly</span>
+                </div>
+              </div>
+
+              <div class="position-card">
+                <div class="position-card-header">
+                  <div class="position-name">Nervous-system-first</div>
+                  <div class="confidence-chip">Regulation focus</div>
+                </div>
+                <div class="panel-subtitle">
+                  Work with the body’s stress response so “no” feels survivable, not like a threat.
+                </div>
+                <div class="position-meta">
+                  <span>✅ Powerful when anxiety is high</span>
+                  <span>⚠️ Less concrete if you only want scripts</span>
+                  <span>🎯 Best for: high anxiety, shutdown, or fawn responses</span>
+                </div>
+              </div>
+
+              <div class="position-card">
+                <div class="position-card-header">
+                  <div class="position-name">Environment-first</div>
+                  <div class="confidence-chip">Context-aware</div>
+                </div>
+                <div class="panel-subtitle">
+                  Adjust the environment (roles, expectations, relationships) so people-pleasing isn’t your only survival strategy.
+                </div>
+                <div class="position-meta">
+                  <span>✅ Addresses real constraints</span>
+                  <span>⚠️ Might be slow or disruptive (job, relationship changes)</span>
+                  <span>🎯 Best for: chronic overwork, lopsided relationships</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- LEVERS -->
+          <div class="section">
+            <div class="section-header">
+              <div>
+                <div class="section-title">Top levers: in general vs personalized</div>
+                <div class="section-subtitle">
+                  The big “knobs” that most affect this topic, and how a LifeMap can reorder them.
+                </div>
+              </div>
+            </div>
+
+            <div class="lever-columns">
+              <div class="lever-card">
+                <h4>For most people on this topic</h4>
+                <div class="panel-subtitle">
+                  These are the most important levers on average across all journeys.
+                </div>
+                <ul class="lever-list">
+                  <li><span class="rank">1</span><span><strong>Auto-yes moments</strong> (who/where is it hardest to say no?).</span></li>
+                  <li><span class="rank">2</span><span><strong>Internal rules</strong> (“I must never upset people.”).</span></li>
+                  <li><span class="rank">3</span><span><strong>Body signals</strong> (tight chest, dread, shutdown when you consider saying no).</span></li>
+                  <li><span class="rank">4</span><span><strong>Environment</strong> (demanding boss, needy family, culture around conflict).</span></li>
+                  <li><span class="rank">5</span><span><strong>Support</strong> (anyone who backs your boundaries or models them?).</span></li>
+                </ul>
+              </div>
+              <div class="lever-card">
+                <h4>Personalized column</h4>
+                <span class="lever-tag">Switch views to see this change</span>
+
+                <!-- Default (no LifeMap) -->
+                <div id="leverPersonalDefault">
+                  <p style="margin:6px 0 4px; font-size:15px;">
+                    In Default view, we can’t see your LifeMap yet. This column stays generic and simply reminds you that,
+                    once connected, LifeHub will <strong>reorder these levers</strong> based on your relationships,
+                    work context, stress, and history.
+                  </p>
+                  <p class="text-sm">
+                    Example: for someone in a high-demand caregiving role, we might emphasize micro-boundaries and nervous-system work
+                    over “burn it all down and say no to everyone”.
+                  </p>
+                </div>
+
+                <!-- User view (LifeMap-based) -->
+                <div id="leverPersonalUser" style="display:none;">
+                  <p style="margin:6px 0 4px; font-size:15px;">
+                    Your people-pleasing is heavily tied to <strong>responsibility and fear of conflict</strong>.
+                    So we prioritize levers that protect your energy while keeping relationships intact.
+                  </p>
+                  <ul class="lever-list">
+                    <li><span class="rank">1</span><span><strong>“Pause, then respond” rule</strong> with boss, partner, and kids — no instant yes.</span></li>
+                    <li><span class="rank">2</span><span><strong>Two boundary scripts</strong> you can use this month (“I wish I could, but I’m at capacity.”).</span></li>
+                    <li><span class="rank">3</span><span><strong>One “safe person”</strong> to practice honest no and small confrontations with.</span></li>
+                    <li><span class="rank">4</span><span><strong>Somatic calming</strong> before and after boundary conversations (breathing, grounding, shaking out tension).</span></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- JOURNEYS -->
+          <div class="section">
+            <div class="section-header">
+              <div>
+                <div class="section-title">Journeys: default vs personalized</div>
+                <div class="section-subtitle">
+                  Default view shows generic journeys. User view swaps in journeys tuned to a LifeMap.
+                </div>
+              </div>
+              <div class="pill-tabs">
+                <button class="active">For you / default</button>
+                <button>Most popular</button>
+                <button>Gentle</button>
+                <button>Deeper work</button>
+              </div>
+            </div>
+
+            <!-- Default journeys -->
+            <div class="journey-grid" id="journeysDefault">
+              <div class="journey-card">
+                <div>
+                  <h4>7-Day Boundary Awareness</h4>
+                  <div class="journey-meta-row">
+                    <span class="journey-meta-pill">🧪 Experiment</span>
+                    <span class="journey-meta-pill">7 days</span>
+                    <span class="journey-meta-pill">~10–15 min/day</span>
+                  </div>
+                  <p style="margin:6px 0 4px;">
+                    A gentle starter: simply track when you say yes vs what you actually wanted,
+                    and notice where guilt or fear feels strongest — no pressure to change yet.
+                  </p>
+                  <div class="journey-cta">
+                    <span class="arrow">→</span>
+                    <span>Preview what this includes</span>
+                  </div>
+                </div>
+                <div class="journey-stats">
+                  <div><strong>Modules:</strong> Yes/No Log • Emotion Check-In • “What I Wanted” Reflection</div>
+                  <div style="margin-top:4px;">
+                    <strong>Good for:</strong><br />
+                    • People who feel numb or confused about their needs<br />
+                    • Anyone scared to “rock the boat” yet
+                  </div>
+                </div>
+              </div>
+
+              <div class="journey-card">
+                <div>
+                  <h4>21-Day Tiny Boundaries</h4>
+                  <div class="journey-meta-row">
+                    <span class="journey-meta-pill">🌱 Foundation</span>
+                    <span class="journey-meta-pill">21 days</span>
+                    <span class="journey-meta-pill">~15–20 min/day</span>
+                  </div>
+                  <p style="margin:6px 0 4px;">
+                    A generic, “good for many” plan focused on saying small no’s in low-stakes situations
+                    to build trust that you can survive awkwardness.
+                  </p>
+                  <div class="journey-cta">
+                    <span class="arrow">→</span>
+                    <span>View weekly structure</span>
+                  </div>
+                </div>
+                <div class="journey-stats">
+                  <div><strong>Modules:</strong> One Tiny No/Day • Post-Conversation Debrief • Self-Compassion Notes</div>
+                  <div style="margin-top:4px;">
+                    <strong>Good for:</strong><br />
+                    • People new to boundaries<br />
+                    • Anyone who fears being “mean” or “difficult”
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Personalized journeys -->
+            <div class="journey-grid" id="journeysUser" style="display:none;">
+              <div class="journey-card">
+                <div>
+                  <h4>14-Day “Pause Before Yes”</h4>
+                  <div class="journey-meta-row">
+                    <span class="journey-meta-pill">🧪 Experiment</span>
+                    <span class="journey-meta-pill">14 days</span>
+                    <span class="journey-meta-pill">~10–15 min/day</span>
+                  </div>
+                  <p style="margin:6px 0 4px;">
+                    A two-week experiment to break the instant “yes” habit with a simple rule:
+                    you always pause, regulate, and check your capacity before replying.
+                  </p>
+                  <div class="journey-cta">
+                    <span class="arrow">→</span>
+                    <span>See if this fits my life</span>
+                  </div>
+                </div>
+                <div class="journey-stats">
+                  <div><strong>Modules:</strong> Pause Rule • Capacity Check • Simple Reply Template</div>
+                  <div style="margin-top:4px;">
+                    <strong>Results from similar LifeMaps:</strong><br />
+                    • ~68% report fewer “regret yes’s” after 2 weeks<br />
+                    • Less dread when messages or asks come in
+                  </div>
+                </div>
+              </div>
+
+              <div class="journey-card">
+                <div>
+                  <h4>30-Day Boundaries Lite (Work + Home)</h4>
+                  <div class="journey-meta-row">
+                    <span class="journey-meta-pill">💬 Boundaries focus</span>
+                    <span class="journey-meta-pill">30 days</span>
+                    <span class="journey-meta-pill">~20–30 min/day</span>
+                  </div>
+                  <p style="margin:6px 0 4px;">
+                    A realistic plan to practice two specific boundaries: one at work, one at home.
+                    Focused on scripts, nervous-system support, and debriefing, not perfection.
+                  </p>
+                  <div class="journey-cta">
+                    <span class="arrow">→</span>
+                    <span>Preview weekly rhythm</span>
+                  </div>
+                </div>
+                <div class="journey-stats">
+                  <div><strong>Modules:</strong> Work Boundary Script • Home Boundary Script • Regulate + Debrief • Self-Respect Log</div>
+                  <div style="margin-top:4px;">
+                    <strong>Results from similar LifeMaps:</strong><br />
+                    • More honest conversations in 2–4 weeks<br />
+                    • Reported: less resentment, more clarity
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div style="margin-top:10px;">
+              <button class="small-button">
+                🧩 Build my own journey
+              </button>
+              <button class="small-button secondary" style="margin-left:6px;">
+                ✏️ Start from a template
+              </button>
+            </div>
+          </div>
+
+          <!-- MODULES -->
+          <div class="section">
+            <div class="section-header">
+              <div>
+                <div class="section-title">Modules: building blocks you can mix & match</div>
+                <div class="section-subtitle">
+                  Each module is a small, concrete behavior or experiment you can plug into any journey.
+                </div>
+              </div>
+            </div>
+
+            <div class="modules-grid">
+              <div class="module-row">
+                <div>
+                  <div class="module-name">Pause Rule</div>
+                  <div class="module-meta">
+                    <span class="tag">Behavior • Daily</span>
+                    <span class="tag">High payoff for you*</span>
+                  </div>
+                  <div class="text-sm" style="margin-top:3px;">
+                    Before agreeing to anything, send a neutral holding response (“Let me check and get back to you.”).
+                    Decide later, not in the anxiety spike.
+                  </div>
+                </div>
+                <div class="text-sm">
+                  Used in <strong>104</strong> journeys<br />
+                  Reduced regret yes’s in <strong>~70%</strong> of similar LifeMaps
+                </div>
+              </div>
+
+              <div class="module-row">
+                <div>
+                  <div class="module-name">Boundary Scripts (Work)</div>
+                  <div class="module-meta">
+                    <span class="tag">Skills • 2–3 scripts</span>
+                    <span class="tag">Work</span>
+                  </div>
+                  <div class="text-sm" style="margin-top:3px;">
+                    Choose 2–3 ready-made phrases you can use at work for requests, deadlines, and extra tasks.
+                  </div>
+                </div>
+                <div class="text-sm">
+                  Used in <strong>77</strong> journeys<br />
+                  Frequently cited as “life-saving” in burnout stories
+                </div>
+              </div>
+
+              <div class="module-row">
+                <div>
+                  <div class="module-name">Regulate Before/After</div>
+                  <div class="module-meta">
+                    <span class="tag">Nervous system • 5–10 min</span>
+                    <span class="tag">Anxiety</span>
+                  </div>
+                  <div class="text-sm" style="margin-top:3px;">
+                    Simple breathing and grounding before and after boundary conversations to prevent shut down or spiraling afterward.
+                  </div>
+                </div>
+                <div class="text-sm">
+                  Used in <strong>61</strong> journeys<br />
+                  Strong spillover into sleep and self-talk
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- EVIDENCE & CONSENSUS -->
+          <div class="section">
+            <div class="section-header">
+              <div>
+                <div class="section-title">Evidence & what’s debated</div>
+                <div class="section-subtitle">
+                  A quick sense of what’s solid, what’s still debated, and how that shapes this topic.
+                </div>
+              </div>
+              <span class="badge">Nerd lane available</span>
+            </div>
+
+            <div class="consensus-grid">
+              <div class="consensus-col">
+                <h4>What’s broadly agreed on</h4>
+                <ul>
+                  <li>Patterns like people-pleasing often start as survival strategies (family, culture, trauma).</li>
+                  <li>Skills like assertive communication and boundary-setting can be learned and practiced like any other skill.</li>
+                  <li>Self-compassion and reframing “no” as healthy tend to reduce shame and burnout.</li>
+                  <li>Working with nervous-system activation helps make new behavior feel possible under stress.</li>
+                </ul>
+              </div>
+              <div class="consensus-col">
+                <h4>Where experts still debate</h4>
+                <ul>
+                  <li>How much to focus on behavior vs deep insight vs trauma work, and in what order.</li>
+                  <li>Which therapeutic approaches (CBT, schema therapy, IFS, somatic work) are most effective for whom.</li>
+                  <li>How much culture and systemic pressures can/should be changed vs adapted to.</li>
+                  <li>How to best measure “healthy boundaries” in research and practice.</li>
+                </ul>
+              </div>
+            </div>
+
+            <table class="evidence-table">
+              <thead>
+                <tr>
+                  <th>Summary</th>
+                  <th>Type</th>
+                  <th>Context</th>
+                  <th>Trust</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Assertiveness and communication training improves boundary-setting and reduces distress for many people.</td>
+                  <td>Clinical trials, programs</td>
+                  <td>CBT, skills training</td>
+                  <td>Moderate–High</td>
+                </tr>
+                <tr>
+                  <td>Self-compassion practices linked to lower shame, better emotion regulation, and less burnout.</td>
+                  <td>Correlational & intervention studies</td>
+                  <td>Mental health, caregiving, workplace</td>
+                  <td>Moderate–High</td>
+                </tr>
+                <tr>
+                  <td>Somatic and trauma-informed approaches help some people shift “fawn” patterns and tolerate healthy conflict.</td>
+                  <td>Emerging clinical work</td>
+                  <td>Trauma & nervous-system models</td>
+                  <td>Moderate (still evolving)</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="text-sm" style="margin-top:4px;">
+              You can open the “For nerds & pros” lane on this topic to see more detailed references, tools, and protocols.
+            </div>
+          </div>
+
+          <!-- STORIES -->
+          <div class="section">
+            <div class="section-header">
+              <div>
+                <div class="section-title">Stories from people like you</div>
+                <div class="section-subtitle">
+                  Anonymized examples of how similar LifeMaps moved through this topic.
+                </div>
+              </div>
+            </div>
+
+            <div class="story-card">
+              <h4>“I didn’t turn into a jerk. I turned into a person.”</h4>
+              <div class="story-meta">
+                Laila, 34 • team lead • recovering over-functioner
+              </div>
+              <p style="margin:4px 0 4px;">
+                Laila started with a 7-Day Boundary Awareness journey and realized she was doing parts of 3 different jobs,
+                plus being the emotional glue for her family. Over 2 months, she practiced the Pause Rule,
+                used scripts with her manager and sibling, and did small nervous-system exercises before tough conversations.
+                She didn’t stop caring — she stopped carrying <em>everything</em>.
+              </p>
+              <div class="text-sm">
+                Key levers: one work boundary, one family boundary, consistent self-compassion and nervous-system work.
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ & RELATED -->
+          <div class="section">
+            <div class="section-header">
+              <div>
+                <div class="section-title">FAQ & related topics</div>
+                <div class="section-subtitle">
+                  Questions people actually ask, and nearby topics that usually matter.
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-q">Isn’t it selfish to stop people-pleasing?</div>
+              <div>
+                Healthy boundaries usually make relationships <strong>more</strong> honest and sustainable, not less.
+                The goal isn’t to become cold or uncaring — it’s to stop betraying yourself to keep the peace.
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-q">What if people get angry or leave?</div>
+              <div>
+                Some relationships will push back when you change the rules. That’s uncomfortable and sometimes sad,
+                but it’s also clarifying. Journeys on this topic include support for grief, repair, and choosing where
+                to invest your energy.
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-q">Do I need therapy for this?</div>
+              <div>
+                Therapy can be incredibly helpful, especially if people-pleasing is tied to trauma or very high anxiety.
+                LifeHub doesn’t replace therapy, but it can complement it, or give you a structured place to start if therapy
+                isn’t accessible right now.
+              </div>
+            </div>
+
+            <div class="section" style="margin-top:14px;">
+              <div class="section-title">Related topics that often matter here</div>
+              <div class="section-subtitle">
+                These topics often shape how easy or hard this feels.
+              </div>
+              <div class="related-grid">
+                <div class="related-card">
+                  <h4>Stress & Burnout</h4>
+                  <div class="text-sm">
+                    Chronic over-giving without rest leads to burnout. This topic pairs closely with boundaries work.
+                  </div>
+                </div>
+                <div class="related-card">
+                  <h4>Relationships & Attachment</h4>
+                  <div class="text-sm">
+                    Attachment patterns and relationship history often drive people-pleasing, especially fear of abandonment.
+                  </div>
+                </div>
+                <div class="related-card">
+                  <h4>Self-Worth & Identity</h4>
+                  <div class="text-sm">
+                    When your worth is tied to being “useful” or “easy”, boundaries feel threatening. This topic digs into that story.
+                  </div>
+                </div>
+                <div class="related-card">
+                  <h4>Nervous System & Anxiety</h4>
+                  <div class="text-sm">
+                    If your body screams “danger” at the thought of saying no, nervous-system support is a key lever.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="section" style="margin-top:14px;">
+              <div class="section-title">Safety / When to get extra support</div>
+              <div class="section-subtitle">
+                When this goes beyond everyday people-pleasing.
+              </div>
+              <div class="faq-item" style="border-color: rgba(248,113,113,0.9); background: rgba(254,242,242,0.9);">
+                <div class="faq-q" style="color:#b91c1c;">If boundaries feel physically unsafe or trigger intense reactions</div>
+                <div>
+                  If saying no or disappointing someone carries a risk of violence, serious retaliation,
+                  or intense emotional flashbacks, you may need more specialized support (therapy, crisis resources,
+                  advocacy services). LifeHub can help you plan tiny steps, but your safety comes first.
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- RIGHT COLUMN: COACH MODE + LIFEMAP SNAPSHOT -->
+      <aside class="coach-panel" id="coachColumn">
+        <div class="panel">
+          <div class="coach-header">Coach mode snapshot</div>
+          <div class="coach-sub">
+            See how this topic looks through different LifeMaps. Click a profile to compare baselines and levers.
+          </div>
+
+          <div class="coach-list">
+            <div class="coach-client-chip active" data-client="anna">
+              <div class="coach-client-main">
+                <div class="coach-client-name">Anna • 39</div>
+                <div class="coach-client-meta">Caregiver & manager • chronic over-giver</div>
+              </div>
+              <span class="coach-tag">Burnout risk • Family load</span>
+            </div>
+            <div class="coach-client-chip" data-client="ben">
+              <div class="coach-client-main">
+                <div class="coach-client-name">Ben • 33</div>
+                <div class="coach-client-meta">High performer • can’t disappoint boss</div>
+              </div>
+              <span class="coach-tag">Work-centric • Perfectionist</span>
+            </div>
+            <div class="coach-client-chip" data-client="carmen">
+              <div class="coach-client-main">
+                <div class="coach-client-name">Carmen • 58</div>
+                <div class="coach-client-meta">Peacemaker • avoids all conflict</div>
+              </div>
+              <span class="coach-tag">Conflict-avoidant • Low self-worth</span>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="section-title" style="font-size:16px;">Baseline contrasts for this topic</div>
+            <div id="coachBaselines">
+              <div class="baseline-mini" data-client-baseline="anna">
+                <strong>Anna:</strong> High impact band • Over-responsible fixer<br />
+                Top levers: pause rule at work & home, reducing invisible labor, nervous-system aftercare.<br />
+                Best journeys: 14-Day Pause → 30-Day Boundaries Lite. Avoid “change everything at once” plans.
+              </div>
+              <div class="baseline-mini" data-client-baseline="ben" style="display:none;">
+                <strong>Ben:</strong> Moderate–High band • Performance-driven<br />
+                Top levers: expectations with boss, redefining “good employee”, one clear “no” project.<br />
+                Best journeys: work boundary scripts, nervous-system tools, identity reframing work.
+              </div>
+              <div class="baseline-mini" data-client-baseline="carmen" style="display:none;">
+                <strong>Carmen:</strong> Moderate band • Peacekeeper<br />
+                Top levers: tiny honest statements, safe-person practice, self-worth work.<br />
+                Best journeys: very gentle “truth-telling” experiments, support with grief and old patterns.
+              </div>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="section-title" style="font-size:16px;">Coach-only notes & tools</div>
+            <div class="coach-note" id="coachNote">
+              <strong>Anna coaching angle:</strong><br />
+              Validate how much she carries. Start by reducing invisible labor and practicing the Pause Rule,
+              not by pushing big confrontations. Track mini wins (times she checked her capacity first) and
+              normalize guilt as “growing pains”, not proof she’s wrong.
+            </div>
+          </div>
+
+          <div class="section">
+            <button class="small-button" style="width:100%; justify-content:center; font-size:14px;">
+              🧠 Open full Coach Console for this topic
+            </button>
+          </div>
+        </div>
+
+        <!-- LIFEMAP SNAPSHOT PANEL -->
+        <div class="panel">
+          <div class="coach-header">LifeMap snapshot</div>
+          <div class="coach-sub">
+            This card shows a compact LifeMap view. In Default view it’s generic, in User view it’s “you”, and in Coach mode it follows the selected profile.
+          </div>
+          <div class="coach-note" id="lifeMapSnapshot">
+            <strong>Default view (no LifeMap loaded):</strong><br />
+            • Domains: relationships, work, self-worth, nervous system – no specific data yet.<br />
+            • Traits: not assessed; we assume a mix of caring + conflict sensitivity.<br />
+            • Constraints: unknown family load, job demands, or history.<br /><br />
+            Connect or create a LifeMap to see concrete patterns, roles, and sensitivities populate here, and watch the topic page reconfigure itself.
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <footer>
+      * Demo numbers are placeholders for design purposes only.<br />
+      LifeHub Topic Demo • People Pleaser • 2025
+    </footer>
+  </div>
+
+  <script>
+    // View toggling + LifeMap snapshot + coach profile swapping
+
+    const viewDefaultBtn = document.getElementById("viewDefault");
+    const viewUserBtn = document.getElementById("viewUser");
+    const viewCoachBtn = document.getElementById("viewCoach");
+    const userColumn = document.getElementById("userColumn");
+    const coachColumn = document.getElementById("coachColumn");
+
+    const baselineDefault = document.getElementById("baselineDefault");
+    const baselineUser = document.getElementById("baselineUser");
+    const leverPersonalDefault = document.getElementById("leverPersonalDefault");
+    const leverPersonalUser = document.getElementById("leverPersonalUser");
+    const journeysDefault = document.getElementById("journeysDefault");
+    const journeysUser = document.getElementById("journeysUser");
+    const lifeMapSnapshot = document.getElementById("lifeMapSnapshot");
+
+    const clientChips = document.querySelectorAll(".coach-client-chip");
+    const baselineBlocks = document.querySelectorAll("[data-client-baseline]");
+    const coachNote = document.getElementById("coachNote");
+
+    let currentView = "default";
+
+    const notesByClient = {
+      anna:
+        "<strong>Anna coaching angle:</strong><br />" +
+        "Validate how much she carries. Start by reducing invisible labor and practicing the Pause Rule, " +
+        "not by pushing big confrontations. Track mini wins (times she checked her capacity first) and " +
+        "normalize guilt as “growing pains”, not proof she’s wrong.",
+      ben:
+        "<strong>Ben coaching angle:</strong><br />" +
+        "Explore the belief that being a “good employee” means never disappointing anyone. " +
+        "Help him negotiate expectations with his boss, practice one visible boundary, and " +
+        "use data (energy, performance, stress) to show that boundaries support, not threaten, his success.",
+      carmen:
+        "<strong>Carmen coaching angle:</strong><br />" +
+        "Go very slowly. Focus on micro-honesty (“I’m a bit tired right now”) rather than big confrontations. " +
+        "Include work on self-worth and old stories about conflict. Expect grief as she experiments with small changes."
+    };
+
+    const lifeMapTemplates = {
+      default:
+        "<strong>Default view (no LifeMap loaded):</strong><br />" +
+        "• Domains: relationships, work, self-worth, nervous system – no specific data yet.<br />" +
+        "• Traits: not assessed; we assume a mix of caring + conflict sensitivity.<br />" +
+        "• Constraints: unknown family load, job demands, or history.<br /><br />" +
+        "Connect or create a LifeMap to see concrete patterns, roles, and sensitivities populate here, and watch the topic page reconfigure itself.",
+      anna:
+        "<strong>Anna • LifeMap snapshot</strong><br />" +
+        "• Domains: relationships = strong but lopsided; work = manager plus unofficial emotional support for team.<br />" +
+        "• Traits: high empathy, high responsibility, struggles to rest when others need something.<br />" +
+        "• Constraints: kids, aging parent, demanding job, limited downtime.<br />" +
+        "• History: repeated burnout cycles; difficulty saying no to “urgent” asks from others.<br />" +
+        "• Implication for this topic: focus on micro-boundaries, invisible labor reduction, and nervous-system support before big conversations.",
+      ben:
+        "<strong>Ben • LifeMap snapshot</strong><br />" +
+        "• Domains: work = central identity; relationships = okay but take second place to performance.<br />" +
+        "• Traits: high achiever, fears disappointing authority figures, perfectionistic standards.<br />" +
+        "• Constraints: long work hours, internal pressure, less difficulty with peers than with bosses.<br />" +
+        "• History: says yes to extra projects, struggles to push back on unrealistic deadlines.<br />" +
+        "• Implication for this topic: emphasize scripts and expectations with boss, plus identity work around being “good enough”.",
+      carmen:
+        "<strong>Carmen • LifeMap snapshot</strong><br />" +
+        "• Domains: family = central; conflict history = painful or chaotic, leading to avoidance.<br />" +
+        "• Traits: sensitive, peacekeeper, tends to absorb others’ emotions and needs.<br />" +
+        "• Constraints: long-standing patterns, low tolerance for tension, some fear of abandonment.<br />" +
+        "• History: goes along to keep peace; feels invisible and resentful underneath.<br />" +
+        "• Implication for this topic: start with gentle truth-telling and self-worth work, avoiding overwhelming confrontations early on."
+    };
+
+    function setView(mode) {
+      currentView = mode;
+
+      // Toggle button states
+      viewDefaultBtn.classList.toggle("active", mode === "default");
+      viewUserBtn.classList.toggle("active", mode === "user");
+      viewCoachBtn.classList.toggle("active", mode === "coach");
+
+      if (mode === "default") {
+        userColumn.style.opacity = "1";
+        userColumn.style.pointerEvents = "auto";
+        coachColumn.style.opacity = "0.25";
+        coachColumn.style.pointerEvents = "none";
+
+        baselineDefault.style.display = "block";
+        baselineUser.style.display = "none";
+        journeysDefault.style.display = "grid";
+        journeysUser.style.display = "none";
+        leverPersonalDefault.style.display = "block";
+        leverPersonalUser.style.display = "none";
+
+        lifeMapSnapshot.innerHTML = lifeMapTemplates["default"];
+      } else if (mode === "user") {
+        userColumn.style.opacity = "1";
+        userColumn.style.pointerEvents = "auto";
+        coachColumn.style.opacity = "0.6";
+        coachColumn.style.pointerEvents = "none";
+
+        baselineDefault.style.display = "none";
+        baselineUser.style.display = "block";
+        journeysDefault.style.display = "none";
+        journeysUser.style.display = "grid";
+        leverPersonalDefault.style.display = "none";
+        leverPersonalUser.style.display = "block";
+
+        // Use Anna as the sample LifeMap for User view
+        lifeMapSnapshot.innerHTML = lifeMapTemplates["anna"];
+      } else if (mode === "coach") {
+        userColumn.style.opacity = "0.25";
+        userColumn.style.pointerEvents = "none";
+        coachColumn.style.opacity = "1";
+        coachColumn.style.pointerEvents = "auto";
+
+        // Keep personalized content visible in coach mode
+        baselineDefault.style.display = "none";
+        baselineUser.style.display = "block";
+        journeysDefault.style.display = "none";
+        journeysUser.style.display = "grid";
+        leverPersonalDefault.style.display = "none";
+        leverPersonalUser.style.display = "block";
+
+        const activeChip = document.querySelector(".coach-client-chip.active");
+        const activeId = activeChip ? activeChip.getAttribute("data-client") : "anna";
+        lifeMapSnapshot.innerHTML = lifeMapTemplates[activeId] || lifeMapTemplates["default"];
+      }
+    }
+
+    viewDefaultBtn.addEventListener("click", () => setView("default"));
+    viewUserBtn.addEventListener("click", () => setView("user"));
+    viewCoachBtn.addEventListener("click", () => setView("coach"));
+
+    clientChips.forEach(chip => {
+      chip.addEventListener("click", () => {
+        const id = chip.getAttribute("data-client");
+
+        clientChips.forEach(c => c.classList.remove("active"));
+        chip.classList.add("active");
+
+        baselineBlocks.forEach(block => {
+          block.style.display =
+            block.getAttribute("data-client-baseline") === id ? "block" : "none";
+        });
+
+        coachNote.innerHTML = notesByClient[id] || "";
+
+        if (currentView === "coach") {
+          lifeMapSnapshot.innerHTML = lifeMapTemplates[id] || lifeMapTemplates["default"];
+        }
+      });
+    });
+
+    // Initialize in default view
+    setView("default");
+  </script>
+</body>
+</html>

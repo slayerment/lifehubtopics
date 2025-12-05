@@ -1,0 +1,2733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>LifeHub Topic Demo – How can I help people?</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --bg-alt: #ffffff;
+      --bg-soft: #edf1fc;
+      --border-subtle: #d7d9e5;
+      --primary: #3046ff;
+      --primary-soft: rgba(48, 70, 255, 0.12);
+      --primary-strong: #1d2bcc;
+      --text-main: #111322;
+      --text-muted: #666a80;
+      --accent: #10b981;
+      --danger: #ef4444;
+      --radius-lg: 18px;
+      --radius-xl: 26px;
+      --shadow-soft: 0 18px 60px rgba(15, 23, 42, 0.12);
+      --sidebar-width: 484px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top left, #eef2ff 0, #f5f7fb 36%, #f9fafb 100%);
+      color: var(--text-main);
+      font-size: 18px;
+      line-height: 1.6;
+    }
+
+    .page {
+      max-width: 1580px;
+      margin: 0 auto;
+      padding: 32px 18px 60px;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+
+    .brand {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .brand-title {
+      font-size: 32px;
+      font-weight: 750;
+      letter-spacing: -0.04em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .brand-title span.dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 20%, #4ade80, #22c55e);
+      box-shadow: 0 0 0 8px rgba(34, 197, 94, 0.18);
+    }
+
+    .brand-sub {
+      font-size: 17px;
+      color: var(--text-muted);
+    }
+
+    .top-meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      font-size: 15px;
+      color: var(--text-muted);
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.85);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      font-size: 14px;
+      gap: 6px;
+    }
+
+    .pill-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #22c55e;
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: minmax(0, calc(100% - var(--sidebar-width) - 22px)) minmax(0, var(--sidebar-width));
+      gap: 22px;
+      align-items: flex-start;
+    }
+
+    @media (max-width: 980px) {
+      main {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    .panel {
+      background: var(--bg-alt);
+      border-radius: var(--radius-xl);
+      padding: 20px 20px 22px;
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      box-shadow: 0 18px 50px rgba(15, 23, 42, 0.08);
+    }
+
+    .panel + .panel {
+      margin-top: 16px;
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .panel-subtitle {
+      font-size: 15px;
+      color: var(--text-muted);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: var(--bg-soft);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      font-size: 13px;
+      color: var(--text-muted);
+      gap: 6px;
+    }
+
+    h1.topic-title {
+      font-size: 40px;
+      letter-spacing: -0.05em;
+      margin: 4px 0 4px;
+    }
+
+    .topic-subtitle {
+      font-size: 18px;
+      color: var(--text-muted);
+      max-width: 640px;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .chip {
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.04);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      font-size: 14px;
+      color: var(--text-muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .metric-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+      font-size: 15px;
+    }
+
+    .metric-pill {
+      border-radius: 999px;
+      padding: 6px 12px;
+      background: rgba(15, 23, 42, 0.03);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .metric-pill strong {
+      font-weight: 600;
+    }
+
+    .baseline-card {
+      background: radial-gradient(circle at 0 0, #dcfce7 0, #ecfdf5 36%, #ffffff 100%);
+      border-radius: var(--radius-xl);
+      padding: 18px 18px 16px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 4px;
+    }
+
+    .baseline-card::after {
+      content: "";
+      position: absolute;
+      right: -40px;
+      top: -40px;
+      width: 180px;
+      height: 180px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 20%, rgba(52, 211, 153, 0.8), rgba(5, 150, 105, 0.1));
+      opacity: 0.5;
+      filter: blur(2px);
+    }
+
+    .baseline-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.4fr);
+      gap: 14px;
+      position: relative;
+      z-index: 1;
+    }
+
+    @media (max-width: 840px) {
+      .baseline-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .baseline-main-title {
+      font-size: 20px;
+      font-weight: 650;
+      letter-spacing: -0.03em;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .band-tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 13px;
+      gap: 6px;
+      background: rgba(34, 197, 94, 0.1);
+      color: #15803d;
+      border: 1px solid rgba(74, 222, 128, 0.7);
+    }
+
+    .archetype-tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 13px;
+      gap: 6px;
+      background: rgba(59, 130, 246, 0.1);
+      color: #1d4ed8;
+      border: 1px solid rgba(96, 165, 250, 0.7);
+    }
+
+    .lever-list {
+      list-style: none;
+      padding: 0;
+      margin: 8px 0 0;
+      font-size: 15px;
+    }
+
+    .lever-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+
+    .lever-list li span.rank {
+      width: 22px;
+      height: 22px;
+      border-radius: 999px;
+      background: var(--bg-alt);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+
+    .journeys-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .journey-pill {
+      border-radius: 999px;
+      padding: 6px 12px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(255, 255, 255, 0.9);
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+    }
+
+    .journey-pill span.label {
+      font-weight: 550;
+    }
+
+    .journey-pill span.meta {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .text-sm {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .section {
+      margin-top: 18px;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .section-title {
+      font-size: 20px;
+      font-weight: 650;
+      letter-spacing: -0.03em;
+    }
+
+    .section-subtitle {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .pill-tabs {
+      display: inline-flex;
+      gap: 6px;
+      background: rgba(15, 23, 42, 0.03);
+      border-radius: 999px;
+      padding: 3px;
+      border: 1px solid rgba(148, 163, 184, 0.45);
+    }
+
+    .pill-tabs button {
+      border-radius: 999px;
+      border: none;
+      padding: 4px 10px;
+      font-size: 13px;
+      background: transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+    }
+
+    .pill-tabs button.active {
+      background: white;
+      color: #020617;
+      font-weight: 550;
+      box-shadow: 0 1px 6px rgba(15, 23, 42, 0.18);
+    }
+
+    .pill-tabs button.disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    .positions-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .position-card {
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: rgba(255, 255, 255, 0.95);
+      padding: 10px 12px;
+      font-size: 15px;
+      transition: box-shadow 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+    }
+
+    .position-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 2px;
+    }
+
+    .position-name {
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+    .confidence-chip {
+      padding: 2px 7px;
+      border-radius: 999px;
+      border: 1px solid rgba(34, 197, 94, 0.4);
+      background: rgba(22, 163, 74, 0.06);
+      color: #15803d;
+      font-size: 12px;
+    }
+
+    .position-meta {
+      font-size: 13px;
+      color: var(--text-muted);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 3px;
+    }
+
+    .recommended-label {
+      display: none;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 12px;
+      background: rgba(34, 197, 94, 0.1);
+      border: 1px solid rgba(34, 197, 94, 0.6);
+      color: #15803d;
+      margin-left: 8px;
+      white-space: nowrap;
+    }
+
+    .position-card.recommended {
+      border-color: rgba(34, 197, 94, 0.9);
+      box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.35);
+      background: linear-gradient(135deg, #f0fdf4, #ffffff);
+    }
+
+    .lever-columns {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 840px) {
+      .lever-columns {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .lever-card {
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: rgba(255, 255, 255, 0.97);
+      padding: 10px 12px;
+      font-size: 15px;
+      transition: box-shadow 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+    }
+
+    .lever-card.highlighted {
+      border-color: rgba(34, 197, 94, 0.9);
+      box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.35);
+      background: linear-gradient(135deg, #f0fdf4, #ffffff);
+    }
+
+    .lever-card h4 {
+      margin: 0 0 3px;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .lever-tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 6px;
+      border-radius: 999px;
+      font-size: 12px;
+      color: var(--text-muted);
+      background: rgba(15, 23, 42, 0.03);
+      border: 1px solid rgba(148, 163, 184, 0.45);
+    }
+
+    /* JOURNEYS */
+
+    .journey-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .journey-card {
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.75);
+      background: radial-gradient(circle at 0 0, #e0f2fe, #f9fafb);
+      padding: 10px 12px;
+      font-size: 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 16px 40px rgba(15, 23, 42, 0.18);
+      border-left: 4px solid var(--primary);
+    }
+
+    .journey-card::after {
+      content: "";
+      position: absolute;
+      right: -40px;
+      top: -40px;
+      width: 140px;
+      height: 140px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 20%, rgba(59, 130, 246, 0.6), rgba(129, 140, 248, 0.05));
+      opacity: 0.5;
+    }
+
+    .journey-card > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .journey-header {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .journey-card h4 {
+      margin: 0;
+      font-size: 17px;
+      font-weight: 650;
+      letter-spacing: -0.02em;
+    }
+
+    .journey-meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .journey-meta-pill {
+      border-radius: 999px;
+      padding: 3px 8px;
+      background: rgba(15, 23, 42, 0.03);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+    }
+
+    .journey-modules-label {
+      font-size: 12px;
+      font-weight: 600;
+      margin-top: 4px;
+      color: rgba(15, 23, 42, 0.8);
+    }
+
+    .journey-modules-strip {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      margin-top: 4px;
+    }
+
+    .journey-modules-strip::-webkit-scrollbar {
+      height: 5px;
+    }
+
+    .journey-modules-strip::-webkit-scrollbar-thumb {
+      background: rgba(148, 163, 184, 0.7);
+      border-radius: 999px;
+    }
+
+    .journey-modules-strip::-webkit-scrollbar-track {
+      background: rgba(148, 163, 184, 0.2);
+      border-radius: 999px;
+    }
+
+    .journey-modules-strip .module-tile {
+      flex: 0 0 160px;
+      height: 100px;
+      font-size: 12px;
+      box-shadow: 0 6px 16px rgba(15, 23, 42, 0.16);
+    }
+
+    .journey-modules-strip .module-name {
+      font-size: 13px;
+    }
+
+    .journey-modules-strip .module-desc {
+      display: none;
+    }
+
+    .journey-stats-footnote {
+      margin-top: 4px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .journeyEmpty {
+      margin-top: 6px;
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .small-button {
+      border-radius: 999px;
+      border: none;
+      padding: 5px 10px;
+      font-size: 13px;
+      cursor: pointer;
+      background: var(--primary);
+      color: white;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 10px 24px rgba(37, 99, 235, 0.3);
+    }
+
+    .small-button.secondary {
+      background: white;
+      color: #020617;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      box-shadow: none;
+    }
+
+    /* MODULE CAROUSEL */
+
+    .modules-wrapper {
+      position: relative;
+      margin-top: 8px;
+    }
+
+    .modules-carousel {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding: 8px 36px 6px 36px;
+      scroll-snap-type: x mandatory;
+    }
+
+    .modules-carousel::-webkit-scrollbar {
+      height: 6px;
+    }
+
+    .modules-carousel::-webkit-scrollbar-thumb {
+      background: rgba(148, 163, 184, 0.7);
+      border-radius: 999px;
+    }
+
+    .modules-carousel::-webkit-scrollbar-track {
+      background: rgba(148, 163, 184, 0.2);
+      border-radius: 999px;
+    }
+
+    .module-tile {
+      flex: 0 0 190px;
+      height: 150px;
+      border-radius: 18px;
+      padding: 10px 11px;
+      font-size: 14px;
+      color: #020617;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.18);
+      scroll-snap-align: start;
+      border: 1px solid rgba(15, 23, 42, 0.08);
+    }
+
+    .module-name {
+      font-weight: 600;
+      font-size: 15px;
+      margin-bottom: 3px;
+    }
+
+    .module-meta {
+      font-size: 12px;
+      color: rgba(15, 23, 42, 0.8);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 2px;
+    }
+
+    .module-tag {
+      border-radius: 999px;
+      padding: 2px 7px;
+      background: rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.58);
+      font-size: 11px;
+      color: #020617;
+    }
+
+    .module-desc {
+      font-size: 12px;
+      color: rgba(15, 23, 42, 0.85);
+      margin-top: 4px;
+    }
+
+    .module-usage {
+      font-size: 11px;
+      color: rgba(15, 23, 42, 0.8);
+      margin-top: 4px;
+    }
+
+    /* Color variants */
+
+    .module-color-1 {
+      background: radial-gradient(circle at 0 0, #bfdbfe, #60a5fa);
+      color: #02172f;
+    }
+
+    .module-color-2 {
+      background: radial-gradient(circle at 0 0, #bbf7d0, #22c55e);
+      color: #022c22;
+    }
+
+    .module-color-3 {
+      background: radial-gradient(circle at 0 0, #fee2e2, #f97373);
+      color: #450a0a;
+    }
+
+    .module-color-4 {
+      background: radial-gradient(circle at 0 0, #fef3c7, #facc15);
+      color: #422006;
+    }
+
+    .module-color-5 {
+      background: radial-gradient(circle at 0 0, #fae8ff, #e879f9);
+      color: #4a044e;
+    }
+
+    .module-color-6 {
+      background: radial-gradient(circle at 0 0, #e0e7ff, #6366f1);
+      color: #020617;
+    }
+
+    .module-color-7 {
+      background: radial-gradient(circle at 0 0, #cffafe, #22d3ee);
+      color: #083344;
+    }
+
+    .module-color-8 {
+      background: radial-gradient(circle at 0 0, #fce7f3, #ec4899);
+      color: #4a044e;
+    }
+
+    .module-color-9 {
+      background: radial-gradient(circle at 0 0, #dcfce7, #16a34a);
+      color: #052e16;
+    }
+
+    .module-color-10 {
+      background: radial-gradient(circle at 0 0, #fee2e2, #fb923c);
+      color: #431407;
+    }
+
+    .modules-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 28px;
+      height: 56px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      background: rgba(15, 23, 42, 0.75);
+      color: white;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.4);
+      z-index: 2;
+    }
+
+    .modules-arrow.left {
+      left: 4px;
+    }
+
+    .modules-arrow.right {
+      right: 4px;
+    }
+
+    .modules-arrow span {
+      font-size: 20px;
+      line-height: 1;
+    }
+
+    @media (max-width: 640px) {
+      .modules-arrow {
+        width: 24px;
+        height: 48px;
+      }
+    }
+
+    /* EVIDENCE TABLE & CONSENSUS */
+
+    .evidence-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      margin-top: 6px;
+    }
+
+    .evidence-table th,
+    .evidence-table td {
+      padding: 7px 8px;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.35);
+      text-align: left;
+    }
+
+    .evidence-table th {
+      font-weight: 600;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .evidence-table a {
+      color: var(--primary-strong);
+      text-decoration: none;
+    }
+
+    .evidence-table a:hover {
+      text-decoration: underline;
+    }
+
+    .consensus-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 10px;
+      margin-top: 6px;
+      font-size: 14px;
+    }
+
+    @media (max-width: 840px) {
+      .consensus-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .consensus-col {
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(255, 255, 255, 0.97);
+      padding: 8px 10px;
+    }
+
+    .consensus-col h4 {
+      margin: 0 0 4px;
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .consensus-col ul {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    .story-card {
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(255, 255, 255, 0.98);
+      padding: 10px 12px;
+      font-size: 15px;
+    }
+
+    .story-card h4 {
+      margin: 0 0 4px;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .story-meta {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    /* FAQ accordion */
+
+    .faq-item {
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: rgba(255, 255, 255, 0.96);
+      padding: 8px 10px;
+      margin-bottom: 6px;
+      font-size: 15px;
+    }
+
+    .faq-q {
+      font-weight: 600;
+      margin-bottom: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .faq-toggle-icon {
+      font-size: 14px;
+      color: var(--text-muted);
+      transition: transform 0.18s ease;
+      margin-left: 8px;
+    }
+
+    .faq-a {
+      display: none;
+      margin-top: 4px;
+    }
+
+    .faq-item.open .faq-a {
+      display: block;
+    }
+
+    .faq-item.open .faq-toggle-icon {
+      transform: rotate(90deg);
+    }
+
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    @media (max-width: 780px) {
+      .related-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .related-card {
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(255, 255, 255, 0.98);
+      padding: 8px 10px;
+      font-size: 15px;
+    }
+
+    .related-card h4 {
+      margin: 0 0 3px;
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    /* Personalized side panel – sticky */
+
+    .personal-panel {
+      position: sticky;
+      top: 24px;
+      align-self: flex-start;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    @media (max-width: 980px) {
+      .personal-panel {
+        position: static;
+      }
+    }
+
+    .view-toggle-shell {
+      margin-bottom: 8px;
+    }
+
+    .view-toggle {
+      display: inline-flex;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.96);
+      color: white;
+      padding: 4px;
+      font-size: 14px;
+      box-shadow: 0 16px 40px rgba(15, 23, 42, 0.4);
+    }
+
+    .view-toggle button {
+      border: none;
+      background: transparent;
+      color: rgba(255, 255, 255, 0.68);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 14px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 500;
+    }
+
+    .view-toggle button.active {
+      background: white;
+      color: #020617;
+    }
+
+    .side-header {
+      font-size: 18px;
+      font-weight: 650;
+      letter-spacing: -0.03em;
+      margin-bottom: 4px;
+    }
+
+    .side-sub {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .side-note {
+      font-size: 13px;
+      color: var(--text-muted);
+      border-radius: 14px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(15, 23, 42, 0.01);
+      padding: 8px 9px;
+    }
+
+    footer {
+      margin-top: 40px;
+      font-size: 13px;
+      color: var(--text-muted);
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="brand">
+        <div class="brand-title">
+          <span class="dot"></span>
+          <span>LifeHub</span>
+        </div>
+        <div class="brand-sub">
+          Topic demo • Personalized from your LifeMap
+        </div>
+        <div class="top-meta">
+          <span class="pill"><span class="pill-dot"></span>Topic • How can I help people?</span>
+          <span class="pill">Updated 2 days ago</span>
+          <span class="pill">1,240 journeys • early access view</span>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- LEFT COLUMN -->
+      <div id="topicColumn">
+        <section class="panel">
+          <div class="panel-header">
+            <div>
+              <h1 class="topic-title">How can I help people?</h1>
+              <div class="topic-subtitle">
+                Not just “be nicer” or “volunteer more,” but how to help in ways that actually fit your life,
+                your wiring, and what the world needs.
+              </div>
+            </div>
+            <div>
+              <span class="badge">LifeMap-aware</span>
+            </div>
+          </div>
+
+          <div class="chips">
+            <span class="chip">🤝 Goal: Real impact that doesn’t burn you out</span>
+            <span class="chip">🧠 Topics: kindness, service, impact, boundaries, money, time</span>
+            <span class="chip">📊 Inputs: skills, energy, finances, temperament, history, context</span>
+          </div>
+
+          <!-- TL;DR -->
+          <div class="section" style="margin-top:18px;">
+            <div class="section-header">
+              <div>
+                <div class="section-title">TL;DR for this topic</div>
+                <div class="section-subtitle">
+                  “Helping people” is not one thing. It’s a mix of what you’re good at, what you care about,
+                  what you can spare, and where others are actually asking for help.
+                </div>
+              </div>
+            </div>
+            <p style="margin:4px 0 4px;">
+              This topic helps you move from vague guilt (“I should do more”) or overwhelm (“there’s too much to fix”)
+              to a <strong>specific lane of helping</strong> that matches your LifeMap: your time, money, skills,
+              emotional bandwidth, and season of life.
+            </p>
+            <div class="metric-row">
+              <div class="metric-pill">
+                <strong>1,240</strong> journeys logged on this topic
+              </div>
+              <div class="metric-pill">
+                <strong>~72%</strong> report feeling “more grounded and effective” after 30–60 days
+              </div>
+              <div class="metric-pill">
+                <strong>Top levers:</strong> bandwidth, skills, finances, boundaries, context
+              </div>
+            </div>
+          </div>
+
+          <!-- BASELINE -->
+          <div class="section" style="margin-top:20px;">
+            <div class="section-header">
+              <div>
+                <div class="section-title">Baseline for this topic</div>
+                <div class="section-subtitle">
+                  Default view is generic. Personalized view uses your LifeMap: time, money, skills,
+                  burnout risk, and lived experience.
+                </div>
+              </div>
+            </div>
+
+            <!-- Default baseline -->
+            <div class="baseline-card" id="baselineDefault">
+              <div class="baseline-grid">
+                <div>
+                  <div class="baseline-main-title">
+                    <span>Where most people start</span>
+                  </div>
+                  <p style="margin:6px 0 8px; font-size:15px;">
+                    In Default view, we assume you <strong>want</strong> to help, feel at least a little
+                    overwhelmed by the amount of suffering in the world, and aren’t sure what actually moves the needle
+                    or how to avoid burning out.
+                  </p>
+                  <p style="margin:6px 0 8px; font-size:15px;">
+                    We don’t assume your income, schedule, or mental health. You’ll see patterns of how people
+                    generally help: locally vs globally, with time vs money, emotionally vs practically.
+                  </p>
+                  <div class="text-sm">
+                    Connect a LifeMap to tune this baseline: your energy levels, history with burnout, life responsibilities,
+                    financial margin, and skills all change how you should help.
+                  </div>
+                </div>
+                <div>
+                  <div style="font-size:15px; font-weight:600; margin-bottom:4px;">
+                    Generic starting levers
+                  </div>
+                  <ul class="lever-list">
+                    <li>
+                      <span class="rank">1</span>
+                      <span><strong>Bandwidth reality</strong> – how much time, energy, and money you can actually spare.</span>
+                    </li>
+                    <li>
+                      <span class="rank">2</span>
+                      <span><strong>Help style</strong> – listening, doing, organizing, funding, teaching, building, etc.</span>
+                    </li>
+                    <li>
+                      <span class="rank">3</span>
+                      <span><strong>Scope</strong> – local vs global, 1:1 vs systemic, urgent vs long-term.</span>
+                    </li>
+                  </ul>
+                  <div style="margin-top:10px;">
+                    <div style="font-size:15px; font-weight:600; margin-bottom:3px;">
+                      Generic starting journeys
+                    </div>
+                    <div class="journeys-list">
+                      <div class="journey-pill">
+                        <span class="label">7-Day “Tiny Helps” Experiment</span>
+                        <span class="meta">Micro-actions in daily life</span>
+                      </div>
+                      <div class="journey-pill">
+                        <span class="label">30-Day Find Your Help Lane</span>
+                        <span class="meta">Move from vague to specific</span>
+                      </div>
+                    </div>
+                    <div class="text-sm" style="margin-top:6px;">
+                      In Default view, these journeys are built for “average” visitors. Personalized view reshapes them
+                      for drained caregivers, busy parents, founders, or students differently.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Personalized baseline -->
+            <div class="baseline-card" id="baselinePersonal" style="display:none;">
+              <!-- LifeMap A -->
+              <div class="baseline-grid lifemap-baseline" id="baselinePersonalA">
+                <div>
+                  <div class="baseline-main-title">
+                    <span>Where you fit – LifeMap A</span>
+                  </div>
+                  <div style="display:flex; flex-wrap:wrap; gap:6px; margin-bottom:4px;">
+                    <span class="band-tag">
+                      <span>🧑‍🎓</span> Band: Student / early adult
+                    </span>
+                    <span class="archetype-tag">
+                      <span>🔥</span> Archetype: Big heart, low resources
+                    </span>
+                  </div>
+                  <p style="margin:6px 0 8px; font-size:15px;">
+                    You care a lot, have limited money, and your time and energy bounce between school, work, and friends.
+                    You feel the weight of the world but aren’t sure where your contribution matters.
+                  </p>
+                  <div class="text-sm">
+                    Baseline built from: age, schedule, finances, mental health, causes you already care about,
+                    and how easily you feel guilty or overwhelmed.
+                  </div>
+                </div>
+                <div>
+                  <div style="font-size:15px; font-weight:600; margin-bottom:4px;">
+                    Top 3 levers for this LifeMap
+                  </div>
+                  <ul class="lever-list">
+                    <li>
+                      <span class="rank">1</span>
+                      <span><strong>Micro-consistency</strong> – small helps you can do weekly without sacrificing your own growth.</span>
+                    </li>
+                    <li>
+                      <span class="rank">2</span>
+                      <span><strong>Skill-building while helping</strong> – volunteering or projects that also grow your abilities.</span>
+                    </li>
+                    <li>
+                      <span class="rank">3</span>
+                      <span><strong>Guilt filters</strong> – learning to say no and avoid compassion fatigue.</span>
+                    </li>
+                  </ul>
+                  <div style="margin-top:10px;">
+                    <div style="font-size:15px; font-weight:600; margin-bottom:3px;">
+                      Suggested starting journeys
+                    </div>
+                    <div class="journeys-list">
+                      <div class="journey-pill">
+                        <span class="label">30-Day Campus & Community Help</span>
+                        <span class="meta">Find a sustainable lane</span>
+                      </div>
+                      <div class="journey-pill">
+                        <span class="label">14-Day Guilt vs Capacity Check</span>
+                        <span class="meta">Basics of boundaries</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- LifeMap B -->
+              <div class="baseline-grid lifemap-baseline" id="baselinePersonalB" style="display:none;">
+                <div>
+                  <div class="baseline-main-title">
+                    <span>Where you fit – LifeMap B</span>
+                  </div>
+                  <div style="display:flex; flex-wrap:wrap; gap:6px; margin-bottom:4px;">
+                    <span class="band-tag">
+                      <span>🏠</span> Band: Working adult / caregiver
+                    </span>
+                    <span class="archetype-tag">
+                      <span>🧡</span> Archetype: Over-giver, often tired
+                    </span>
+                  </div>
+                  <p style="margin:6px 0 8px; font-size:15px;">
+                    You are already helping: family, friends, coworkers, community. People lean on you,
+                    and you often feel stretched thin. You want to help more wisely, not just more.
+                  </p>
+                  <div class="text-sm">
+                    Baseline built from: work load, caregiving, financial margin, history with burnout,
+                    and how easily you say “yes” to others.
+                  </div>
+                </div>
+                <div>
+                  <div style="font-size:15px; font-weight:600; margin-bottom:4px;">
+                    Top 3 levers for this LifeMap
+                  </div>
+                  <ul class="lever-list">
+                    <li>
+                      <span class="rank">1</span>
+                      <span><strong>Boundaries & capacity</strong> – deciding what’s realistic right now.</span>
+                    </li>
+                    <li>
+                      <span class="rank">2</span>
+                      <span><strong>Leveraged helping</strong> – skills, mentoring, or donations that multiply your limited time.</span>
+                    </li>
+                    <li>
+                      <span class="rank">3</span>
+                      <span><strong>Self-maintenance as service</strong> – you can’t help well if you’re collapsing.</span>
+                    </li>
+                  </ul>
+                  <div style="margin-top:10px;">
+                    <div style="font-size:15px; font-weight:600; margin-bottom:3px;">
+                      Suggested starting journeys
+                    </div>
+                    <div class="journeys-list">
+                      <div class="journey-pill">
+                        <span class="label">30-Day Boundaries & Better Helping</span>
+                        <span class="meta">Say yes on purpose</span>
+                      </div>
+                      <div class="journey-pill">
+                        <span class="label">60-Day Skill-Based Service Plan</span>
+                        <span class="meta">Help via what you’re good at</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- LifeMap C -->
+              <div class="baseline-grid lifemap-baseline" id="baselinePersonalC" style="display:none;">
+                <div>
+                  <div class="baseline-main-title">
+                    <span>Where you fit – LifeMap C</span>
+                  </div>
+                  <div style="display:flex; flex-wrap:wrap; gap:6px; margin-bottom:4px;">
+                    <span class="band-tag">
+                      <span>🚀</span> Band: Builder / founder / high-skill
+                    </span>
+                    <span class="archetype-tag">
+                      <span>🌍</span> Archetype: Systems & scale thinker
+                    </span>
+                  </div>
+                  <p style="margin:6px 0 8px; font-size:15px;">
+                    You know you can move levers: products, teams, capital, communities, audiences.
+                    You’re asking how to aim your career, time, or assets in a way that meaningfully helps.
+                  </p>
+                  <div class="text-sm">
+                    Baseline built from: current income, network, risk tolerance, leadership reach, and whether you
+                    lean more local or global in your concern.
+                  </div>
+                </div>
+                <div>
+                  <div style="font-size:15px; font-weight:600; margin-bottom:4px;">
+                    Top 3 levers for this LifeMap
+                  </div>
+                  <ul class="lever-list">
+                    <li>
+                      <span class="rank">1</span>
+                      <span><strong>Leverage map</strong> – where your skills, capital, and network do outsized good.</span>
+                    </li>
+                    <li>
+                      <span class="rank">2</span>
+                      <span><strong>Career & product alignment</strong> – building things that help while also sustaining you.</span>
+                    </li>
+                    <li>
+                      <span class="rank">3</span>
+                      <span><strong>Giving & experimentation budget</strong> – structured ways to test different kinds of impact.</span>
+                    </li>
+                  </ul>
+                  <div style="margin-top:10px;">
+                    <div style="font-size:15px; font-weight:600; margin-bottom:3px;">
+                      Suggested starting journeys
+                    </div>
+                    <div class="journeys-list">
+                      <div class="journey-pill">
+                        <span class="label">90-Day High-Leverage Help Design</span>
+                        <span class="meta">Design your contribution</span>
+                      </div>
+                      <div class="journey-pill">
+                        <span class="label">12-Week Giving & Experiments Sprint</span>
+                        <span class="meta">Run small impact experiments</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- POSITIONS -->
+          <div class="section">
+            <div class="section-header">
+              <div>
+                <div class="section-title">Different ways people approach helping</div>
+                <div class="section-subtitle">
+                  There isn’t one “correct” philosophy of helping. LifeHub surfaces a few that show up again and again.
+                </div>
+              </div>
+              <div class="pill-tabs">
+                <button class="active">Plain view</button>
+                <button>Evidence & nuance</button>
+              </div>
+            </div>
+
+            <div class="positions-grid">
+              <div class="position-card" id="positionMedication">
+                <div class="position-card-header">
+                  <div>
+                    <span class="position-name">Start with small, consistent, local help</span>
+                    <span class="recommended-label" id="positionRecommendLabel">Recommended for you</span>
+                  </div>
+                  <div class="confidence-chip">Great default for many</div>
+                </div>
+                <div class="panel-subtitle">
+                  Focus on simple, recurring ways to help people near you (friends, neighbors, community)
+                  that you can sustain for months or years.
+                </div>
+                <div class="position-meta">
+                  <span>✅ Builds identity as a helper without burnout</span>
+                  <span>⚠️ Less obviously “world-changing” at first</span>
+                  <span>🎯 Great for: LifeMap A & B</span>
+                </div>
+              </div>
+
+              <div class="position-card" id="positionCarb">
+                <div class="position-card-header">
+                  <div>
+                    <span class="position-name">Optimize for leverage & systems change</span>
+                    <span class="recommended-label">Recommended for you</span>
+                  </div>
+                  <div class="confidence-chip">High-impact, higher complexity</div>
+                </div>
+                <div class="panel-subtitle">
+                  Shape your career, products, or giving toward causes where each hour or dollar has outsized impact.
+                </div>
+                <div class="position-meta">
+                  <span>✅ Can reach many people at once</span>
+                  <span>⚠️ Requires research, patience, and emotional distance</span>
+                  <span>🎯 Great for: many LifeMap C, some A/B</span>
+                </div>
+              </div>
+
+              <div class="position-card" id="positionWhole">
+                <div class="position-card-header">
+                  <div>
+                    <span class="position-name">Help through relationships & presence</span>
+                    <span class="recommended-label">Recommended for you</span>
+                  </div>
+                  <div class="confidence-chip">Deep but less visible</div>
+                </div>
+                <div class="panel-subtitle">
+                  Prioritize being a steady, caring presence for a smaller number of people:
+                  listening, mentoring, supporting emotionally and practically.
+                </div>
+                <div class="position-meta">
+                  <span>✅ Powerful for individuals and families</span>
+                  <span>⚠️ Harder to measure, easy to overlook yourself</span>
+                  <span>🎯 Great for: LifeMap B, some A</span>
+                </div>
+              </div>
+
+              <div class="position-card" id="positionWeight">
+                <div class="position-card-header">
+                  <div>
+                    <span class="position-name">Stabilize yourself first, then expand</span>
+                    <span class="recommended-label">Recommended for you</span>
+                  </div>
+                  <div class="confidence-chip">Underrated but crucial</div>
+                </div>
+                <div class="panel-subtitle">
+                  Focus on your own health, safety, and basic needs so that future helping isn’t coming from collapse.
+                  Helping less now to help more, better, later.
+                </div>
+                <div class="position-meta">
+                  <span>✅ Prevents martyrdom & resentment</span>
+                  <span>⚠️ Can feel selfish if you’re used to over-giving</span>
+                  <span>🎯 Great for: many LifeMap B, some A</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- TOP LEVERS -->
+          <div class="section">
+            <div class="section-header">
+              <div>
+                <div class="section-title">Top levers: in general vs personalized</div>
+                <div class="section-subtitle">
+                  The core “knobs” for helping, and how a LifeMap changes their order and weight.
+                </div>
+              </div>
+            </div>
+
+            <div class="lever-columns">
+              <div class="lever-card">
+                <h4>For most people on this topic</h4>
+                <div class="panel-subtitle">
+                  These levers show up again and again, regardless of background.
+                </div>
+                <ul class="lever-list">
+                  <li><span class="rank">1</span><span><strong>Bandwidth</strong> – time, money, and emotional energy you can spare.</span></li>
+                  <li><span class="rank">2</span><span><strong>Help style</strong> – what kind of helping you actually enjoy and are good at.</span></li>
+                  <li><span class="rank">3</span><span><strong>Cause & context</strong> – who or what you’re trying to help (people near you vs far away, urgent vs long-term).</span></li>
+                  <li><span class="rank">4</span><span><strong>Boundaries</strong> – what you’re <em>not</em> going to do so helping stays sustainable.</span></li>
+                  <li><span class="rank">5</span><span><strong>Feedback & learning</strong> – noticing what seems to actually help and adjusting.</span></li>
+                </ul>
+              </div>
+              <div class="lever-card" id="leverPersonalCard">
+                <h4>Personalized column</h4>
+                <span class="lever-tag">LifeMap variants A / B / C</span>
+
+                <!-- Default (no LifeMap) -->
+                <div id="leverPersonalDefault">
+                  <p style="margin:6px 0 4px; font-size:15px;">
+                    In Default view, we don’t know your responsibilities, mental health, financial situation, or help history.
+                    This column stays generic and explains that LifeHub will <strong>reweight these levers</strong> once your
+                    LifeMap is connected.
+                  </p>
+                  <p class="text-sm">
+                    Example: a burned-out caregiver and a well-resourced founder shouldn’t get the same “how to help” plan.
+                    One needs rest and better boundaries, the other needs leverage and focus.
+                  </p>
+                </div>
+
+                <!-- Personalized view -->
+                <div id="leverPersonalPersonal" style="display:none;">
+                  <!-- LifeMap A -->
+                  <div class="lifemap-levers" id="leverPersonalA">
+                    <p style="margin:6px 0 4px; font-size:15px;">
+                      For LifeMap A, <strong>tiny, repeatable helps that build skills and confidence</strong>
+                      matter more than grand gestures.
+                    </p>
+                    <ul class="lever-list">
+                      <li><span class="rank">1</span><span><strong>Micro-commitments</strong> – weekly actions you can keep doing alongside school/work.</span></li>
+                      <li><span class="rank">2</span><span><strong>Skill-based helping</strong> – tutoring, peer support, projects, or tech help.</span></li>
+                      <li><span class="rank">3</span><span><strong>Exposure</strong> – sampling different causes and communities before going deep.</span></li>
+                      <li><span class="rank">4</span><span><strong>Guilt boundaries</strong> – learning that you can’t fix everything and that’s okay.</span></li>
+                    </ul>
+                  </div>
+
+                  <!-- LifeMap B -->
+                  <div class="lifemap-levers" id="leverPersonalB" style="display:none;">
+                    <p style="margin:6px 0 4px; font-size:15px;">
+                      For LifeMap B, <strong>protecting your core energy</strong> and <strong>choosing 1–2 clear lanes</strong>
+                      beats trying to help everyone with everything.
+                    </p>
+                    <ul class="lever-list">
+                      <li><span class="rank">1</span><span><strong>Capacity audit</strong> – what you can give without harming your health or dependents.</span></li>
+                      <li><span class="rank">2</span><span><strong>Focused roles</strong> – e.g., one local group + one person you mentor.</span></li>
+                      <li><span class="rank">3</span><span><strong>Money vs time</strong> – deciding the right mix of donating vs showing up.</span></li>
+                      <li><span class="rank">4</span><span><strong>Family inclusion</strong> – helping in ways that involve (not compete with) the people you care for.</span></li>
+                    </ul>
+                  </div>
+
+                  <!-- LifeMap C -->
+                  <div class="lifemap-levers" id="leverPersonalC" style="display:none;">
+                    <p style="margin:6px 0 4px; font-size:15px;">
+                      For LifeMap C, <strong>leveraged projects, products, or giving</strong> matter more than scattered efforts.
+                    </p>
+                    <ul class="lever-list">
+                      <li><span class="rank">1</span><span><strong>Leverage map</strong> – where your skills, network, and capital have the most edge.</span></li>
+                      <li><span class="rank">2</span><span><strong>Focused cause portfolio</strong> – a few causes that resonate and can use your strengths.</span></li>
+                      <li><span class="rank">3</span><span><strong>Experiment cycles</strong> – trying small impact projects and scaling what works.</span></li>
+                      <li><span class="rank">4</span><span><strong>Support team</strong> – advisors, peers, or organizations that keep you from going solo and burning out.</span></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- JOURNEYS -->
+          <div class="section">
+            <div class="section-header">
+              <div>
+                <div class="section-title">Journeys: default vs personalized</div>
+                <div class="section-subtitle">
+                  Default journeys are generic. Personalized journeys shift based on your LifeMap’s energy, time, and resources.
+                </div>
+              </div>
+              <div class="pill-tabs" id="journeyTabs">
+                <button id="tabRecommended">Recommended</button>
+                <button id="tabPopular" class="active">Most popular</button>
+                <button id="tabGentle">Gentle</button>
+                <button id="tabIntensive">More intensive</button>
+              </div>
+            </div>
+
+            <div class="journey-grid" id="journeyGrid">
+              <!-- Default journeys -->
+              <div class="journey-card" data-view="default" data-tags="popular,gentle">
+                <div class="journey-header">
+                  <h4>7-Day “Tiny Helps” Experiment</h4>
+                  <div class="journey-meta-row">
+                    <span class="journey-meta-pill">🧪 Experiment</span>
+                    <span class="journey-meta-pill">7 days</span>
+                    <span class="journey-meta-pill">~10–15 min/day</span>
+                  </div>
+                </div>
+                <p style="margin:4px 0 2px;">
+                  A week of small actions: checking in on someone, leaving kind notes, small donations, small acts of service.
+                  Focused on noticing how it feels and what sticks.
+                </p>
+                <div class="journey-modules-label">Modules in this journey</div>
+                <div class="journey-modules-strip">
+                  <div class="module-tile module-color-1">
+                    <div>
+                      <div class="module-name">Tiny Helps Menu</div>
+                      <div class="module-meta">
+                        <span class="module-tag">Ideas</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="module-tile module-color-7">
+                    <div>
+                      <div class="module-name">Daily Reflection</div>
+                      <div class="module-meta">
+                        <span class="module-tag">Awareness</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="module-tile module-color-6">
+                    <div>
+                      <div class="module-name">What Lit You Up?</div>
+                      <div class="module-meta">
+                        <span class="module-tag">Insight</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="journey-stats-footnote">
+                  Often used as a reset when helping feels abstract, overwhelming, or performative.
+                </div>
+              </div>
+
+              <div class="journey-card" data-view="default" data-tags="popular,intensive">
+                <div class="journey-header">
+                  <h4>30-Day Find Your Help Lane</h4>
+                  <div class="journey-meta-row">
+                    <span class="journey-meta-pill">🌱 Foundation</span>
+                    <span class="journey-meta-pill">30 days</span>
+                    <span class="journey-meta-pill">~20–30 min/day</span>
+                  </div>
+                </div>
+                <p style="margin:4px 0 2px;">
+                  A month of mapping your bandwidth, experimenting with a few help styles, and choosing a lane that feels
+                  meaningful and doable.
+                </p>
+                <div class="journey-modules-label">Modules in this journey</div>
+                <div class="journey-modules-strip">
+                  <div class="module-tile module-color-2">
+                    <div>
+                      <div class="module-name">Bandwidth Scan</div>
+                      <div class="module-meta">
+                        <span class="module-tag">Capacity</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="module-tile module-color-9">
+                    <div>
+                      <div class="module-name">Help Style Inventory</div>
+                      <div class="module-meta">
+                        <span class="module-tag">Self-knowledge</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="module-tile module-color-3">
+                    <div>
+                      <div class="module-name">Cause & Context Map</div>
+                      <div class="module-meta">
+                        <span class="module-tag">Direction</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="journey-stats-footnote">
+                  Good generic journey for anyone who feels pulled in 100 directions or stuck doing nothing.
+                </div>
+              </div>
+
+              <!-- Personalized journeys -->
+              <div class="journey-card" data-view="personal" data-tags="recommended,gentle" data-lifemap="A">
+                <div class="journey-header">
+                  <h4>30-Day Campus & Online Help Sampler</h4>
+                  <div class="journey-meta-row">
+                    <span class="journey-meta-pill">🧑‍🎓 Student / early adult</span>
+                    <span class="journey-meta-pill">30 days</span>
+                    <span class="journey-meta-pill">~15–20 min/day</span>
+                  </div>
+                </div>
+                <p style="margin:4px 0 2px;">
+                  For LifeMap A: test different ways of helping in your current context – campus, online, and local community –
+                  without over-committing.
+                </p>
+                <div class="journey-modules-label">Modules in this journey</div>
+                <div class="journey-modules-strip">
+                  <div class="module-tile module-color-1">
+                    <div>
+                      <div class="module-name">Help Style Inventory</div>
+                      <div class="module-meta">
+                        <span class="module-tag">Self-knowledge</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="module-tile module-color-4">
+                    <div>
+                      <div class="module-name">Campus & Online Scan</div>
+                      <div class="module-meta">
+                        <span class="module-tag">Options</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="module-tile module-color-9">
+                    <div>
+                      <div class="module-name">Weekly Micro-Commitments</div>
+                      <div class="module-meta">
+                        <span class="module-tag">Action</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="journey-stats-footnote">
+                  Common outcome: clarity on 1–2 help lanes that also support your growth and don’t wreck your schedule.
+                </div>
+              </div>
+
+              <div class="journey-card" data-view="personal" data-tags="recommended,popular,intensive" data-lifemap="B">
+                <div class="journey-header">
+                  <h4>30-Day Boundaries & Better Helping</h4>
+                  <div class="journey-meta-row">
+                    <span class="journey-meta-pill">🏠 Working adult / caregiver</span>
+                    <span class="journey-meta-pill">30 days</span>
+                    <span class="journey-meta-pill">~20–30 min/day</span>
+                  </div>
+                </div>
+                <p style="margin:4px 0 2px;">
+                  For LifeMap B: clarify what you can realistically give, practice saying no, and choose 1–2 intentional
+                  ways to help that fit your life.
+                </p>
+                <div class="journey-modules-label">Modules in this journey</div>
+                <div class="journey-modules-strip">
+                  <div class="module-tile module-color-5">
+                    <div>
+                      <div class="module-name">Capacity & Burnout Scan</div>
+                      <div class="module-meta">
+                        <span class="module-tag">Safety</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="module-tile module-color-8">
+                    <div>
+                      <div class="module-name">Boundary Scripts</div>
+                      <div class="module-meta">
+                        <span class="module-tag">Communication</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="module-tile module-color-2">
+                    <div>
+                      <div class="module-name">Help Focus Plan</div>
+                      <div class="module-meta">
+                        <span class="module-tag">Plan</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="journey-stats-footnote">
+                  Common outcome: still helping, but with less resentment and more energy.
+                </div>
+              </div>
+
+              <div class="journey-card" data-view="personal" data-tags="recommended,popular,intensive" data-lifemap="C">
+                <div class="journey-header">
+                  <h4>90-Day High-Leverage Help Design</h4>
+                  <div class="journey-meta-row">
+                    <span class="journey-meta-pill">🚀 Builder / founder</span>
+                    <span class="journey-meta-pill">90 days</span>
+                    <span class="journey-meta-pill">~30–45 min/week</span>
+                  </div>
+                </div>
+                <p style="margin:4px 0 2px;">
+                  For LifeMap C: map your leverage (skills, capital, audience), pick a cause portfolio, and design
+                  a personal “help thesis” that guides your projects and giving.
+                </p>
+                <div class="journey-modules-label">Modules in this journey</div>
+                <div class="journey-modules-strip">
+                  <div class="module-tile module-color-3">
+                    <div>
+                      <div class="module-name">Leverage Map</div>
+                      <div class="module-meta">
+                        <span class="module-tag">Strategy</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="module-tile module-color-6">
+                    <div>
+                      <div class="module-name">Cause Portfolio Builder</div>
+                      <div class="module-meta">
+                        <span class="module-tag">Impact</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="module-tile module-color-10">
+                    <div>
+                      <div class="module-name">Experiment & Learn Loop</div>
+                      <div class="module-meta">
+                        <span class="module-tag">Iteration</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="journey-stats-footnote">
+                  Common outcome: a clear strategy for how you use your career, products, and resources to help.
+                </div>
+              </div>
+            </div>
+
+            <div id="journeyEmpty" class="journeyEmpty" style="display:none;">
+              No journeys in this category for this view yet.
+            </div>
+
+            <div style="margin-top:10px;">
+              <button class="small-button">
+                🧩 Build my own journey
+              </button>
+              <button class="small-button secondary" style="margin-left:6px;">
+                ✏️ Start from a template
+              </button>
+            </div>
+          </div>
+
+          <!-- MODULES -->
+          <div class="section">
+            <div class="section-header">
+              <div>
+                <div class="section-title">Modules: building blocks of helping</div>
+                <div class="section-subtitle">
+                  Each module is a small, concrete step toward helping in a way that fits you.
+                </div>
+              </div>
+              <div class="pill-tabs" id="moduleTabs">
+                <button id="moduleTabRecommended">Recommended</button>
+                <button id="moduleTabPopular" class="active">Most popular</button>
+                <button id="moduleTabGentle">Gentle</button>
+                <button id="moduleTabIntensive">More intensive</button>
+              </div>
+            </div>
+
+            <!-- Default modules -->
+            <div class="modules-wrapper" id="modulesWrapperDefault">
+              <button class="modules-arrow left" type="button">
+                <span>◂</span>
+              </button>
+              <div class="modules-carousel" id="modulesDefault">
+                <div class="module-tile modules-base-tile module-color-9" data-view="default" data-tags="popular,gentle">
+                  <div>
+                    <div class="module-name">Bandwidth Scan</div>
+                    <div class="module-meta">
+                      <span class="module-tag">Capacity</span>
+                      <span class="module-tag">One-time</span>
+                    </div>
+                    <div class="module-desc">
+                      Quick mapping of your time, money, and emotional energy so your help matches reality.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="module-tile modules-base-tile module-color-2" data-view="default" data-tags="popular,intensive">
+                  <div>
+                    <div class="module-name">Help Style Inventory</div>
+                    <div class="module-meta">
+                      <span class="module-tag">Self-knowledge</span>
+                    </div>
+                    <div class="module-desc">
+                      Identify whether you’re best at listening, doing, organizing, teaching, funding, or building.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="module-tile modules-base-tile module-color-3" data-view="default" data-tags="popular,intensive">
+                  <div>
+                    <div class="module-name">Cause & Context Map</div>
+                    <div class="module-meta">
+                      <span class="module-tag">Direction</span>
+                    </div>
+                    <div class="module-desc">
+                      Map local vs global, urgent vs long-term needs that tug at you most.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="module-tile modules-base-tile module-color-1" data-view="default" data-tags="popular,gentle">
+                  <div>
+                    <div class="module-name">Tiny Helps Menu</div>
+                    <div class="module-meta">
+                      <span class="module-tag">Ideas</span>
+                      <span class="module-tag">Repeatable</span>
+                    </div>
+                    <div class="module-desc">
+                      A menu of small actions you can plug into daily life with minimal friction.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="module-tile modules-base-tile module-color-7" data-view="default" data-tags="gentle">
+                  <div>
+                    <div class="module-name">Listening & Presence Basics</div>
+                    <div class="module-meta">
+                      <span class="module-tag">Skills</span>
+                    </div>
+                    <div class="module-desc">
+                      Simple techniques for really hearing people without fixing everything.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="module-tile modules-base-tile module-color-6" data-view="default" data-tags="popular,gentle">
+                  <div>
+                    <div class="module-name">Boundaries 101</div>
+                    <div class="module-meta">
+                      <span class="module-tag">Safety</span>
+                    </div>
+                    <div class="module-desc">
+                      Basics of saying no, making limits clear, and staying kind but firm.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="module-tile modules-base-tile module-color-4" data-view="default" data-tags="gentle">
+                  <div>
+                    <div class="module-name">Local Community Scan</div>
+                    <div class="module-meta">
+                      <span class="module-tag">Options</span>
+                    </div>
+                    <div class="module-desc">
+                      Simple ways to discover local organizations, groups, or people needing help.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="module-tile modules-base-tile module-color-5" data-view="default" data-tags="popular,intensive">
+                  <div>
+                    <div class="module-name">Giving Budget Sketch</div>
+                    <div class="module-meta">
+                      <span class="module-tag">Money</span>
+                    </div>
+                    <div class="module-desc">
+                      Rough percentage or amount you’re comfortable giving, now or later.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="module-tile modules-base-tile module-color-8" data-view="default" data-tags="gentle">
+                  <div>
+                    <div class="module-name">Help History Reflection</div>
+                    <div class="module-meta">
+                      <span class="module-tag">Reflection</span>
+                    </div>
+                    <div class="module-desc">
+                      Look at times you helped before — what worked, what hurt, what you learned.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="module-tile modules-base-tile module-color-10" data-view="default" data-tags="intensive">
+                  <div>
+                    <div class="module-name">Impact & Feedback Loop</div>
+                    <div class="module-meta">
+                      <span class="module-tag">Iteration</span>
+                    </div>
+                    <div class="module-desc">
+                      Simple ways to notice, measure, and adjust based on how people respond.
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button class="modules-arrow right" type="button">
+                <span>▸</span>
+              </button>
+            </div>
+
+            <!-- Personalized modules -->
+            <div class="modules-wrapper" id="modulesWrapperPersonal" style="display:none;">
+              <button class="modules-arrow left" type="button">
+                <span>◂</span>
+              </button>
+              <div class="modules-carousel" id="modulesPersonal">
+                <div class="module-tile modules-base-tile module-color-2" data-view="personal" data-tags="recommended,popular,intensive" data-lifemap="A,B">
+                  <div>
+                    <div class="module-name">Bandwidth & Burnout Scan</div>
+                    <div class="module-meta">
+                      <span class="module-tag">Capacity</span>
+                    </div>
+                    <div class="module-desc">
+                      Uses your LifeMap (sleep, work, caregiving, mental health) to suggest safe ranges for helping.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="module-tile modules-base-tile module-color-9" data-view="personal" data-tags="recommended,popular,gentle" data-lifemap="A,B,C">
+                  <div>
+                    <div class="module-name">Help Style Inventory</div>
+                    <div class="module-meta">
+                      <span class="module-tag">Self-knowledge</span>
+                    </div>
+                    <div class="module-desc">
+                      Adjusts suggestions based on how introverted/extroverted, structured, or creative your LifeMap shows you to be.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="module-tile modules-base-tile module-color-1" data-view="personal" data-tags="popular,gentle" data-lifemap="A,B,C">
+                  <div>
+                    <div class="module-name">Tiny Helps Menu</div>
+                    <div class="module-meta">
+                      <span class="module-tag">Ideas</span>
+                    </div>
+                    <div class="module-desc">
+                      Curates micro-helps that fit your environment (home, school, remote work) and energy level.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="module-tile modules-base-tile module-color-4" data-view="personal" data-tags="recommended,gentle" data-lifemap="A">
+                  <div>
+                    <div class="module-name">Campus & Online Scan</div>
+                    <div class="module-meta">
+                      <span class="module-tag">Options</span>
+                    </div>
+                    <div class="module-desc">
+                      Uses your interests and schedule to surface realistic student-appropriate help opportunities.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="module-tile modules-base-tile module-color-5" data-view="personal" data-tags="popular,intensive" data-lifemap="B">
+                  <div>
+                    <div class="module-name">Boundary Scripts</div>
+                    <div class="module-meta">
+                      <span class="module-tag">Communication</span>
+                    </div>
+                    <div class="module-desc">
+                      Drafts phrases for saying no or “not right now” that match your culture and relationships.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="module-tile modules-base-tile module-color-3" data-view="personal" data-tags="popular,intensive" data-lifemap="C">
+                  <div>
+                    <div class="module-name">Leverage Map</div>
+                    <div class="module-meta">
+                      <span class="module-tag">Strategy</span>
+                    </div>
+                    <div class="module-desc">
+                      Maps where your existing assets (skills, audience, capital) intersect with pressing needs.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="module-tile modules-base-tile module-color-10" data-view="personal" data-tags="recommended,intensive" data-lifemap="C">
+                  <div>
+                    <div class="module-name">Cause Portfolio Builder</div>
+                    <div class="module-meta">
+                      <span class="module-tag">Impact</span>
+                    </div>
+                    <div class="module-desc">
+                      Helps pick a few causes that match your values and leverage, instead of reacting to every request.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="module-tile modules-base-tile module-color-8" data-view="personal" data-tags="gentle" data-lifemap="A,B">
+                  <div>
+                    <div class="module-name">Help History Reflection</div>
+                    <div class="module-meta">
+                      <span class="module-tag">Reflection</span>
+                    </div>
+                    <div class="module-desc">
+                      Uses your LifeMap highs and lows to find patterns in when helping felt right vs draining.
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button class="modules-arrow right" type="button">
+                <span>▸</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- EVIDENCE -->
+          <div class="section">
+            <div class="section-header">
+              <div>
+                <div class="section-title">Evidence & what’s debated</div>
+                <div class="section-subtitle">
+                  Helping isn’t just “nice” — there’s evidence it affects well-being, health, and communities.
+                </div>
+              </div>
+              <span class="badge">Nerd lane available</span>
+            </div>
+
+            <div class="consensus-grid">
+              <div class="consensus-col">
+                <h4>What’s broadly agreed on</h4>
+                <ul>
+                  <li>Helping others is often associated with higher life satisfaction and well-being.</li>
+                  <li>Volunteering and prosocial behavior can be linked to better mental and physical health.</li>
+                  <li>Boundaries matter: over-giving and burnout reduce your ability to help long-term.</li>
+                  <li>Both local and “far away” helping can matter; human brains often feel impact more locally.</li>
+                </ul>
+              </div>
+              <div class="consensus-col">
+                <h4>Where experts still debate</h4>
+                <ul>
+                  <li>How to best compare “impact” across different causes and forms of helping.</li>
+                  <li>The role of motivation (altruistic vs self-focused) in long-term well-being effects.</li>
+                  <li>How to measure and value emotional support vs financial or systemic interventions.</li>
+                  <li>When focusing on distant/global impact might undermine local relationships or vice versa.</li>
+                </ul>
+              </div>
+            </div>
+
+            <table class="evidence-table">
+              <thead>
+                <tr>
+                  <th>Study (link)</th>
+                  <th>Classification</th>
+                  <th>Funding source</th>
+                  <th>Population</th>
+                  <th>Control</th>
+                  <th>Size (n)</th>
+                  <th>Design</th>
+                  <th>Trust score</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <a href="https://doi.org/10.1177/0956797608319318" target="_blank" rel="noopener">
+                      “Spending money on others promotes happiness”
+                    </a>
+                  </td>
+                  <td>Prosocial spending & well-being</td>
+                  <td>Academic grants</td>
+                  <td>Adults in several countries</td>
+                  <td>Self vs others spending</td>
+                  <td>600+</td>
+                  <td>Experiments & survey</td>
+                  <td>Moderate–High</td>
+                </tr>
+                <tr>
+                  <td>
+                    <a href="https://doi.org/10.1111/j.1741-3737.2003.00321.x" target="_blank" rel="noopener">
+                      “Volunteerism and later health outcomes”
+                    </a>
+                  </td>
+                  <td>Volunteering & health</td>
+                  <td>Academic / public</td>
+                  <td>Older adults</td>
+                  <td>Non-volunteers, demographics</td>
+                  <td>2,000+</td>
+                  <td>Longitudinal observational</td>
+                  <td>Moderate</td>
+                </tr>
+                <tr>
+                  <td>
+                    <a href="https://doi.org/10.1177/0963721412469809" target="_blank" rel="noopener">
+                      “The benefits of giving, receiving, and being aware of support”
+                    </a>
+                  </td>
+                  <td>Social support & well-being</td>
+                  <td>Academic</td>
+                  <td>Mixed adult samples</td>
+                  <td>Controls for baseline well-being</td>
+                  <td>Multi-study</td>
+                  <td>Review & synthesis</td>
+                  <td>High</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="text-sm" style="margin-top:4px;">
+              In a real product, this section would expand into a full evidence browser, including debates around effective altruism,
+              mutual aid, and different cultural models of helping.
+            </div>
+          </div>
+
+          <!-- STORIES -->
+          <div class="section">
+            <div class="section-header">
+              <div>
+                <div class="section-title">Stories from people like you</div>
+                <div class="section-subtitle">
+                  Anonymized examples of how different LifeMaps found their way of helping.
+                </div>
+              </div>
+            </div>
+
+            <div class="story-card">
+              <h4>“I went from vague guilt to two clear ways I actually help.”</h4>
+              <div class="story-meta">
+                David, 36 • LifeMap B • busy parent & team lead
+              </div>
+              <p style="margin:4px 0 4px;">
+                David used to feel like he was failing the world: climate, poverty, his friends’ struggles.
+                Through a Boundaries & Better Helping journey, he realized he could not do everything.
+                He chose two lanes: mentoring junior coworkers and setting up an automatic monthly donation
+                to a vetted organization. His guilt dropped; his sense of agency went up.
+              </p>
+              <div class="text-sm">
+                Key levers: realistic capacity, clear lanes, recurring giving, boundaries at work and home.
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ & RELATED -->
+          <div class="section">
+            <div class="section-header">
+              <div>
+                <div class="section-title">FAQ & related topics</div>
+                <div class="section-subtitle">
+                  Questions people actually ask when trying to help without burning out.
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-q">
+                <span>How do I know if I’m actually helping?</span>
+                <span class="faq-toggle-icon">▸</span>
+              </div>
+              <div class="faq-a">
+                You can’t control everything, but you can look for signals: what people say, what changes,
+                how organizations use your time or money, and whether your actions line up with what they say they need.
+                Over time, checking in and adjusting is more useful than obsessing over a perfect metric.
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-q">
+                <span>How do I help without burning out?</span>
+                <span class="faq-toggle-icon">▸</span>
+              </div>
+              <div class="faq-a">
+                Burnout usually comes from mismatched expectations and invisible limits.
+                Getting honest about your capacity, setting boundaries, and choosing a few clear lanes
+                matters more than trying to respond to every request or crisis you see online.
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-q">
+                <span>Is it selfish to focus on my own life first?</span>
+                <span class="faq-toggle-icon">▸</span>
+              </div>
+              <div class="faq-a">
+                Not if “first” is about building a stable platform from which you can help for a long time.
+                If your health, finances, or safety are collapsing, stabilizing yourself is often the most
+                responsible step. This topic helps you see when that’s the case vs when you’re just avoiding discomfort.
+              </div>
+            </div>
+
+            <div class="section" style="margin-top:14px;">
+              <div class="section-title">Related topics that often matter here</div>
+              <div class="section-subtitle">
+                These topics frequently sit underneath “How can I help people?”.
+              </div>
+              <div class="related-grid">
+                <div class="related-card">
+                  <h4>Boundaries & People Pleasing</h4>
+                  <div class="text-sm">
+                    When saying yes is automatic, helping can become self-erasure instead of service.
+                  </div>
+                </div>
+                <div class="related-card">
+                  <h4>Money, Giving & Debt</h4>
+                  <div class="text-sm">
+                    How to give (now or later) in ways that don’t put you or your family in danger.
+                  </div>
+                </div>
+                <div class="related-card">
+                  <h4>Career & Purpose</h4>
+                  <div class="text-sm">
+                    Aligning your work with helping so your job becomes part of the way you contribute.
+                  </div>
+                </div>
+                <div class="related-card">
+                  <h4>Mental Health & Burnout</h4>
+                  <div class="text-sm">
+                    If you’re depleted, depressed, or traumatized, your first “help project” might be you.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="section" style="margin-top:14px;">
+              <div class="section-title">Safety / When to get professional help</div>
+              <div class="section-subtitle">
+                LifeHub is not a crisis line, therapist, or financial advisor.
+              </div>
+              <div class="faq-item open" style="border-color: rgba(248,113,113,0.9); background: rgba(254,242,242,0.9);">
+                <div class="faq-q">
+                  <span style="color:#b91c1c;">If helping is tied to crisis, self-harm, or abuse</span>
+                  <span class="faq-toggle-icon">▸</span>
+                </div>
+                <div class="faq-a">
+                  If you are in danger, thinking about hurting yourself, or stuck in abusive dynamics,
+                  you need real-world professional and emergency support, not just an app.
+                  In a full product, this section would link to crisis lines and local resources by region.
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- RIGHT COLUMN: PERSONALIZED MODE -->
+      <aside class="personal-panel" id="personalColumn">
+        <div class="view-toggle-shell">
+          <div class="view-toggle">
+            <button class="active" id="viewDefault">
+              <span>🌐</span> Default view
+            </button>
+            <button id="viewPersonal">
+              <span>✨</span> Personalized view
+            </button>
+          </div>
+          <div class="text-sm" style="margin-top:6px; max-width:320px;">
+            Toggle between a generic topic page and a version shaped by example LifeMaps. In a real app,
+            this would be <strong>your</strong> data.
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="side-header">LifeMap snapshot</div>
+          <div class="side-sub">
+            How this topic plugs into three example LifeMaps.
+          </div>
+
+          <div class="pill-tabs" id="lifeMapTabs">
+            <button id="lifeMapA" class="active">LifeMap A</button>
+            <button id="lifeMapB">LifeMap B</button>
+            <button id="lifeMapC">LifeMap C</button>
+          </div>
+
+          <div class="side-note" id="lifeMapSnapshot" style="margin-top:8px;">
+            <strong>Default view (no LifeMap loaded):</strong><br />
+            • Domains: time, money, skills, mental health, relationships – but no specific data yet.<br />
+            • Traits: we assume you care, feel at least some pull to help, and don’t want to make things worse.<br />
+            • Constraints: unknown bandwidth, history with burnout, or current stress level.<br /><br />
+            Connect or create a LifeMap to see your schedule, finances, responsibilities, skills, and stress patterns
+            populate here — and watch positions, levers, modules, and journeys reconfigure around you.
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <footer>
+      * Demo numbers are placeholders for design purposes only, not medical, financial, or legal advice.<br />
+      LifeHub Topic Demo • How can I help people? • 2025
+    </footer>
+  </div>
+
+  <script>
+    // --- DOM references ---
+    const viewDefaultBtn = document.getElementById("viewDefault");
+    const viewPersonalBtn = document.getElementById("viewPersonal");
+
+    const baselineDefault = document.getElementById("baselineDefault");
+    const baselinePersonal = document.getElementById("baselinePersonal");
+
+    const baselinePersonalA = document.getElementById("baselinePersonalA");
+    const baselinePersonalB = document.getElementById("baselinePersonalB");
+    const baselinePersonalC = document.getElementById("baselinePersonalC");
+
+    const leverPersonalDefault = document.getElementById("leverPersonalDefault");
+    const leverPersonalPersonal = document.getElementById("leverPersonalPersonal");
+    const leverPersonalA = document.getElementById("leverPersonalA");
+    const leverPersonalB = document.getElementById("leverPersonalB");
+    const leverPersonalC = document.getElementById("leverPersonalC");
+    const leverPersonalCard = document.getElementById("leverPersonalCard");
+
+    const lifeMapSnapshot = document.getElementById("lifeMapSnapshot");
+    const lifeMapATab = document.getElementById("lifeMapA");
+    const lifeMapBTab = document.getElementById("lifeMapB");
+    const lifeMapCTab = document.getElementById("lifeMapC");
+
+    const positionMedication = document.getElementById("positionMedication");
+    const positionCarb = document.getElementById("positionCarb");
+    const positionWhole = document.getElementById("positionWhole");
+    const positionWeight = document.getElementById("positionWeight");
+    const positionCards = document.querySelectorAll(".position-card");
+    const positionLabels = document.querySelectorAll(".position-card .recommended-label");
+
+    const tabRecommended = document.getElementById("tabRecommended");
+    const tabPopular = document.getElementById("tabPopular");
+    const tabGentle = document.getElementById("tabGentle");
+    const tabIntensive = document.getElementById("tabIntensive");
+
+    const journeyCards = document.querySelectorAll(".journey-card");
+    const journeyEmpty = document.getElementById("journeyEmpty");
+
+    const modulesWrapperDefault = document.getElementById("modulesWrapperDefault");
+    const modulesWrapperPersonal = document.getElementById("modulesWrapperPersonal");
+
+    const moduleTabRecommended = document.getElementById("moduleTabRecommended");
+    const moduleTabPopular = document.getElementById("moduleTabPopular");
+    const moduleTabGentle = document.getElementById("moduleTabGentle");
+    const moduleTabIntensive = document.getElementById("moduleTabIntensive");
+
+    const moduleTiles = document.querySelectorAll(".modules-base-tile");
+
+    const lifeMapTemplates = {
+      default:
+        "<strong>Default view (no LifeMap loaded):</strong><br />" +
+        "• Domains: time, money, skills, mental health, relationships – but no specific data yet.<br />" +
+        "• Traits: we assume you care, feel at least some pull to help, and don’t want to make things worse.<br />" +
+        "• Constraints: unknown bandwidth, history with burnout, or current stress level.<br /><br />" +
+        "Connect or create a LifeMap to see your schedule, finances, responsibilities, skills, and stress patterns " +
+        "populate here — and watch positions, levers, modules, and journeys reconfigure around you.",
+      A:
+        "<strong>LifeMap A • Student / early adult with a big heart</strong><br />" +
+        "• Context: juggling school, early work, and social life; limited money.<br />" +
+        "• Emotional pattern: feels pulled by big issues and friends’ struggles; guilt when not doing more.<br />" +
+        "• Strengths: energy, curiosity, ability to learn fast and adapt.<br /><br />" +
+        "Implication for this topic: focus on tiny, repeatable helps and skill-building, not heavy obligations " +
+        "or major financial commitments.",
+      B:
+        "<strong>LifeMap B • Working adult / caregiver who already helps a lot</strong><br />" +
+        "• Context: job, family, and possibly aging parents or community roles.<br />" +
+        "• Emotional pattern: often tired, feels guilty saying no, sometimes resentful.<br />" +
+        "• Strengths: reliability, empathy, real-world experience, influence in small circles.<br /><br />" +
+        "Implication for this topic: clarify capacity, set boundaries, and choose high-quality ways to help " +
+        "that don’t drain your remaining energy.",
+      C:
+        "<strong>LifeMap C • Builder / founder / high-skill person</strong><br />" +
+        "• Context: experience in business, tech, or creative fields; some influence and/or capital.<br />" +
+        "• Emotional pattern: wants to do more than just donate, but doesn’t want to act blindly.<br />" +
+        "• Strengths: systems thinking, execution, problem solving, network.<br /><br />" +
+        "Implication for this topic: design a leverage-focused helping strategy that uses your career, products, " +
+        "and giving in coordinated ways."
+    };
+
+    let currentViewMode = "default";     // "default" | "personal"
+    let currentJourneyTab = "popular";   // "recommended" | "popular" | "gentle" | "intensive"
+    let currentModuleTab = "popular";    // same
+    let currentLifeMap = "A";            // "A" | "B" | "C"
+
+    // --- Recommended position logic ---
+    function updateRecommendedPosition() {
+      positionCards.forEach(card => card.classList.remove("recommended"));
+      positionLabels.forEach(label => label.style.display = "none");
+
+      if (currentViewMode !== "personal") return;
+
+      let recommendedId;
+      // Mapping: A/B → local & consistent; C → leverage/system
+      if (currentLifeMap === "C") {
+        recommendedId = "positionCarb";
+      } else {
+        recommendedId = "positionMedication";
+      }
+
+      const card = document.getElementById(recommendedId);
+      if (!card) return;
+
+      card.classList.add("recommended");
+      const label = card.querySelector(".recommended-label");
+      if (label) label.style.display = "inline-flex";
+    }
+
+    // --- Journeys display logic ---
+    function updateJourneysDisplay() {
+      let anyVisible = false;
+      journeyCards.forEach(card => {
+        const view = card.dataset.view || "default";
+        const tags = (card.dataset.tags || "").split(",").map(t => t.trim());
+        const lifemapAttr = card.dataset.lifemap || "all";
+        const lifemaps = lifemapAttr.split(",").map(t => t.trim());
+        const viewMatch = (view === currentViewMode || view === "both");
+        const tagMatch = tags.includes(currentJourneyTab);
+        const lifemapMatch = lifemapAttr === "all" || lifemaps.includes(currentLifeMap);
+
+        if (viewMatch && tagMatch && lifemapMatch) {
+          card.style.display = "";
+          anyVisible = true;
+        } else {
+          card.style.display = "none";
+        }
+      });
+
+      journeyEmpty.style.display = anyVisible ? "none" : "block";
+    }
+
+    function updateJourneyTabUI() {
+      const mapping = {
+        recommended: tabRecommended,
+        popular: tabPopular,
+        gentle: tabGentle,
+        intensive: tabIntensive
+      };
+
+      Object.entries(mapping).forEach(([name, btn]) => {
+        btn.classList.toggle("active", name === currentJourneyTab);
+      });
+
+      updateJourneysDisplay();
+    }
+
+    function setJourneyTab(tab) {
+      if (tab === "recommended" && currentViewMode === "default") {
+        return; // disabled in default view
+      }
+      currentJourneyTab = tab;
+      updateJourneyTabUI();
+    }
+
+    // --- Modules display logic ---
+    function updateModulesDisplay() {
+      moduleTiles.forEach(tile => {
+        const view = tile.dataset.view || "default";
+        const tags = (tile.dataset.tags || "").split(",").map(t => t.trim());
+        const lifemapAttr = tile.dataset.lifemap || "all";
+        const lifemaps = lifemapAttr.split(",").map(t => t.trim());
+        const viewMatch = (view === currentViewMode || view === "both");
+        const tagMatch = tags.includes(currentModuleTab);
+        const lifemapMatch = lifemapAttr === "all" || lifemaps.includes(currentLifeMap);
+
+        if (viewMatch && tagMatch && lifemapMatch) {
+          tile.style.display = "flex";
+        } else {
+          tile.style.display = "none";
+        }
+      });
+    }
+
+    function updateModuleTabUI() {
+      const mapping = {
+        recommended: moduleTabRecommended,
+        popular: moduleTabPopular,
+        gentle: moduleTabGentle,
+        intensive: moduleTabIntensive
+      };
+
+      Object.entries(mapping).forEach(([name, btn]) => {
+        btn.classList.toggle("active", name === currentModuleTab);
+      });
+
+      updateModulesDisplay();
+    }
+
+    function setModuleTab(tab) {
+      if (tab === "recommended" && currentViewMode === "default") {
+        return; // disabled in default view
+      }
+      currentModuleTab = tab;
+      updateModuleTabUI();
+    }
+
+    // --- LifeMap UI helpers ---
+    function updateLifeMapTabUI() {
+      const mapping = { A: lifeMapATab, B: lifeMapBTab, C: lifeMapCTab };
+      Object.entries(mapping).forEach(([name, btn]) => {
+        btn.classList.toggle("active", name === currentLifeMap);
+      });
+    }
+
+    function updateLifeMapDependentUI() {
+      if (currentViewMode !== "personal") return;
+
+      // Snapshot text
+      lifeMapSnapshot.innerHTML = lifeMapTemplates[currentLifeMap];
+
+      // Baseline variants
+      [baselinePersonalA, baselinePersonalB, baselinePersonalC].forEach(el => {
+        if (!el) return;
+        el.style.display = "none";
+      });
+      if (currentLifeMap === "A") baselinePersonalA.style.display = "grid";
+      if (currentLifeMap === "B") baselinePersonalB.style.display = "grid";
+      if (currentLifeMap === "C") baselinePersonalC.style.display = "grid";
+
+      // Lever variants
+      [leverPersonalA, leverPersonalB, leverPersonalC].forEach(el => {
+        if (!el) return;
+        el.style.display = "none";
+      });
+      if (currentLifeMap === "A") leverPersonalA.style.display = "block";
+      if (currentLifeMap === "B") leverPersonalB.style.display = "block";
+      if (currentLifeMap === "C") leverPersonalC.style.display = "block";
+
+      // Journeys + modules depend on LifeMap
+      updateJourneysDisplay();
+      updateModulesDisplay();
+    }
+
+    function setLifeMap(lm) {
+      if (currentViewMode === "default") return; // Only meaningful in personalized view
+      currentLifeMap = lm;
+      updateLifeMapTabUI();
+      updateLifeMapDependentUI();
+      updateRecommendedPosition();
+    }
+
+    // --- View toggle logic ---
+    function setView(mode) {
+      const isDefault = mode === "default";
+      currentViewMode = mode;
+
+      // Button states
+      viewDefaultBtn.classList.toggle("active", isDefault);
+      viewPersonalBtn.classList.toggle("active", !isDefault);
+
+      // Baseline
+      baselineDefault.style.display = isDefault ? "block" : "none";
+      baselinePersonal.style.display = isDefault ? "none" : "block";
+
+      // Lever column
+      leverPersonalDefault.style.display = isDefault ? "block" : "none";
+      leverPersonalPersonal.style.display = isDefault ? "none" : "block";
+
+      // Highlight personalized lever column only in personalized view
+      if (isDefault) {
+        leverPersonalCard.classList.remove("highlighted");
+      } else {
+        leverPersonalCard.classList.add("highlighted");
+      }
+
+      // LifeMap tabs enabled/disabled + snapshot text
+      const lifeMapButtons = [lifeMapATab, lifeMapBTab, lifeMapCTab];
+      if (isDefault) {
+        lifeMapButtons.forEach(btn => {
+          btn.classList.add("disabled");
+          btn.setAttribute("aria-disabled", "true");
+        });
+        lifeMapSnapshot.innerHTML = lifeMapTemplates.default;
+      } else {
+        lifeMapButtons.forEach(btn => {
+          btn.classList.remove("disabled");
+          btn.removeAttribute("aria-disabled");
+        });
+        updateLifeMapTabUI();
+        updateLifeMapDependentUI();
+      }
+
+      // Modules wrapper switch
+      if (isDefault) {
+        modulesWrapperDefault.style.display = "block";
+        modulesWrapperPersonal.style.display = "none";
+      } else {
+        modulesWrapperDefault.style.display = "none";
+        modulesWrapperPersonal.style.display = "block";
+      }
+
+      // Journey tabs: enable/disable "Recommended"
+      if (isDefault) {
+        tabRecommended.classList.add("disabled");
+        tabRecommended.setAttribute("aria-disabled", "true");
+        if (currentJourneyTab === "recommended") {
+          currentJourneyTab = "popular";
+        }
+      } else {
+        tabRecommended.classList.remove("disabled");
+        tabRecommended.removeAttribute("aria-disabled");
+        currentJourneyTab = "recommended";
+      }
+      updateJourneyTabUI();
+
+      // Module tabs: enable/disable "Recommended"
+      if (isDefault) {
+        moduleTabRecommended.classList.add("disabled");
+        moduleTabRecommended.setAttribute("aria-disabled", "true");
+        if (currentModuleTab === "recommended") {
+          currentModuleTab = "popular";
+        }
+      } else {
+        moduleTabRecommended.classList.remove("disabled");
+        moduleTabRecommended.removeAttribute("aria-disabled");
+        currentModuleTab = "recommended";
+      }
+      updateModuleTabUI();
+
+      // Recommended position highlight
+      updateRecommendedPosition();
+    }
+
+    // --- Modules carousel arrow logic ---
+    const moduleWrappers = document.querySelectorAll(".modules-wrapper");
+    moduleWrappers.forEach(wrapper => {
+      const carousel = wrapper.querySelector(".modules-carousel");
+      const leftBtn = wrapper.querySelector(".modules-arrow.left");
+      const rightBtn = wrapper.querySelector(".modules-arrow.right");
+      const scrollAmount = 260;
+
+      if (!carousel || !leftBtn || !rightBtn) return;
+
+      leftBtn.addEventListener("click", () => {
+        carousel.scrollBy({ left: -scrollAmount, behavior: "smooth" });
+      });
+
+      rightBtn.addEventListener("click", () => {
+        carousel.scrollBy({ left: scrollAmount, behavior: "smooth" });
+      });
+    });
+
+    // FAQ accordions
+    const faqItems = document.querySelectorAll(".faq-item");
+    faqItems.forEach(item => {
+      const question = item.querySelector(".faq-q");
+      question.addEventListener("click", () => {
+        item.classList.toggle("open");
+      });
+    });
+
+    // --- Event listeners ---
+    viewDefaultBtn.addEventListener("click", () => setView("default"));
+    viewPersonalBtn.addEventListener("click", () => setView("personal"));
+
+    tabRecommended.addEventListener("click", () => setJourneyTab("recommended"));
+    tabPopular.addEventListener("click", () => setJourneyTab("popular"));
+    tabGentle.addEventListener("click", () => setJourneyTab("gentle"));
+    tabIntensive.addEventListener("click", () => setJourneyTab("intensive"));
+
+    moduleTabRecommended.addEventListener("click", () => setModuleTab("recommended"));
+    moduleTabPopular.addEventListener("click", () => setModuleTab("popular"));
+    moduleTabGentle.addEventListener("click", () => setModuleTab("gentle"));
+    moduleTabIntensive.addEventListener("click", () => setModuleTab("intensive"));
+
+    lifeMapATab.addEventListener("click", () => setLifeMap("A"));
+    lifeMapBTab.addEventListener("click", () => setLifeMap("B"));
+    lifeMapCTab.addEventListener("click", () => setLifeMap("C"));
+
+    // Initialize
+    setView("default");
+  </script>
+</body>
+</html>

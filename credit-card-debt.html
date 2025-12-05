@@ -1,0 +1,1859 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>LifeHub Topic Demo – Credit Card Debt</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --bg-alt: #ffffff;
+      --bg-soft: #edf1fc;
+      --border-subtle: #d7d9e5;
+      --primary: #3046ff;
+      --primary-soft: rgba(48, 70, 255, 0.12);
+      --primary-strong: #1d2bcc;
+      --text-main: #111322;
+      --text-muted: #666a80;
+      --accent: #10b981;
+      --danger: #ef4444;
+      --radius-lg: 18px;
+      --radius-xl: 26px;
+      --shadow-soft: 0 18px 60px rgba(15, 23, 42, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top left, #eef2ff 0, #f5f7fb 36%, #f9fafb 100%);
+      color: var(--text-main);
+      font-size: 18px; /* larger than default */
+      line-height: 1.6;
+    }
+
+    .page {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 32px 18px 60px;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+
+    .brand {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .brand-title {
+      font-size: 32px;
+      font-weight: 750;
+      letter-spacing: -0.04em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .brand-title span.dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 20%, #4ade80, #22c55e);
+      box-shadow: 0 0 0 8px rgba(34, 197, 94, 0.18);
+    }
+
+    .brand-sub {
+      font-size: 17px;
+      color: var(--text-muted);
+    }
+
+    .top-meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      font-size: 15px;
+      color: var(--text-muted);
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.85);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      font-size: 14px;
+      gap: 6px;
+    }
+
+    .pill-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #22c55e;
+    }
+
+    .view-toggle {
+      display: inline-flex;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      color: white;
+      padding: 4px;
+      font-size: 14px;
+      box-shadow: 0 16px 40px rgba(15, 23, 42, 0.4);
+    }
+
+    .view-toggle button {
+      border: none;
+      background: transparent;
+      color: rgba(255, 255, 255, 0.68);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 14px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 500;
+    }
+
+    .view-toggle button.active {
+      background: white;
+      color: #020617;
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: minmax(0, 2.2fr) minmax(0, 1.4fr);
+      gap: 22px;
+      align-items: flex-start;
+    }
+
+    @media (max-width: 980px) {
+      main {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    .panel {
+      background: var(--bg-alt);
+      border-radius: var(--radius-xl);
+      padding: 20px 20px 22px;
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      box-shadow: 0 18px 50px rgba(15, 23, 42, 0.08);
+    }
+
+    .panel + .panel {
+      margin-top: 16px;
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .panel-title {
+      font-size: 22px;
+      font-weight: 650;
+      letter-spacing: -0.03em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .panel-subtitle {
+      font-size: 15px;
+      color: var(--text-muted);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: var(--bg-soft);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      font-size: 13px;
+      color: var(--text-muted);
+      gap: 6px;
+    }
+
+    h1.topic-title {
+      font-size: 40px;
+      letter-spacing: -0.05em;
+      margin: 4px 0 4px;
+    }
+
+    .topic-subtitle {
+      font-size: 18px;
+      color: var(--text-muted);
+      max-width: 640px;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .chip {
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.04);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      font-size: 14px;
+      color: var(--text-muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .metric-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+      font-size: 15px;
+    }
+
+    .metric-pill {
+      border-radius: 999px;
+      padding: 6px 12px;
+      background: rgba(15, 23, 42, 0.03);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .metric-pill strong {
+      font-weight: 600;
+    }
+
+    .baseline-card {
+      background: radial-gradient(circle at 0 0, #e0f2fe 0, #eff6ff 36%, #ffffff 100%);
+      border-radius: var(--radius-xl);
+      padding: 18px 18px 16px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 4px;
+    }
+
+    .baseline-card::after {
+      content: "";
+      position: absolute;
+      right: -40px;
+      top: -40px;
+      width: 180px;
+      height: 180px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 20%, rgba(52, 211, 153, 0.8), rgba(5, 150, 105, 0.1));
+      opacity: 0.5;
+      filter: blur(2px);
+    }
+
+    .baseline-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.4fr);
+      gap: 14px;
+      position: relative;
+      z-index: 1;
+    }
+
+    @media (max-width: 840px) {
+      .baseline-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .baseline-main-title {
+      font-size: 20px;
+      font-weight: 650;
+      letter-spacing: -0.03em;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .band-tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 13px;
+      gap: 6px;
+      background: rgba(239, 68, 68, 0.08);
+      color: #b91c1c;
+      border: 1px solid rgba(248, 113, 113, 0.5);
+    }
+
+    .archetype-tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 13px;
+      gap: 6px;
+      background: rgba(37, 99, 235, 0.08);
+      color: #1d4ed8;
+      border: 1px solid rgba(96, 165, 250, 0.6);
+    }
+
+    .lever-list {
+      list-style: none;
+      padding: 0;
+      margin: 8px 0 0;
+      font-size: 15px;
+    }
+
+    .lever-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+
+    .lever-list li span.rank {
+      width: 22px;
+      height: 22px;
+      border-radius: 999px;
+      background: var(--bg-alt);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+
+    .journeys-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .journey-pill {
+      border-radius: 999px;
+      padding: 6px 12px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(255, 255, 255, 0.9);
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+    }
+
+    .journey-pill span.label {
+      font-weight: 550;
+    }
+
+    .journey-pill span.meta {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .text-sm {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .section {
+      margin-top: 18px;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .section-title {
+      font-size: 20px;
+      font-weight: 650;
+      letter-spacing: -0.03em;
+    }
+
+    .section-subtitle {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .pill-tabs {
+      display: inline-flex;
+      gap: 6px;
+      background: rgba(15, 23, 42, 0.03);
+      border-radius: 999px;
+      padding: 3px;
+      border: 1px solid rgba(148, 163, 184, 0.45);
+    }
+
+    .pill-tabs button {
+      border-radius: 999px;
+      border: none;
+      padding: 4px 10px;
+      font-size: 13px;
+      background: transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+    }
+
+    .pill-tabs button.active {
+      background: white;
+      color: #020617;
+      font-weight: 550;
+      box-shadow: 0 1px 6px rgba(15, 23, 42, 0.18);
+    }
+
+    .positions-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .position-card {
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: rgba(255, 255, 255, 0.95);
+      padding: 10px 12px;
+      font-size: 15px;
+    }
+
+    .position-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 2px;
+    }
+
+    .position-name {
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+    .confidence-chip {
+      padding: 2px 7px;
+      border-radius: 999px;
+      border: 1px solid rgba(34, 197, 94, 0.4);
+      background: rgba(22, 163, 74, 0.06);
+      color: #15803d;
+      font-size: 12px;
+    }
+
+    .position-meta {
+      font-size: 13px;
+      color: var(--text-muted);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 3px;
+    }
+
+    .lever-columns {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 840px) {
+      .lever-columns {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .lever-card {
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: rgba(255, 255, 255, 0.97);
+      padding: 10px 12px;
+      font-size: 15px;
+    }
+
+    .lever-card h4 {
+      margin: 0 0 3px;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .lever-tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 6px;
+      border-radius: 999px;
+      font-size: 12px;
+      color: var(--text-muted);
+      background: rgba(15, 23, 42, 0.03);
+      border: 1px solid rgba(148, 163, 184, 0.45);
+    }
+
+    .journey-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .journey-card {
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(255, 255, 255, 0.98);
+      padding: 10px 12px;
+      font-size: 15px;
+      display: grid;
+      grid-template-columns: minmax(0, 2.2fr) minmax(0, 1.3fr);
+      gap: 8px;
+    }
+
+    @media (max-width: 840px) {
+      .journey-card {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .journey-card h4 {
+      margin: 0 0 2px;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .journey-meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 2px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .journey-meta-pill {
+      border-radius: 999px;
+      padding: 3px 8px;
+      background: rgba(15, 23, 42, 0.03);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+    }
+
+    .journey-stats {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .journey-cta {
+      margin-top: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
+      color: var(--primary-strong);
+      cursor: pointer;
+    }
+
+    .journey-cta span.arrow {
+      font-size: 15px;
+    }
+
+    .small-button {
+      border-radius: 999px;
+      border: none;
+      padding: 5px 10px;
+      font-size: 13px;
+      cursor: pointer;
+      background: var(--primary);
+      color: white;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 10px 24px rgba(37, 99, 235, 0.3);
+    }
+
+    .small-button.secondary {
+      background: white;
+      color: #020617;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      box-shadow: none;
+    }
+
+    .modules-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 8px;
+    }
+
+    .module-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 10px;
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(255, 255, 255, 0.96);
+      font-size: 15px;
+    }
+
+    .module-name {
+      font-weight: 550;
+    }
+
+    .module-meta {
+      font-size: 13px;
+      color: var(--text-muted);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tag {
+      border-radius: 999px;
+      padding: 2px 7px;
+      font-size: 12px;
+      background: rgba(15, 23, 42, 0.03);
+      border: 1px solid rgba(148, 163, 184, 0.45);
+    }
+
+    .evidence-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      margin-top: 6px;
+    }
+
+    .evidence-table th,
+    .evidence-table td {
+      padding: 7px 8px;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.35);
+      text-align: left;
+    }
+
+    .evidence-table th {
+      font-weight: 600;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .consensus-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 10px;
+      margin-top: 6px;
+      font-size: 14px;
+    }
+
+    @media (max-width: 840px) {
+      .consensus-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .consensus-col {
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(255, 255, 255, 0.97);
+      padding: 8px 10px;
+    }
+
+    .consensus-col h4 {
+      margin: 0 0 4px;
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .consensus-col ul {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    .story-card {
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(255, 255, 255, 0.98);
+      padding: 10px 12px;
+      font-size: 15px;
+    }
+
+    .story-card h4 {
+      margin: 0 0 4px;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .story-meta {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .faq-item {
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: rgba(255, 255, 255, 0.96);
+      padding: 8px 10px;
+      margin-bottom: 6px;
+      font-size: 15px;
+    }
+
+    .faq-q {
+      font-weight: 600;
+      margin-bottom: 3px;
+    }
+
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    @media (max-width: 780px) {
+      .related-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .related-card {
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(255, 255, 255, 0.98);
+      padding: 8px 10px;
+      font-size: 15px;
+    }
+
+    .related-card h4 {
+      margin: 0 0 3px;
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    /* Coach mode side panel */
+
+    .coach-panel {
+      position: sticky;
+      top: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .coach-header {
+      font-size: 18px;
+      font-weight: 650;
+      letter-spacing: -0.03em;
+      margin-bottom: 4px;
+    }
+
+    .coach-sub {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .coach-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .coach-client-chip {
+      border-radius: 14px;
+      padding: 7px 9px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.02);
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .coach-client-chip.active {
+      background: rgba(37, 99, 235, 0.09);
+      border-color: rgba(37, 99, 235, 0.8);
+    }
+
+    .coach-client-main {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+
+    .coach-client-name {
+      font-weight: 600;
+    }
+
+    .coach-client-meta {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .coach-tag {
+      font-size: 11px;
+      padding: 2px 6px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.06);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+    }
+
+    .baseline-mini {
+      border-radius: 16px;
+      border: 1px dashed rgba(148, 163, 184, 0.9);
+      background: rgba(255, 255, 255, 0.96);
+      padding: 8px 9px;
+      font-size: 13px;
+    }
+
+    .baseline-mini strong {
+      font-weight: 600;
+    }
+
+    .coach-note {
+      font-size: 13px;
+      color: var(--text-muted);
+      border-radius: 14px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(15, 23, 42, 0.01);
+      padding: 8px 9px;
+    }
+
+    footer {
+      margin-top: 40px;
+      font-size: 13px;
+      color: var(--text-muted);
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="brand">
+        <div class="brand-title">
+          <span class="dot"></span>
+          <span>LifeHub</span>
+        </div>
+        <div class="brand-sub">
+          Topic demo • Personalized from your LifeMap
+        </div>
+        <div class="top-meta">
+          <span class="pill"><span class="pill-dot"></span>Topic • Credit Card Debt</span>
+          <span class="pill">Updated 3 days ago</span>
+          <span class="pill">219 journeys • early access view</span>
+        </div>
+      </div>
+      <div style="display:flex; flex-direction:column; align-items:flex-end; gap:10px;">
+        <div class="view-toggle">
+          <button class="active" id="viewDefault">
+            <span>🌐</span> Default view
+          </button>
+          <button id="viewUser">
+            <span>👤</span> User view
+          </button>
+          <button id="viewCoach">
+            <span>🧑‍🏫</span> Coach mode
+          </button>
+        </div>
+        <div class="text-sm" style="max-width:320px; text-align:right;">
+          Switch views to see this money topic as a generic page, personalized from a LifeMap, or through a coach’s lens.
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- LEFT COLUMN: TOPIC VIEW -->
+      <div id="userColumn">
+        <section class="panel">
+          <div class="panel-header">
+            <div>
+              <h1 class="topic-title">Credit Card Debt</h1>
+              <div class="topic-subtitle">
+                A topic page that can be generic, or deeply personalized from your LifeMap and money habits.
+              </div>
+            </div>
+            <div>
+              <span class="badge">LifeMap-aware</span>
+            </div>
+          </div>
+
+          <div class="chips">
+            <span class="chip">💳 Goal: Pay debt down & stay out</span>
+            <span class="chip">⏱ Typical journey: 30–180 days</span>
+            <span class="chip">📉 Avg balance change: −$1.8k in 3–6 months*</span>
+          </div>
+
+          <div class="section" style="margin-top:18px;">
+            <div class="section-header">
+              <div>
+                <div class="section-title">TL;DR for this topic</div>
+                <div class="section-subtitle">
+                  The short version of what actually moves the needle for most people.
+                </div>
+              </div>
+            </div>
+            <p style="margin:4px 0 4px;">
+              For most people, credit card debt is less about math and more about
+              <strong>cash flow + habits + stress</strong>. High interest makes it feel like
+              you’re running on a treadmill. The big levers are: reducing new spending,
+              building a cash buffer, and focusing payments where they count most — in a way
+              that fits your income, bills, and mental bandwidth.
+            </p>
+            <div class="metric-row">
+              <div class="metric-pill">
+                <strong>219</strong> journeys logged on this topic
+              </div>
+              <div class="metric-pill">
+                <strong>~70%</strong> reduce balances after 90 days
+              </div>
+              <div class="metric-pill">
+                <strong>Top levers:</strong> new spending, payment order, income, fixed costs
+              </div>
+            </div>
+          </div>
+
+          <!-- BASELINE CARDS -->
+          <div class="section" style="margin-top:20px;">
+            <div class="section-header">
+              <div>
+                <div class="section-title">Baseline for this topic</div>
+                <div class="section-subtitle">
+                  Default view shows generic info. User view personalizes this from a LifeMap.
+                </div>
+              </div>
+            </div>
+
+            <!-- Default baseline (no LifeMap) -->
+            <div class="baseline-card" id="baselineDefault">
+              <div class="baseline-grid">
+                <div>
+                  <div class="baseline-main-title">
+                    <span>Where most people fit</span>
+                  </div>
+                  <p style="margin:6px 0 8px; font-size:15px;">
+                    Without a LifeMap, we treat you as a “generic” visitor on this topic.
+                    That means we don’t guess your income, bills, or spending patterns yet.
+                    You’ll see what tends to matter for <strong>most</strong> people with revolving balances.
+                  </p>
+                  <p style="margin:6px 0 8px; font-size:15px;">
+                    You’ll still see core bands (light, moderate, heavy credit card use),
+                    but the page won’t guess your band or archetype until you connect more information.
+                  </p>
+                  <div class="text-sm">
+                    Connect or create a LifeMap to turn this into a personalized baseline based on your income,
+                    bills, money stress, and past money journeys.
+                  </div>
+                </div>
+                <div>
+                  <div style="font-size:15px; font-weight:600; margin-bottom:4px;">
+                    Generic starting levers
+                  </div>
+                  <ul class="lever-list">
+                    <li>
+                      <span class="rank">1</span>
+                      <span><strong>Stop the bleed</strong> – slow or pause new card spending.</span>
+                    </li>
+                    <li>
+                      <span class="rank">2</span>
+                      <span><strong>Payment strategy</strong> – choose avalanche (highest interest) or snowball (smallest balance).</span>
+                    </li>
+                    <li>
+                      <span class="rank">3</span>
+                      <span><strong>Cash buffer</strong> – build a small emergency cushion to avoid swiping for every bump.</span>
+                    </li>
+                  </ul>
+                  <div style="margin-top:10px;">
+                    <div style="font-size:15px; font-weight:600; margin-bottom:3px;">
+                      Generic starting journeys
+                    </div>
+                    <div class="journeys-list">
+                      <div class="journey-pill">
+                        <span class="label">7-Day Money Awareness Reset</span>
+                        <span class="meta">See where money really goes</span>
+                      </div>
+                      <div class="journey-pill">
+                        <span class="label">30-Day Debt Warm-Up Plan</span>
+                        <span class="meta">Start with small, sustainable changes</span>
+                      </div>
+                    </div>
+                    <div class="text-sm" style="margin-top:6px;">
+                      In Default view, these are designed for “average” visitors. User view swaps these for journeys
+                      tuned to a specific LifeMap.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Personalized baseline (LifeMap-based) -->
+            <div class="baseline-card" id="baselineUser" style="display:none;">
+              <div class="baseline-grid">
+                <div>
+                  <div class="baseline-main-title">
+                    <span>Where you fit</span>
+                  </div>
+                  <div style="display:flex; flex-wrap:wrap; gap:6px; margin-bottom:4px;">
+                    <span class="band-tag">
+                      <span>⏱</span> Band: Moderate–High / Feels heavy
+                    </span>
+                    <span class="archetype-tag">
+                      <span>🧩</span> Archetype: Overstretched working parent
+                    </span>
+                  </div>
+                  <p style="margin:6px 0 8px; font-size:15px;">
+                    Based on your income, rent, subscriptions, and past money journeys,
+                    your card balances are high enough to cause stress, but not hopeless.
+                    A lot of your swipes go to <strong>everyday survival and kid-related stuff</strong>,
+                    not luxury. The plan has to work with your real cash flow, not wishful thinking.
+                  </p>
+                  <div class="text-sm">
+                    Baseline built from: your LifeMap (income, bills, money stress),
+                    past experiments, and typical monthly card usage.
+                  </div>
+                </div>
+                <div>
+                  <div style="font-size:15px; font-weight:600; margin-bottom:4px;">
+                    Top 3 levers for <em>you</em>
+                  </div>
+                  <ul class="lever-list">
+                    <li>
+                      <span class="rank">1</span>
+                      <span><strong>New swipes on cards</strong> – especially food delivery, impulse buys, and “bridge” expenses before payday.</span>
+                    </li>
+                    <li>
+                      <span class="rank">2</span>
+                      <span><strong>Payment floor</strong> – nudging monthly payments above minimums without wrecking rent and essentials.</span>
+                    </li>
+                    <li>
+                      <span class="rank">3</span>
+                      <span><strong>Fixed costs</strong> – trimming or restructuring a few recurring things (subs, autopays, insurance) to free up $50–$200/month.</span>
+                    </li>
+                  </ul>
+
+                  <div style="margin-top:10px;">
+                    <div style="font-size:15px; font-weight:600; margin-bottom:3px;">
+                      Suggested starting journeys
+                    </div>
+                    <div class="journeys-list">
+                      <div class="journey-pill">
+                        <span class="label">14-Day “No New Debt” Sprint</span>
+                        <span class="meta">Break the swipe reflex • small wins</span>
+                      </div>
+                      <div class="journey-pill">
+                        <span class="label">90-Day Cash Flow & Paydown</span>
+                        <span class="meta">Free up cash • target 1–2 cards</span>
+                      </div>
+                    </div>
+                    <div class="text-sm" style="margin-top:6px;">
+                      These are <strong>options</strong>, not orders. You can always customize or build your own.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- POSITIONS -->
+          <div class="section">
+            <div class="section-header">
+              <div>
+                <div class="section-title">Different ways people tackle debt</div>
+                <div class="section-subtitle">
+                  These are the main “positions” people take. LifeHub doesn’t force one on you — we show trade-offs.
+                </div>
+              </div>
+              <div class="pill-tabs">
+                <button class="active">Plain view</button>
+                <button>Evidence & math</button>
+              </div>
+            </div>
+
+            <div class="positions-grid">
+              <div class="position-card">
+                <div class="position-card-header">
+                  <div class="position-name">Avalanche (highest APR first)</div>
+                  <div class="confidence-chip">Best math long-term</div>
+                </div>
+                <div class="panel-subtitle">
+                  Pay extra toward the card with the highest interest rate while paying minimums on the rest.
+                </div>
+                <div class="position-meta">
+                  <span>✅ Lowest total interest over time</span>
+                  <span>⚠️ Emotional wins may feel slow</span>
+                  <span>🎯 Best for: very math-minded, steady income</span>
+                </div>
+              </div>
+
+              <div class="position-card">
+                <div class="position-card-header">
+                  <div class="position-name">Snowball (smallest balance first)</div>
+                  <div class="confidence-chip">Strong behavioral support</div>
+                </div>
+                <div class="panel-subtitle">
+                  Pay extra toward the smallest balance first to get quick “paid off” wins and momentum.
+                </div>
+                <div class="position-meta">
+                  <span>✅ Builds motivation fast</span>
+                  <span>⚠️ Can cost slightly more in interest</span>
+                  <span>🎯 Best for: feeling stuck or ashamed, needs quick wins</span>
+                </div>
+              </div>
+
+              <div class="position-card">
+                <div class="position-card-header">
+                  <div class="position-name">Consolidation / 0% transfer</div>
+                  <div class="confidence-chip">Tools, not magic</div>
+                </div>
+                <div class="panel-subtitle">
+                  Shift balances to lower-interest options when possible, then pair that with spending changes.
+                </div>
+                <div class="position-meta">
+                  <span>✅ Can dramatically reduce interest</span>
+                  <span>⚠️ Risk of re-filling old cards</span>
+                  <span>🎯 Best for: decent credit + stable income</span>
+                </div>
+              </div>
+
+              <div class="position-card">
+                <div class="position-card-header">
+                  <div class="position-name">Slow-pay + lifestyle rework</div>
+                  <div class="confidence-chip">Realistic for many</div>
+                </div>
+                <div class="panel-subtitle">
+                  Accept a slower payoff timeline while making deep changes to how money flows every month.
+                </div>
+                <div class="position-meta">
+                  <span>✅ More honest about constraints</span>
+                  <span>⚠️ Requires patience and good guardrails</span>
+                  <span>🎯 Best for: tight budgets, irregular income</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- LEVERS -->
+          <div class="section">
+            <div class="section-header">
+              <div>
+                <div class="section-title">Top levers: in general vs personalized</div>
+                <div class="section-subtitle">
+                  The big “knobs” that most affect this topic, and how a LifeMap can reorder them.
+                </div>
+              </div>
+            </div>
+
+            <div class="lever-columns">
+              <div class="lever-card">
+                <h4>For most people on this topic</h4>
+                <div class="panel-subtitle">
+                  These are the most important levers on average across all journeys.
+                </div>
+                <ul class="lever-list">
+                  <li><span class="rank">1</span><span><strong>New card spending</strong> (are balances still growing?).</span></li>
+                  <li><span class="rank">2</span><span><strong>Extra payment amount</strong> (how far above minimums?).</span></li>
+                  <li><span class="rank">3</span><span><strong>Interest rate</strong> (APR and fees).</span></li>
+                  <li><span class="rank">4</span><span><strong>Income inflows</strong> (paychecks, side income, irregular payouts).</span></li>
+                  <li><span class="rank">5</span><span><strong>Fixed costs</strong> (rent, car, subs, insurance).</span></li>
+                </ul>
+              </div>
+              <div class="lever-card">
+                <h4>Personalized column</h4>
+                <span class="lever-tag">Switch views to see this change</span>
+
+                <!-- Default (no LifeMap) -->
+                <div id="leverPersonalDefault">
+                  <p style="margin:6px 0 4px; font-size:15px;">
+                    In Default view, we can’t see your LifeMap yet. This column stays generic and simply reminds you that,
+                    once connected, LifeHub will <strong>reorder these levers</strong> based on your income,
+                    dependents, stress, and past money behavior.
+                  </p>
+                  <p class="text-sm">
+                    Example: for someone with irregular income and high rent, we might emphasize buffer-building and
+                    bill timing over “perfect avalanche spreadsheets”.
+                  </p>
+                </div>
+
+                <!-- User view (LifeMap-based) -->
+                <div id="leverPersonalUser" style="display:none;">
+                  <p style="margin:6px 0 4px; font-size:15px;">
+                    Your bottlenecks aren’t just “bad choices” — they’re timing, kids, income volatility, and stress.
+                    So we prioritize high-payoff, low-chaos levers that fit how your month actually flows.
+                  </p>
+                  <ul class="lever-list">
+                    <li><span class="rank">1</span><span><strong>Reducing “bridge” swipes</strong> right before payday (groceries, gas, delivery).</span></li>
+                    <li><span class="rank">2</span><span><strong>Raising the minimum you pay yourself</strong> on cards by a realistic floor ($75–$150 extra).</span></li>
+                    <li><span class="rank">3</span><span><strong>Trimming 2–3 recurring costs</strong> (subs, insurance, phone) to free up permanent paydown money.</span></li>
+                    <li><span class="rank">4</span><span><strong>Aligning due dates</strong> closer to paycheck days to reduce late fees and panic swipes.</span></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- JOURNEYS -->
+          <div class="section">
+            <div class="section-header">
+              <div>
+                <div class="section-title">Journeys: default vs personalized</div>
+                <div class="section-subtitle">
+                  Default view shows generic journeys. User view swaps in journeys tuned to a LifeMap.
+                </div>
+              </div>
+              <div class="pill-tabs">
+                <button class="active">For you / default</button>
+                <button>Most popular</button>
+                <button>Gentle</button>
+                <button>Aggressive</button>
+              </div>
+            </div>
+
+            <!-- Default journeys -->
+            <div class="journey-grid" id="journeysDefault">
+              <div class="journey-card">
+                <div>
+                  <h4>7-Day Money Awareness Reset</h4>
+                  <div class="journey-meta-row">
+                    <span class="journey-meta-pill">🧪 Experiment</span>
+                    <span class="journey-meta-pill">7 days</span>
+                    <span class="journey-meta-pill">~10–15 min/day</span>
+                  </div>
+                  <p style="margin:6px 0 4px;">
+                    A simple, generic starter: track where money actually goes for a week,
+                    notice card usage patterns, and test one or two small changes without judgment.
+                  </p>
+                  <div class="journey-cta">
+                    <span class="arrow">→</span>
+                    <span>Preview what this includes</span>
+                  </div>
+                </div>
+                <div class="journey-stats">
+                  <div><strong>Modules:</strong> Money Snapshot • Card Swipe Log • One Small Swap</div>
+                  <div style="margin-top:4px;">
+                    <strong>Good for:</strong><br />
+                    • People who feel foggy about where the money goes<br />
+                    • Anyone not ready for a strict budget yet
+                  </div>
+                </div>
+              </div>
+
+              <div class="journey-card">
+                <div>
+                  <h4>30-Day Debt Warm-Up Plan</h4>
+                  <div class="journey-meta-row">
+                    <span class="journey-meta-pill">🌱 Foundation</span>
+                    <span class="journey-meta-pill">30 days</span>
+                    <span class="journey-meta-pill">~20–30 min/week</span>
+                  </div>
+                  <p style="margin:6px 0 4px;">
+                    A generic, “good for many people” plan focused on cutting new swipes, making one higher payment,
+                    and setting up basic bill organization.
+                  </p>
+                  <div class="journey-cta">
+                    <span class="arrow">→</span>
+                    <span>View weekly structure</span>
+                  </div>
+                </div>
+                <div class="journey-stats">
+                  <div><strong>Modules:</strong> No-New-Swipe Day • Payment Boost • Bill Calendar</div>
+                  <div style="margin-top:4px;">
+                    <strong>Good for:</strong><br />
+                    • People with mixed spending patterns<br />
+                    • First-time experiments before deeper personalization
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Personalized journeys -->
+            <div class="journey-grid" id="journeysUser" style="display:none;">
+              <div class="journey-card">
+                <div>
+                  <h4>14-Day “No New Debt” Sprint</h4>
+                  <div class="journey-meta-row">
+                    <span class="journey-meta-pill">🧪 Experiment</span>
+                    <span class="journey-meta-pill">14 days</span>
+                    <span class="journey-meta-pill">~10–20 min/day</span>
+                  </div>
+                  <p style="margin:6px 0 4px;">
+                    A two-week experiment to break the swipe reflex and prove to yourself you can get through a pay
+                    cycle without adding to balances — even with kids and a tight budget.
+                  </p>
+                  <div class="journey-cta">
+                    <span class="arrow">→</span>
+                    <span>See if this fits my life</span>
+                  </div>
+                </div>
+                <div class="journey-stats">
+                  <div><strong>Modules:</strong> Cash Envelope Lite • No-Swipe Rules • Tiny Buffer Build</div>
+                  <div style="margin-top:4px;">
+                    <strong>Results from similar LifeMaps:</strong><br />
+                    • ~65% break at least one big swipe habit<br />
+                    • Less “automatic” card use by week 3
+                  </div>
+                </div>
+              </div>
+
+              <div class="journey-card">
+                <div>
+                  <h4>90-Day Cash Flow & Paydown</h4>
+                  <div class="journey-meta-row">
+                    <span class="journey-meta-pill">📉 Paydown focus</span>
+                    <span class="journey-meta-pill">90 days</span>
+                    <span class="journey-meta-pill">~30–45 min/week</span>
+                  </div>
+                  <p style="margin:6px 0 4px;">
+                    A realistic, “real human” plan that frees up monthly cash, targets 1–2 key cards,
+                    and reduces money anxiety with better bill timing.
+                  </p>
+                  <div class="journey-cta">
+                    <span class="arrow">→</span>
+                    <span>Preview weekly rhythm</span>
+                  </div>
+                </div>
+                <div class="journey-stats">
+                  <div><strong>Modules:</strong> Fixed Cost Trim • Priority Card Focus • Bill Timing Reset • Mini Emergency Fund</div>
+                  <div style="margin-top:4px;">
+                    <strong>Results from similar LifeMaps:</strong><br />
+                    • Typical balance change: −$1k to −$3k in 3–6 months<br />
+                    • Reported: fewer “card panic” moments
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div style="margin-top:10px;">
+              <button class="small-button">
+                🧩 Build my own journey
+              </button>
+              <button class="small-button secondary" style="margin-left:6px;">
+                ✏️ Start from a template
+              </button>
+            </div>
+          </div>
+
+          <!-- MODULES -->
+          <div class="section">
+            <div class="section-header">
+              <div>
+                <div class="section-title">Modules: building blocks you can mix & match</div>
+                <div class="section-subtitle">
+                  Each module is a small, concrete behavior or experiment you can plug into any money journey.
+                </div>
+              </div>
+            </div>
+
+            <div class="modules-grid">
+              <div class="module-row">
+                <div>
+                  <div class="module-name">No-Swipe Rules</div>
+                  <div class="module-meta">
+                    <span class="tag">Behavior • Daily</span>
+                    <span class="tag">High payoff for you*</span>
+                  </div>
+                  <div class="text-sm" style="margin-top:3px;">
+                    Set simple rules like “no card for food delivery” or “no card after 8pm” for 10–14 days.
+                  </div>
+                </div>
+                <div class="text-sm">
+                  Used in <strong>93</strong> journeys<br />
+                  Reduced new swipes in <strong>~70%</strong> of similar LifeMaps
+                </div>
+              </div>
+
+              <div class="module-row">
+                <div>
+                  <div class="module-name">Fixed Cost Trim</div>
+                  <div class="module-meta">
+                    <span class="tag">Budget • 1–2 sessions</span>
+                    <span class="tag">Cash flow</span>
+                  </div>
+                  <div class="text-sm" style="margin-top:3px;">
+                    Review subscriptions, phone, insurance, and recurring charges to free up $50–$200/month.
+                  </div>
+                </div>
+                <div class="text-sm">
+                  Used in <strong>71</strong> journeys<br />
+                  Often frees the money needed for paydown
+                </div>
+              </div>
+
+              <div class="module-row">
+                <div>
+                  <div class="module-name">Bill Timing Reset</div>
+                  <div class="module-meta">
+                    <span class="tag">Systems • 1–2 sessions</span>
+                    <span class="tag">Stress reduction</span>
+                  </div>
+                  <div class="text-sm" style="margin-top:3px;">
+                    Align due dates closer to paycheck days where possible to reduce late fees and emergency swipes.
+                  </div>
+                </div>
+                <div class="text-sm">
+                  Used in <strong>48</strong> journeys<br />
+                  Strong spillover into stress & on-time payments
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- EVIDENCE & CONSENSUS -->
+          <div class="section">
+            <div class="section-header">
+              <div>
+                <div class="section-title">Evidence & what’s debated</div>
+                <div class="section-subtitle">
+                  A quick sense of what’s solid, what’s still debated, and how that shapes this topic.
+                </div>
+              </div>
+              <span class="badge">Nerd lane available</span>
+            </div>
+
+            <div class="consensus-grid">
+              <div class="consensus-col">
+                <h4>What’s broadly agreed on</h4>
+                <ul>
+                  <li>High-interest debt compounds quickly and is hard to outrun without changing inflows/outflows.</li>
+                  <li>Having even a small emergency buffer reduces new debt and money stress.</li>
+                  <li>Behavioral approaches (like snowball and “no-spend” periods) can help people stick with plans.</li>
+                  <li>Income, fixed costs, and life events matter as much as “discipline”.</li>
+                </ul>
+              </div>
+              <div class="consensus-col">
+                <h4>Where experts still debate</h4>
+                <ul>
+                  <li>Whether avalanche vs snowball is “better” once human behavior is factored in.</li>
+                  <li>How aggressively people should cut fixed costs vs focus on income growth.</li>
+                  <li>The best way to teach financial skills for long-term behavior change.</li>
+                  <li>How much psychological framing impacts success vs pure math.</li>
+                </ul>
+              </div>
+            </div>
+
+            <table class="evidence-table">
+              <thead>
+                <tr>
+                  <th>Summary</th>
+                  <th>Type</th>
+                  <th>Context</th>
+                  <th>Trust</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Studies and simulations showing avalanche minimizes total interest paid for a fixed payment level.</td>
+                  <td>Math models, simulations</td>
+                  <td>Personal finance research</td>
+                  <td>High (for pure math)</td>
+                </tr>
+                <tr>
+                  <td>Behavioral research suggesting quick wins (snowball-style) can increase follow-through.</td>
+                  <td>Behavioral studies</td>
+                  <td>Habit formation, motivation</td>
+                  <td>Moderate–High</td>
+                </tr>
+                <tr>
+                  <td>Evidence that budgeting + income support + coaching beats education alone for outcomes.</td>
+                  <td>Program evaluations</td>
+                  <td>Financial counseling & coaching</td>
+                  <td>Moderate (varies by program)</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="text-sm" style="margin-top:4px;">
+              You can open the “For nerds & pros” lane on this topic to see more detailed references and program data.
+            </div>
+          </div>
+
+          <!-- STORIES -->
+          <div class="section">
+            <div class="section-header">
+              <div>
+                <div class="section-title">Stories from people like you</div>
+                <div class="section-subtitle">
+                  Anonymized examples of how similar LifeMaps moved through this topic.
+                </div>
+              </div>
+            </div>
+
+            <div class="story-card">
+              <h4>“I went from panic every month to a plan.”</h4>
+              <div class="story-meta">
+                Maya, 36 • single parent • $9.2k → $5.6k credit card debt (6 months)
+              </div>
+              <p style="margin:4px 0 4px;">
+                Maya started with a 14-Day “No New Debt” Sprint after seeing how often she swiped for delivery and
+                “small” kid purchases. Then she moved into the 90-Day Cash Flow & Paydown journey, trimming two subs,
+                refinancing car insurance, and focusing on one card. Her balances dropped, but more importantly she
+                stopped feeling like she was failing every month.
+              </p>
+              <div class="text-sm">
+                Key levers: fewer “bridge” swipes, freed-up $130/month from fixed costs, aligned due dates with payday.
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ & RELATED -->
+          <div class="section">
+            <div class="section-header">
+              <div>
+                <div class="section-title">FAQ & related topics</div>
+                <div class="section-subtitle">
+                  Questions people actually ask, and nearby topics that usually matter.
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-q">Is my debt level “normal” or a crisis?</div>
+              <div>
+                It depends on your income, interest rates, and how fast things are changing.
+                LifeHub can show you a band (light, moderate, heavy) for people with a LifeMap like yours,
+                along with realistic timelines for progress. The goal isn’t perfection — it’s moving from
+                “overwhelmed and growing” toward “manageable and shrinking.”
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-q">Should I focus on paying debt or building savings?</div>
+              <div>
+                For many people, a small buffer (like $300–$1,000) helps prevent new debt during surprises,
+                even if the math says “pay off high interest first.” Your LifeMap can help decide how much to
+                buffer vs pay down given your income and risk.
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-q">Do I need a strict budget to fix this?</div>
+              <div>
+                Not always. Some people do best with detailed budgets, others with broader “guardrails”
+                and a few strong rules. LifeHub can suggest an approach that matches your tolerance for detail
+                and your past reactions to budgeting.
+              </div>
+            </div>
+
+            <div class="section" style="margin-top:14px;">
+              <div class="section-title">Related topics that often matter here</div>
+              <div class="section-subtitle">
+                These topics often shape how easy or hard this feels.
+              </div>
+              <div class="related-grid">
+                <div class="related-card">
+                  <h4>Income & Work</h4>
+                  <div class="text-sm">
+                    Sometimes the real lever is a pay bump, shift change, or side income, not just trimming spending.
+                  </div>
+                </div>
+                <div class="related-card">
+                  <h4>Stress & Burnout</h4>
+                  <div class="text-sm">
+                    Money stress drives “screw-it” spending and avoidance. Small stress levers can help money changes stick.
+                  </div>
+                </div>
+                <div class="related-card">
+                  <h4>Habits & Impulses</h4>
+                  <div class="text-sm">
+                    Swiping when tired, bored, or triggered is common. Pattern awareness plus tiny rules can help.
+                  </div>
+                </div>
+                <div class="related-card">
+                  <h4>Relationships & Money</h4>
+                  <div class="text-sm">
+                    Partners, exes, family, and kids all affect money flows. Some journeys focus on conversation and boundaries.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="section" style="margin-top:14px;">
+              <div class="section-title">Safety / Red lines</div>
+              <div class="section-subtitle">
+                When this is not a DIY problem.
+              </div>
+              <div class="faq-item" style="border-color: rgba(248,113,113,0.9); background: rgba(254,242,242,0.9);">
+                <div class="faq-q" style="color:#b91c1c;">If you’re skipping essentials or facing legal actions</div>
+                <div>
+                  If you’re regularly skipping food, meds, rent, or utilities to pay cards, or facing collections,
+                  repossession, or eviction, this is a <strong>higher-risk</strong> situation. LifeHub can help you
+                  prepare questions and documents, but you may also want legal aid or nonprofit credit counseling.
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- RIGHT COLUMN: COACH MODE + LIFEMAP SNAPSHOT -->
+      <aside class="coach-panel" id="coachColumn">
+        <div class="panel">
+          <div class="coach-header">Coach mode snapshot</div>
+          <div class="coach-sub">
+            See how this topic looks through different LifeMaps. Click a profile to compare baselines and levers.
+          </div>
+
+          <div class="coach-list">
+            <div class="coach-client-chip active" data-client="anna">
+              <div class="coach-client-main">
+                <div class="coach-client-name">Anna • 39</div>
+                <div class="coach-client-meta">Working parent • $8.4k card debt</div>
+              </div>
+              <span class="coach-tag">Tight cash flow • Kids</span>
+            </div>
+            <div class="coach-client-chip" data-client="ben">
+              <div class="coach-client-main">
+                <div class="coach-client-name">Ben • 33</div>
+                <div class="coach-client-meta">Tech job • $4.1k card debt</div>
+              </div>
+              <span class="coach-tag">Time-flexible • Data nerd</span>
+            </div>
+            <div class="coach-client-chip" data-client="carmen">
+              <div class="coach-client-main">
+                <div class="coach-client-name">Carmen • 58</div>
+                <div class="coach-client-meta">Fixed income • $6.7k card debt</div>
+              </div>
+              <span class="coach-tag">Safety-focused • Low tech</span>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="section-title" style="font-size:16px;">Baseline contrasts for this topic</div>
+            <div id="coachBaselines">
+              <div class="baseline-mini" data-client-baseline="anna">
+                <strong>Anna:</strong> Moderate–High band • Overstretched working parent<br />
+                Top levers: new swipes on groceries & delivery, modest extra payment, 2–3 fixed cost trims.<br />
+                Best journeys: 14-Day No-New-Debt → 90-Day Cash Flow. Avoid ultra-detailed budgets at first.
+              </div>
+              <div class="baseline-mini" data-client-baseline="ben" style="display:none;">
+                <strong>Ben:</strong> Moderate band • High-achieving data nerd<br />
+                Top levers: expense tracking, interest optimization, bonus/RSU targeting.<br />
+                Best journeys: 30-Day Metrics Sprint, Avalanche Plan with target dates. Lean into spreadsheets & dashboards.
+              </div>
+              <div class="baseline-mini" data-client-baseline="carmen" style="display:none;">
+                <strong>Carmen:</strong> Moderate/Heavy band • Fixed income • Caregiver<br />
+                Top levers: meds & essentials protection, lower-interest options, one simple paydown routine.<br />
+                Best journeys: Safety-first Cash Flow, Fixed Cost Review, priority card focus. Avoid overwhelming app workflows.
+              </div>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="section-title" style="font-size:16px;">Coach-only notes & tools</div>
+            <div class="coach-note" id="coachNote">
+              <strong>Anna coaching angle:</strong><br />
+              Normalize the stress and focus on what’s actually in her control. Start with no-new-debt rules and 1–2 fixed
+              cost trims before talking about strict budgets. Anchor around “breathing room” and fewer panic swipes,
+              not just debt-free fantasies.
+            </div>
+          </div>
+
+          <div class="section">
+            <button class="small-button" style="width:100%; justify-content:center; font-size:14px;">
+              🧠 Open full Coach Console for this topic
+            </button>
+          </div>
+        </div>
+
+        <!-- LIFEMAP SNAPSHOT PANEL -->
+        <div class="panel">
+          <div class="coach-header">LifeMap snapshot</div>
+          <div class="coach-sub">
+            This card shows a compact LifeMap view. In Default view it’s generic, in User view it’s “you”, and in Coach mode it follows the selected profile.
+          </div>
+          <div class="coach-note" id="lifeMapSnapshot">
+            <strong>Default view (no LifeMap loaded):</strong><br />
+            • Domains: money, work, relationships, health – no specific data yet.<br />
+            • Traits: not assessed; we assume an “average” pattern.<br />
+            • Constraints: unknown income, bills, dependents, or stress level.<br /><br />
+            Connect or create a LifeMap to see concrete income, fixed costs, money habits, and past journeys populate here, and watch the topic page reconfigure itself.
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <footer>
+      * Demo numbers are placeholders for design purposes only.<br />
+      LifeHub Topic Demo • Credit Card Debt • 2025
+    </footer>
+  </div>
+
+  <script>
+    // View toggling + LifeMap snapshot + coach profile swapping
+
+    const viewDefaultBtn = document.getElementById("viewDefault");
+    const viewUserBtn = document.getElementById("viewUser");
+    const viewCoachBtn = document.getElementById("viewCoach");
+    const userColumn = document.getElementById("userColumn");
+    const coachColumn = document.getElementById("coachColumn");
+
+    const baselineDefault = document.getElementById("baselineDefault");
+    const baselineUser = document.getElementById("baselineUser");
+    const leverPersonalDefault = document.getElementById("leverPersonalDefault");
+    const leverPersonalUser = document.getElementById("leverPersonalUser");
+    const journeysDefault = document.getElementById("journeysDefault");
+    const journeysUser = document.getElementById("journeysUser");
+    const lifeMapSnapshot = document.getElementById("lifeMapSnapshot");
+
+    const clientChips = document.querySelectorAll(".coach-client-chip");
+    const baselineBlocks = document.querySelectorAll("[data-client-baseline]");
+    const coachNote = document.getElementById("coachNote");
+
+    let currentView = "default";
+
+    const notesByClient = {
+      anna:
+        "<strong>Anna coaching angle:</strong><br />" +
+        "Normalize the stress and focus on what’s actually in her control. " +
+        "Start with no-new-debt rules and 1–2 fixed cost trims before talking about strict budgets. " +
+        "Anchor around “breathing room” and fewer panic swipes, not just debt-free fantasies.",
+      ben:
+        "<strong>Ben coaching angle:</strong><br />" +
+        "Lean into his love of numbers. Co-create a detailed avalanche plan, tie extra payments to bonuses/RSUs, " +
+        "and set visible target dates. Watch for perfectionism that leads to inaction.",
+      carmen:
+        "<strong>Carmen coaching angle:</strong><br />" +
+        "Safety and basic needs come first. Use very simple visuals and routines. " +
+        "Prioritize protecting essentials (rent, meds, utilities), explore nonprofit credit counseling if appropriate, " +
+        "and avoid overwhelming her with apps or jargon."
+    };
+
+    const lifeMapTemplates = {
+      default:
+        "<strong>Default view (no LifeMap loaded):</strong><br />" +
+        "• Domains: money, work, relationships, health – no specific data yet.<br />" +
+        "• Traits: not assessed; we assume an “average” pattern.<br />" +
+        "• Constraints: unknown income, bills, dependents, or stress level.<br /><br />" +
+        "Connect or create a LifeMap to see concrete income, fixed costs, money habits, and past journeys populate here, and watch the topic page reconfigure itself.",
+      anna:
+        "<strong>Anna • LifeMap snapshot</strong><br />" +
+        "• Domains: money = high stress (credit cards + car), work = hourly with variable shifts.<br />" +
+        "• Traits: cares about kids & stability, avoids detailed spreadsheets, overwhelmed by big numbers.<br />" +
+        "• Constraints: 2 kids, rent high relative to income, ~20–30 min/week realistic for money tasks.<br />" +
+        "• History: follows short, concrete money experiments; drops long, abstract plans.<br />" +
+        "• Implication for this topic: emphasize no-new-debt rules, small fixed cost trims, and one focus card over complex optimization.",
+      ben:
+        "<strong>Ben • LifeMap snapshot</strong><br />" +
+        "• Domains: money = moderate stress (some lifestyle creep), work = salaried tech job with bonuses.<br />" +
+        "• Traits: very analytical, likes dashboards and projections, tolerates detailed plans.<br />" +
+        "• Constraints: no kids, decent disposable income, variable social spending.<br />" +
+        "• History: engages well with tracking, sometimes overshoots aggressive goals and rebounds.<br />" +
+        "• Implication for this topic: lean into avalanche, payoff timelines, and automated payments, with built-in “human” guardrails.",
+      carmen:
+        "<strong>Carmen • LifeMap snapshot</strong><br />" +
+        "• Domains: money = tight, fixed income; health = several meds; family = caregiver for grandchild.<br />" +
+        "• Traits: cautious, low tech comfort, values predictability and clear reassurance.<br />" +
+        "• Constraints: limited energy, small surplus after essentials, difficulty with complex instructions.<br />" +
+        "• History: overwhelmed by big money programs, responds to simple, repetitive routines and human support.<br />" +
+        "• Implication for this topic: focus on protecting essentials, small but consistent payments, and occasional support calls or check-ins."
+    };
+
+    function setView(mode) {
+      currentView = mode;
+
+      // Toggle button states
+      viewDefaultBtn.classList.toggle("active", mode === "default");
+      viewUserBtn.classList.toggle("active", mode === "user");
+      viewCoachBtn.classList.toggle("active", mode === "coach");
+
+      if (mode === "default") {
+        userColumn.style.opacity = "1";
+        userColumn.style.pointerEvents = "auto";
+        coachColumn.style.opacity = "0.25";
+        coachColumn.style.pointerEvents = "none";
+
+        baselineDefault.style.display = "block";
+        baselineUser.style.display = "none";
+        journeysDefault.style.display = "grid";
+        journeysUser.style.display = "none";
+        leverPersonalDefault.style.display = "block";
+        leverPersonalUser.style.display = "none";
+
+        lifeMapSnapshot.innerHTML = lifeMapTemplates["default"];
+      } else if (mode === "user") {
+        userColumn.style.opacity = "1";
+        userColumn.style.pointerEvents = "auto";
+        coachColumn.style.opacity = "0.6";
+        coachColumn.style.pointerEvents = "none";
+
+        baselineDefault.style.display = "none";
+        baselineUser.style.display = "block";
+        journeysDefault.style.display = "none";
+        journeysUser.style.display = "grid";
+        leverPersonalDefault.style.display = "none";
+        leverPersonalUser.style.display = "block";
+
+        // Use Anna as the sample LifeMap for User view
+        lifeMapSnapshot.innerHTML = lifeMapTemplates["anna"];
+      } else if (mode === "coach") {
+        userColumn.style.opacity = "0.25";
+        userColumn.style.pointerEvents = "none";
+        coachColumn.style.opacity = "1";
+        coachColumn.style.pointerEvents = "auto";
+
+        // Keep personalized content visible in coach mode
+        baselineDefault.style.display = "none";
+        baselineUser.style.display = "block";
+        journeysDefault.style.display = "none";
+        journeysUser.style.display = "grid";
+        leverPersonalDefault.style.display = "none";
+        leverPersonalUser.style.display = "block";
+
+        const activeChip = document.querySelector(".coach-client-chip.active");
+        const activeId = activeChip ? activeChip.getAttribute("data-client") : "anna";
+        lifeMapSnapshot.innerHTML = lifeMapTemplates[activeId] || lifeMapTemplates["default"];
+      }
+    }
+
+    viewDefaultBtn.addEventListener("click", () => setView("default"));
+    viewUserBtn.addEventListener("click", () => setView("user"));
+    viewCoachBtn.addEventListener("click", () => setView("coach"));
+
+    clientChips.forEach(chip => {
+      chip.addEventListener("click", () => {
+        const id = chip.getAttribute("data-client");
+
+        clientChips.forEach(c => c.classList.remove("active"));
+        chip.classList.add("active");
+
+        baselineBlocks.forEach(block => {
+          block.style.display =
+            block.getAttribute("data-client-baseline") === id ? "block" : "none";
+        });
+
+        coachNote.innerHTML = notesByClient[id] || "";
+
+        if (currentView === "coach") {
+          lifeMapSnapshot.innerHTML = lifeMapTemplates[id] || lifeMapTemplates["default"];
+        }
+      });
+    });
+
+    // Initialize in default view
+    setView("default");
+  </script>
+</body>
+</html>

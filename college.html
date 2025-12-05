@@ -1,0 +1,2727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>LifeHub Topic Demo – What should I go to college for?</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --bg-alt: #ffffff;
+      --bg-soft: #edf1fc;
+      --border-subtle: #d7d9e5;
+      --primary: #3046ff;
+      --primary-soft: rgba(48, 70, 255, 0.12);
+      --primary-strong: #1d2bcc;
+      --text-main: #111322;
+      --text-muted: #666a80;
+      --accent: #10b981;
+      --danger: #ef4444;
+      --radius-lg: 18px;
+      --radius-xl: 26px;
+      --shadow-soft: 0 18px 60px rgba(15, 23, 42, 0.12);
+      --sidebar-width: 484px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top left, #eef2ff 0, #f5f7fb 36%, #f9fafb 100%);
+      color: var(--text-main);
+      font-size: 18px;
+      line-height: 1.6;
+    }
+
+    .page {
+      max-width: 1580px;
+      margin: 0 auto;
+      padding: 32px 18px 60px;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+
+    .brand {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .brand-title {
+      font-size: 32px;
+      font-weight: 750;
+      letter-spacing: -0.04em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .brand-title span.dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 20%, #4ade80, #22c55e);
+      box-shadow: 0 0 0 8px rgba(34, 197, 94, 0.18);
+    }
+
+    .brand-sub {
+      font-size: 17px;
+      color: var(--text-muted);
+    }
+
+    .top-meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      font-size: 15px;
+      color: var(--text-muted);
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.85);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      font-size: 14px;
+      gap: 6px;
+    }
+
+    .pill-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #22c55e;
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: minmax(0, calc(100% - var(--sidebar-width) - 22px)) minmax(0, var(--sidebar-width));
+      gap: 22px;
+      align-items: flex-start;
+    }
+
+    @media (max-width: 980px) {
+      main {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    .panel {
+      background: var(--bg-alt);
+      border-radius: var(--radius-xl);
+      padding: 20px 20px 22px;
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      box-shadow: 0 18px 50px rgba(15, 23, 42, 0.08);
+    }
+
+    .panel + .panel {
+      margin-top: 16px;
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .panel-subtitle {
+      font-size: 15px;
+      color: var(--text-muted);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: var(--bg-soft);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      font-size: 13px;
+      color: var(--text-muted);
+      gap: 6px;
+    }
+
+    h1.topic-title {
+      font-size: 40px;
+      letter-spacing: -0.05em;
+      margin: 4px 0 4px;
+    }
+
+    .topic-subtitle {
+      font-size: 18px;
+      color: var(--text-muted);
+      max-width: 640px;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .chip {
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.04);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      font-size: 14px;
+      color: var(--text-muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .metric-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+      font-size: 15px;
+    }
+
+    .metric-pill {
+      border-radius: 999px;
+      padding: 6px 12px;
+      background: rgba(15, 23, 42, 0.03);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .metric-pill strong {
+      font-weight: 600;
+    }
+
+    .baseline-card {
+      background: radial-gradient(circle at 0 0, #e0f2fe 0, #eff6ff 36%, #ffffff 100%);
+      border-radius: var(--radius-xl);
+      padding: 18px 18px 16px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 4px;
+    }
+
+    .baseline-card::after {
+      content: "";
+      position: absolute;
+      right: -40px;
+      top: -40px;
+      width: 180px;
+      height: 180px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 20%, rgba(52, 211, 153, 0.8), rgba(5, 150, 105, 0.1));
+      opacity: 0.5;
+      filter: blur(2px);
+    }
+
+    .baseline-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.4fr);
+      gap: 14px;
+      position: relative;
+      z-index: 1;
+    }
+
+    @media (max-width: 840px) {
+      .baseline-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .baseline-main-title {
+      font-size: 20px;
+      font-weight: 650;
+      letter-spacing: -0.03em;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .band-tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 13px;
+      gap: 6px;
+      background: rgba(37, 99, 235, 0.1);
+      color: #1d4ed8;
+      border: 1px solid rgba(96, 165, 250, 0.7);
+    }
+
+    .archetype-tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 13px;
+      gap: 6px;
+      background: rgba(249, 115, 22, 0.1);
+      color: #c2410c;
+      border: 1px solid rgba(251, 146, 60, 0.7);
+    }
+
+    .lever-list {
+      list-style: none;
+      padding: 0;
+      margin: 8px 0 0;
+      font-size: 15px;
+    }
+
+    .lever-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+
+    .lever-list li span.rank {
+      width: 22px;
+      height: 22px;
+      border-radius: 999px;
+      background: var(--bg-alt);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+
+    .journeys-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .journey-pill {
+      border-radius: 999px;
+      padding: 6px 12px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(255, 255, 255, 0.9);
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+    }
+
+    .journey-pill span.label {
+      font-weight: 550;
+    }
+
+    .journey-pill span.meta {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .text-sm {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .section {
+      margin-top: 18px;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .section-title {
+      font-size: 20px;
+      font-weight: 650;
+      letter-spacing: -0.03em;
+    }
+
+    .section-subtitle {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .pill-tabs {
+      display: inline-flex;
+      gap: 6px;
+      background: rgba(15, 23, 42, 0.03);
+      border-radius: 999px;
+      padding: 3px;
+      border: 1px solid rgba(148, 163, 184, 0.45);
+    }
+
+    .pill-tabs button {
+      border-radius: 999px;
+      border: none;
+      padding: 4px 10px;
+      font-size: 13px;
+      background: transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+    }
+
+    .pill-tabs button.active {
+      background: white;
+      color: #020617;
+      font-weight: 550;
+      box-shadow: 0 1px 6px rgba(15, 23, 42, 0.18);
+    }
+
+    .pill-tabs button.disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    .positions-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .position-card {
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: rgba(255, 255, 255, 0.95);
+      padding: 10px 12px;
+      font-size: 15px;
+      transition: box-shadow 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+    }
+
+    .position-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 2px;
+    }
+
+    .position-name {
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+    .confidence-chip {
+      padding: 2px 7px;
+      border-radius: 999px;
+      border: 1px solid rgba(34, 197, 94, 0.4);
+      background: rgba(22, 163, 74, 0.06);
+      color: #15803d;
+      font-size: 12px;
+    }
+
+    .position-meta {
+      font-size: 13px;
+      color: var(--text-muted);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 3px;
+    }
+
+    .recommended-label {
+      display: none;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 12px;
+      background: rgba(34, 197, 94, 0.1);
+      border: 1px solid rgba(34, 197, 94, 0.6);
+      color: #15803d;
+      margin-left: 8px;
+      white-space: nowrap;
+    }
+
+    .position-card.recommended {
+      border-color: rgba(34, 197, 94, 0.9);
+      box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.35);
+      background: linear-gradient(135deg, #f0fdf4, #ffffff);
+    }
+
+    .lever-columns {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 840px) {
+      .lever-columns {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .lever-card {
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: rgba(255, 255, 255, 0.97);
+      padding: 10px 12px;
+      font-size: 15px;
+      transition: box-shadow 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+    }
+
+    .lever-card.highlighted {
+      border-color: rgba(34, 197, 94, 0.9);
+      box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.35);
+      background: linear-gradient(135deg, #f0fdf4, #ffffff);
+    }
+
+    .lever-card h4 {
+      margin: 0 0 3px;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .lever-tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 6px;
+      border-radius: 999px;
+      font-size: 12px;
+      color: var(--text-muted);
+      background: rgba(15, 23, 42, 0.03);
+      border: 1px solid rgba(148, 163, 184, 0.45);
+    }
+
+    /* JOURNEYS */
+
+    .journey-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .journey-card {
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.75);
+      background: radial-gradient(circle at 0 0, #e0f2fe, #f9fafb);
+      padding: 10px 12px;
+      font-size: 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 16px 40px rgba(15, 23, 42, 0.18);
+      border-left: 4px solid var(--primary);
+    }
+
+    .journey-card::after {
+      content: "";
+      position: absolute;
+      right: -40px;
+      top: -40px;
+      width: 140px;
+      height: 140px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 20%, rgba(59, 130, 246, 0.6), rgba(129, 140, 248, 0.05));
+      opacity: 0.5;
+    }
+
+    .journey-card > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .journey-header {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .journey-card h4 {
+      margin: 0;
+      font-size: 17px;
+      font-weight: 650;
+      letter-spacing: -0.02em;
+    }
+
+    .journey-meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .journey-meta-pill {
+      border-radius: 999px;
+      padding: 3px 8px;
+      background: rgba(15, 23, 42, 0.03);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+    }
+
+    .journey-modules-label {
+      font-size: 12px;
+      font-weight: 600;
+      margin-top: 4px;
+      color: rgba(15, 23, 42, 0.8);
+    }
+
+    .journey-modules-strip {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      margin-top: 4px;
+    }
+
+    .journey-modules-strip::-webkit-scrollbar {
+      height: 5px;
+    }
+
+    .journey-modules-strip::-webkit-scrollbar-thumb {
+      background: rgba(148, 163, 184, 0.7);
+      border-radius: 999px;
+    }
+
+    .journey-modules-strip::-webkit-scrollbar-track {
+      background: rgba(148, 163, 184, 0.2);
+      border-radius: 999px;
+    }
+
+    .journey-modules-strip .module-tile {
+      flex: 0 0 160px;
+      height: 100px;
+      font-size: 12px;
+      box-shadow: 0 6px 16px rgba(15, 23, 42, 0.16);
+    }
+
+    .journey-modules-strip .module-name {
+      font-size: 13px;
+    }
+
+    .journey-modules-strip .module-desc {
+      display: none;
+    }
+
+    .journey-stats-footnote {
+      margin-top: 4px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .journeyEmpty {
+      margin-top: 6px;
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .small-button {
+      border-radius: 999px;
+      border: none;
+      padding: 5px 10px;
+      font-size: 13px;
+      cursor: pointer;
+      background: var(--primary);
+      color: white;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 10px 24px rgba(37, 99, 235, 0.3);
+    }
+
+    .small-button.secondary {
+      background: white;
+      color: #020617;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      box-shadow: none;
+    }
+
+    /* MODULE CAROUSEL */
+
+    .modules-wrapper {
+      position: relative;
+      margin-top: 8px;
+    }
+
+    .modules-carousel {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding: 8px 36px 6px 36px;
+      scroll-snap-type: x mandatory;
+    }
+
+    .modules-carousel::-webkit-scrollbar {
+      height: 6px;
+    }
+
+    .modules-carousel::-webkit-scrollbar-thumb {
+      background: rgba(148, 163, 184, 0.7);
+      border-radius: 999px;
+    }
+
+    .modules-carousel::-webkit-scrollbar-track {
+      background: rgba(148, 163, 184, 0.2);
+      border-radius: 999px;
+    }
+
+    .module-tile {
+      flex: 0 0 190px;
+      height: 150px;
+      border-radius: 18px;
+      padding: 10px 11px;
+      font-size: 14px;
+      color: #020617;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.18);
+      scroll-snap-align: start;
+      border: 1px solid rgba(15, 23, 42, 0.08);
+    }
+
+    .module-name {
+      font-weight: 600;
+      font-size: 15px;
+      margin-bottom: 3px;
+    }
+
+    .module-meta {
+      font-size: 12px;
+      color: rgba(15, 23, 42, 0.8);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 2px;
+    }
+
+    .module-tag {
+      border-radius: 999px;
+      padding: 2px 7px;
+      background: rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.58);
+      font-size: 11px;
+      color: #020617;
+    }
+
+    .module-desc {
+      font-size: 12px;
+      color: rgba(15, 23, 42, 0.85);
+      margin-top: 4px;
+    }
+
+    .module-usage {
+      font-size: 11px;
+      color: rgba(15, 23, 42, 0.8);
+      margin-top: 4px;
+    }
+
+    /* Color variants */
+
+    .module-color-1 {
+      background: radial-gradient(circle at 0 0, #bfdbfe, #60a5fa);
+      color: #02172f;
+    }
+
+    .module-color-2 {
+      background: radial-gradient(circle at 0 0, #bbf7d0, #22c55e);
+      color: #022c22;
+    }
+
+    .module-color-3 {
+      background: radial-gradient(circle at 0 0, #fee2e2, #f97373);
+      color: #450a0a;
+    }
+
+    .module-color-4 {
+      background: radial-gradient(circle at 0 0, #fef3c7, #facc15);
+      color: #422006;
+    }
+
+    .module-color-5 {
+      background: radial-gradient(circle at 0 0, #fae8ff, #e879f9);
+      color: #4a044e;
+    }
+
+    .module-color-6 {
+      background: radial-gradient(circle at 0 0, #e0e7ff, #6366f1);
+      color: #020617;
+    }
+
+    .module-color-7 {
+      background: radial-gradient(circle at 0 0, #cffafe, #22d3ee);
+      color: #083344;
+    }
+
+    .module-color-8 {
+      background: radial-gradient(circle at 0 0, #fce7f3, #ec4899);
+      color: #4a044e;
+    }
+
+    .module-color-9 {
+      background: radial-gradient(circle at 0 0, #dcfce7, #16a34a);
+      color: #052e16;
+    }
+
+    .module-color-10 {
+      background: radial-gradient(circle at 0 0, #fee2e2, #fb923c);
+      color: #431407;
+    }
+
+    .modules-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 28px;
+      height: 56px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      background: rgba(15, 23, 42, 0.75);
+      color: white;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.4);
+      z-index: 2;
+    }
+
+    .modules-arrow.left {
+      left: 4px;
+    }
+
+    .modules-arrow.right {
+      right: 4px;
+    }
+
+    .modules-arrow span {
+      font-size: 20px;
+      line-height: 1;
+    }
+
+    @media (max-width: 640px) {
+      .modules-arrow {
+        width: 24px;
+        height: 48px;
+      }
+    }
+
+    /* EVIDENCE TABLE & CONSENSUS */
+
+    .evidence-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      margin-top: 6px;
+    }
+
+    .evidence-table th,
+    .evidence-table td {
+      padding: 7px 8px;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.35);
+      text-align: left;
+    }
+
+    .evidence-table th {
+      font-weight: 600;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .evidence-table a {
+      color: var(--primary-strong);
+      text-decoration: none;
+    }
+
+    .evidence-table a:hover {
+      text-decoration: underline;
+    }
+
+    .consensus-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 10px;
+      margin-top: 6px;
+      font-size: 14px;
+    }
+
+    @media (max-width: 840px) {
+      .consensus-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .consensus-col {
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(255, 255, 255, 0.97);
+      padding: 8px 10px;
+    }
+
+    .consensus-col h4 {
+      margin: 0 0 4px;
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .consensus-col ul {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    .story-card {
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(255, 255, 255, 0.98);
+      padding: 10px 12px;
+      font-size: 15px;
+    }
+
+    .story-card h4 {
+      margin: 0 0 4px;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .story-meta {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    /* FAQ accordion */
+
+    .faq-item {
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: rgba(255, 255, 255, 0.96);
+      padding: 8px 10px;
+      margin-bottom: 6px;
+      font-size: 15px;
+    }
+
+    .faq-q {
+      font-weight: 600;
+      margin-bottom: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .faq-toggle-icon {
+      font-size: 14px;
+      color: var(--text-muted);
+      transition: transform 0.18s ease;
+      margin-left: 8px;
+    }
+
+    .faq-a {
+      display: none;
+      margin-top: 4px;
+    }
+
+    .faq-item.open .faq-a {
+      display: block;
+    }
+
+    .faq-item.open .faq-toggle-icon {
+      transform: rotate(90deg);
+    }
+
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    @media (max-width: 780px) {
+      .related-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .related-card {
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(255, 255, 255, 0.98);
+      padding: 8px 10px;
+      font-size: 15px;
+    }
+
+    .related-card h4 {
+      margin: 0 0 3px;
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    /* Personalized side panel – sticky */
+
+    .personal-panel {
+      position: sticky;
+      top: 24px;
+      align-self: flex-start;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    @media (max-width: 980px) {
+      .personal-panel {
+        position: static;
+      }
+    }
+
+    .view-toggle-shell {
+      margin-bottom: 8px;
+    }
+
+    .view-toggle {
+      display: inline-flex;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.96);
+      color: white;
+      padding: 4px;
+      font-size: 14px;
+      box-shadow: 0 16px 40px rgba(15, 23, 42, 0.4);
+    }
+
+    .view-toggle button {
+      border: none;
+      background: transparent;
+      color: rgba(255, 255, 255, 0.68);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 14px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 500;
+    }
+
+    .view-toggle button.active {
+      background: white;
+      color: #020617;
+    }
+
+    .side-header {
+      font-size: 18px;
+      font-weight: 650;
+      letter-spacing: -0.03em;
+      margin-bottom: 4px;
+    }
+
+    .side-sub {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .side-note {
+      font-size: 13px;
+      color: var(--text-muted);
+      border-radius: 14px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(15, 23, 42, 0.01);
+      padding: 8px 9px;
+    }
+
+    footer {
+      margin-top: 40px;
+      font-size: 13px;
+      color: var(--text-muted);
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="brand">
+        <div class="brand-title">
+          <span class="dot"></span>
+          <span>LifeHub</span>
+        </div>
+        <div class="brand-sub">
+          Topic demo • Personalized from your LifeMap
+        </div>
+        <div class="top-meta">
+          <span class="pill"><span class="pill-dot"></span>Topic • What should I go to college for?</span>
+          <span class="pill">Updated 3 days ago</span>
+          <span class="pill">580 journeys • early access view</span>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- LEFT COLUMN: TOPIC VIEW -->
+      <div id="topicColumn">
+        <section class="panel">
+          <div class="panel-header">
+            <div>
+              <h1 class="topic-title">What should I go to college for?</h1>
+              <div class="topic-subtitle">
+                Not “what’s the one perfect major?” but “what direction makes sense for your life, money, brain, and world?”
+              </div>
+            </div>
+            <div>
+              <span class="badge">LifeMap-aware</span>
+            </div>
+          </div>
+
+          <div class="chips">
+            <span class="chip">🎯 Goal: Align college with a real life you actually want</span>
+            <span class="chip">📚 Topics: majors, careers, debt, alternatives, strengths</span>
+            <span class="chip">🧠 Inputs: interests, skills, money, family, risk tolerance</span>
+          </div>
+
+          <!-- TL;DR -->
+          <div class="section" style="margin-top:18px;">
+            <div class="section-header">
+              <div>
+                <div class="section-title">TL;DR for this topic</div>
+                <div class="section-subtitle">
+                  Most people don’t need “the one right major.” They need a direction that fits their LifeMap and is good enough to move.
+                </div>
+              </div>
+            </div>
+            <p style="margin:4px 0 4px;">
+              “What should I go to college for?” is really a question about
+              <strong>who you are, how you want to live, what you can afford, and what the world will pay for</strong>.
+              Different LifeMaps should not get the same advice. A first-gen student with loans, a mid-career parent, and
+              a 19-year-old coder all have different “good answers.”
+            </p>
+            <div class="metric-row">
+              <div class="metric-pill">
+                <strong>580</strong> journeys logged on this topic
+              </div>
+              <div class="metric-pill">
+                <strong>~68%</strong> feel “much clearer” on a direction after 30–60 days of structured exploration
+              </div>
+              <div class="metric-pill">
+                <strong>Top levers:</strong> goals, strengths, cost/debt, completion odds, job market, optionality
+              </div>
+            </div>
+          </div>
+
+          <!-- BASELINE CARDS -->
+          <div class="section" style="margin-top:20px;">
+            <div class="section-header">
+              <div>
+                <div class="section-title">Baseline for this topic</div>
+                <div class="section-subtitle">
+                  Default view is generic. Personalized view uses your LifeMap: age, money, grades, responsibilities, risk.
+                </div>
+              </div>
+            </div>
+
+            <!-- Default baseline (no personalization) -->
+            <div class="baseline-card" id="baselineDefault">
+              <div class="baseline-grid">
+                <div>
+                  <div class="baseline-main-title">
+                    <span>Where most people start</span>
+                  </div>
+                  <p style="margin:6px 0 8px; font-size:15px;">
+                    In Default view, we assume you’re somewhere between “high school or early college” and
+                    “thinking about going back” — with <strong>limited clarity</strong> on careers, majors, money, or whether
+                    college is even necessary for your goals.
+                  </p>
+                  <p style="margin:6px 0 8px; font-size:15px;">
+                    We don’t assume your grades, finances, or family situation. You’ll see how people in general explore majors,
+                    careers, and cost trade-offs, then you can still walk through journeys and modules.
+                  </p>
+                  <div class="text-sm">
+                    Connect or create a LifeMap to tune this baseline around your grades, finances, responsibilities,
+                    risk tolerance, and existing skills or work experience.
+                  </div>
+                </div>
+                <div>
+                  <div style="font-size:15px; font-weight:600; margin-bottom:4px;">
+                    Generic starting levers
+                  </div>
+                  <ul class="lever-list">
+                    <li>
+                      <span class="rank">1</span>
+                      <span><strong>Future you scan</strong> – what kind of work and life rhythms you might actually like.</span>
+                    </li>
+                    <li>
+                      <span class="rank">2</span>
+                      <span><strong>Money reality</strong> – cost of school vs likely earnings vs your debt tolerance.</span>
+                    </li>
+                    <li>
+                      <span class="rank">3</span>
+                      <span><strong>Completion odds</strong> – how likely you are to finish under different paths.</span>
+                    </li>
+                  </ul>
+                  <div style="margin-top:10px;">
+                    <div style="font-size:15px; font-weight:600; margin-bottom:3px;">
+                      Generic starting journeys
+                    </div>
+                    <div class="journeys-list">
+                      <div class="journey-pill">
+                        <span class="label">7-Day “Do I even need college?” Check</span>
+                        <span class="meta">Clarify if college is the right lever</span>
+                      </div>
+                      <div class="journey-pill">
+                        <span class="label">30-Day Career & Major Exploration</span>
+                        <span class="meta">Taste before you commit</span>
+                      </div>
+                    </div>
+                    <div class="text-sm" style="margin-top:6px;">
+                      In Default view, these journeys are built for “average” visitors. Personalized view reshapes them
+                      for teens, career switchers, or self-taught builders differently.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Personalized baseline (LifeMap-based, 3 variants) -->
+            <div class="baseline-card" id="baselinePersonal" style="display:none;">
+              <!-- LifeMap A -->
+              <div class="baseline-grid lifemap-baseline" id="baselinePersonalA">
+                <div>
+                  <div class="baseline-main-title">
+                    <span>Where you fit – LifeMap A</span>
+                  </div>
+                  <div style="display:flex; flex-wrap:wrap; gap:6px; margin-bottom:4px;">
+                    <span class="band-tag">
+                      <span>🎓</span> Band: High school / early college
+                    </span>
+                    <span class="archetype-tag">
+                      <span>🧑‍🎓</span> Archetype: Curious, not sure yet
+                    </span>
+                  </div>
+                  <p style="margin:6px 0 8px; font-size:15px;">
+                    You’re early in the game. Grades are okay-to-good, you have interests but no clear “calling,”
+                    and you’re trying to not waste time or money on a path you’ll regret.
+                  </p>
+                  <div class="text-sm">
+                    Baseline built from: current grade level, strengths, test scores (if any), family expectations,
+                    and your tolerance for debt vs time.
+                  </div>
+                </div>
+                <div>
+                  <div style="font-size:15px; font-weight:600; margin-bottom:4px;">
+                    Top 3 levers for this LifeMap
+                  </div>
+                  <ul class="lever-list">
+                    <li>
+                      <span class="rank">1</span>
+                      <span><strong>Expose yourself to real work</strong> in a few directions instead of guessing from stereotypes.</span>
+                    </li>
+                    <li>
+                      <span class="rank">2</span>
+                      <span><strong>Clarify what a “good enough” path is</strong> – not perfect, but aligned with your strengths and values.</span>
+                    </li>
+                    <li>
+                      <span class="rank">3</span>
+                      <span><strong>Keep options open</strong> with broad majors, transferable skills, and low fixed costs.</span>
+                    </li>
+                  </ul>
+                  <div style="margin-top:10px;">
+                    <div style="font-size:15px; font-weight:600; margin-bottom:3px;">
+                      Suggested starting journeys
+                    </div>
+                    <div class="journeys-list">
+                      <div class="journey-pill">
+                        <span class="label">30-Day Major & Career Sampler</span>
+                        <span class="meta">Try 3–5 paths lightly</span>
+                      </div>
+                      <div class="journey-pill">
+                        <span class="label">7-Day “Will I finish?” Reality Check</span>
+                        <span class="meta">Study habits + support</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- LifeMap B -->
+              <div class="baseline-grid lifemap-baseline" id="baselinePersonalB" style="display:none;">
+                <div>
+                  <div class="baseline-main-title">
+                    <span>Where you fit – LifeMap B</span>
+                  </div>
+                  <div style="display:flex; flex-wrap:wrap; gap:6px; margin-bottom:4px;">
+                    <span class="band-tag">
+                      <span>💼</span> Band: Working adult / career changer
+                    </span>
+                    <span class="archetype-tag">
+                      <span>🧑‍🍼</span> Archetype: Responsibilities + limited time
+                    </span>
+                  </div>
+                  <p style="margin:6px 0 8px; font-size:15px;">
+                    You’re already in the workforce. You might have kids, bills, or existing debt. College is not an abstract idea;
+                    it’s a serious time and money commitment that has to pull its weight.
+                  </p>
+                  <div class="text-sm">
+                    Baseline built from: current job, income, schedule, dependents, debt, and the gap between your present role and where you’d like to go.
+                  </div>
+                </div>
+                <div>
+                  <div style="font-size:15px; font-weight:600; margin-bottom:4px;">
+                    Top 3 levers for this LifeMap
+                  </div>
+                  <ul class="lever-list">
+                    <li>
+                      <span class="rank">1</span>
+                      <span><strong>Career target clarity</strong> – what job (or band of jobs) you’re actually aiming for.</span>
+                    </li>
+                    <li>
+                      <span class="rank">2</span>
+                      <span><strong>ROI and risk</strong> – cost, time, and odds of landing that role vs other paths (certs, bootcamps, experience).</span>
+                    </li>
+                    <li>
+                      <span class="rank">3</span>
+                      <span><strong>Program fit with your life</strong> – online vs in-person, part-time vs full-time, support systems.</span>
+                    </li>
+                  </ul>
+                  <div style="margin-top:10px;">
+                    <div style="font-size:15px; font-weight:600; margin-bottom:3px;">
+                      Suggested starting journeys
+                    </div>
+                    <div class="journeys-list">
+                      <div class="journey-pill">
+                        <span class="label">30-Day Career Change Map</span>
+                        <span class="meta">From now → target role</span>
+                      </div>
+                      <div class="journey-pill">
+                        <span class="label">60-Day “Is this degree worth it?” Plan</span>
+                        <span class="meta">ROI, time, and risk</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- LifeMap C -->
+              <div class="baseline-grid lifemap-baseline" id="baselinePersonalC" style="display:none;">
+                <div>
+                  <div class="baseline-main-title">
+                    <span>Where you fit – LifeMap C</span>
+                  </div>
+                  <div style="display:flex; flex-wrap:wrap; gap:6px; margin-bottom:4px;">
+                    <span class="band-tag">
+                      <span>🛠</span> Band: Self-directed / builder type
+                    </span>
+                    <span class="archetype-tag">
+                      <span>🚀</span> Archetype: Entrepreneurial or already in a skill path
+                    </span>
+                  </div>
+                  <p style="margin:6px 0 8px; font-size:15px;">
+                    You may already be coding, freelancing, creating, or running something. College is on the table, but so are
+                    bootcamps, apprenticeships, and just building in the wild. You’re weighing credibility, networks, and depth.
+                  </p>
+                  <div class="text-sm">
+                    Baseline built from: existing skills, portfolio, network, income streams, and how much you value credentials vs freedom vs community.
+                  </div>
+                </div>
+                <div>
+                  <div style="font-size:15px; font-weight:600; margin-bottom:4px;">
+                    Top 3 levers for this LifeMap
+                  </div>
+                  <ul class="lever-list">
+                    <li>
+                      <span class="rank">1</span>
+                      <span><strong>Skill stack vs degree</strong> – how college adds to what you’re already building.</span>
+                    </li>
+                    <li>
+                      <span class="rank">2</span>
+                      <span><strong>Network + credential value</strong> in the specific field you’re in or moving toward.</span>
+                    </li>
+                    <li>
+                      <span class="rank">3</span>
+                      <span><strong>Opportunity cost</strong> – what you’d be doing instead (building products, freelancing, etc.).</span>
+                    </li>
+                  </ul>
+                  <div style="margin-top:10px;">
+                    <div style="font-size:15px; font-weight:600; margin-bottom:3px;">
+                      Suggested starting journeys
+                    </div>
+                    <div class="journeys-list">
+                      <div class="journey-pill">
+                        <span class="label">30-Day Degree vs Build Decision</span>
+                        <span class="meta">Compare paths side-by-side</span>
+                      </div>
+                      <div class="journey-pill">
+                        <span class="label">90-Day Skill Stack Plan</span>
+                        <span class="meta">College + projects + network</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- POSITIONS -->
+          <div class="section">
+            <div class="section-header">
+              <div>
+                <div class="section-title">Different ways people approach this decision</div>
+                <div class="section-subtitle">
+                  “What should I go to college for?” has multiple valid philosophies. LifeHub surfaces them instead of pretending there’s one.
+                </div>
+              </div>
+              <div class="pill-tabs">
+                <button class="active">Plain view</button>
+                <button>Evidence & nuance</button>
+              </div>
+            </div>
+
+            <div class="positions-grid">
+              <div class="position-card" id="positionMedication">
+                <div class="position-card-header">
+                  <div>
+                    <span class="position-name">Optimize for “good job + I don’t hate it”</span>
+                    <span class="recommended-label" id="positionRecommendLabel">Recommended for you</span>
+                  </div>
+                  <div class="confidence-chip">Common & practical blend</div>
+                </div>
+                <div class="panel-subtitle">
+                  Start with majors that lead to broadly employable roles with decent pay, and use electives / side projects
+                  to explore passions.
+                </div>
+                <div class="position-meta">
+                  <span>✅ Balances money, interest, and flexibility</span>
+                  <span>⚠️ Not hyper-optimized for “dream job” fantasies</span>
+                  <span>🎯 Great for: LifeMap A & many LifeMap B</span>
+                </div>
+              </div>
+
+              <div class="position-card" id="positionCarb">
+                <div class="position-card-header">
+                  <div>
+                    <span class="position-name">Optimize for financial ROI & job security</span>
+                    <span class="recommended-label">Recommended for you</span>
+                  </div>
+                  <div class="confidence-chip">High evidence on earnings</div>
+                </div>
+                <div class="panel-subtitle">
+                  Choose fields with strong job demand and earnings (e.g., some STEM, healthcare, trades), especially if
+                  you’ll need loans or are supporting others.
+                </div>
+                <div class="position-meta">
+                  <span>✅ Helps protect you from debt regret</span>
+                  <span>⚠️ Needs honest check: will you actually finish and enjoy enough of it?</span>
+                  <span>🎯 Great for: many LifeMap B, some A</span>
+                </div>
+              </div>
+
+              <div class="position-card" id="positionWhole">
+                <div class="position-card-header">
+                  <div>
+                    <span class="position-name">Optimize for curiosity & skill stack</span>
+                    <span class="recommended-label">Recommended for you</span>
+                  </div>
+                  <div class="confidence-chip">More exploratory, more complex</div>
+                </div>
+                <div class="panel-subtitle">
+                  Use college to deeply explore ideas, people, and projects while stacking skills that travel across fields.
+                </div>
+                <div class="position-meta">
+                  <span>✅ Can lead to unique paths & creative work</span>
+                  <span>⚠️ Needs guardrails around debt and drifting</span>
+                  <span>🎯 Great for: LifeMap C and some A</span>
+                </div>
+              </div>
+
+              <div class="position-card" id="positionWeight">
+                <div class="position-card-header">
+                  <div>
+                    <span class="position-name">Delay / minimize college, lean into alternatives</span>
+                    <span class="recommended-label">Recommended for you</span>
+                  </div>
+                  <div class="confidence-chip">Valid in some LifeMaps</div>
+                </div>
+                <div class="panel-subtitle">
+                  Do community college, bootcamps, apprenticeships, or work first — maybe a degree later, if it still makes sense.
+                </div>
+                <div class="position-meta">
+                  <span>✅ Lower cost, more data about yourself and the world</span>
+                  <span>⚠️ Needs discipline; easy to drift with no structure</span>
+                  <span>🎯 Great for: some B & C, some A without urgency</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- TOP LEVERS -->
+          <div class="section">
+            <div class="section-header">
+              <div>
+                <div class="section-title">Top levers: in general vs personalized</div>
+                <div class="section-subtitle">
+                  The core “knobs” for this decision, and how a LifeMap changes their order and weight.
+                </div>
+              </div>
+            </div>
+
+            <div class="lever-columns">
+              <div class="lever-card">
+                <h4>For most people on this topic</h4>
+                <div class="panel-subtitle">
+                  These levers show up again and again, regardless of background.
+                </div>
+                <ul class="lever-list">
+                  <li><span class="rank">1</span><span><strong>Career direction rough sketch</strong> – a cluster of roles, not a single job.</span></li>
+                  <li><span class="rank">2</span><span><strong>Cost & debt load</strong> relative to likely earnings and your tolerance for risk.</span></li>
+                  <li><span class="rank">3</span><span><strong>Academic fit</strong> – can you actually handle and complete the program?</span></li>
+                  <li><span class="rank">4</span><span><strong>Program quality & support</strong> – teaching, advising, internships, career services.</span></li>
+                  <li><span class="rank">5</span><span><strong>Option value</strong> – doors it opens (or closes) 5–10 years from now.</span></li>
+                </ul>
+              </div>
+              <div class="lever-card" id="leverPersonalCard">
+                <h4>Personalized column</h4>
+                <span class="lever-tag">LifeMap variants A / B / C</span>
+
+                <!-- Default (no LifeMap) -->
+                <div id="leverPersonalDefault">
+                  <p style="margin:6px 0 4px; font-size:15px;">
+                    In Default view, we don’t know your grades, money, or responsibilities yet. This column stays generic and explains
+                    that, once connected, LifeHub will <strong>reweight these levers</strong> based on age, finances, dependents, prior education,
+                    and how risk-seeking you actually are.
+                  </p>
+                  <p class="text-sm">
+                    Example: a debt-averse single parent aiming for a healthcare role should not be looking at the same list
+                    as a 19-year-old with scholarships and a love of math.
+                  </p>
+                </div>
+
+                <!-- Personalized view (LifeMap-based, 3 variants) -->
+                <div id="leverPersonalPersonal" style="display:none;">
+                  <!-- LifeMap A -->
+                  <div class="lifemap-levers" id="leverPersonalA">
+                    <p style="margin:6px 0 4px; font-size:15px;">
+                      For LifeMap A, <strong>real exposure, broad-but-intentional majors, and low regret costs</strong>
+                      outrank early hyper-specialization.
+                    </p>
+                    <ul class="lever-list">
+                      <li><span class="rank">1</span><span><strong>Test-drive 3–5 fields</strong> with interviews, job shadows, and short courses.</span></li>
+                      <li><span class="rank">2</span><span><strong>Favor flexible majors</strong> that lead to multiple roles, not just one fragile option.</span></li>
+                      <li><span class="rank">3</span><span><strong>Keep debt moderate</strong> relative to expected starting salaries.</span></li>
+                      <li><span class="rank">4</span><span><strong>Build study and life skills</strong> so finishing is actually likely.</span></li>
+                    </ul>
+                  </div>
+
+                  <!-- LifeMap B -->
+                  <div class="lifemap-levers" id="leverPersonalB" style="display:none;">
+                    <p style="margin:6px 0 4px; font-size:15px;">
+                      For LifeMap B, <strong>clear career target and realistic ROI</strong> beat vague “going back to school” energy.
+                    </p>
+                    <ul class="lever-list">
+                      <li><span class="rank">1</span><span><strong>Pick a specific role band</strong> (e.g., “nurse,” “data analyst,” “project manager”).</span></li>
+                      <li><span class="rank">2</span><span><strong>Verify hiring patterns</strong> – do most people in that role actually need a degree, and in what?</span></li>
+                      <li><span class="rank">3</span><span><strong>Check life fit</strong> – work, family, and energy vs program demands.</span></li>
+                      <li><span class="rank">4</span><span><strong>Compare alternative routes</strong> (certs, bootcamps, internal promotions) before borrowing heavily.</span></li>
+                    </ul>
+                  </div>
+
+                  <!-- LifeMap C -->
+                  <div class="lifemap-levers" id="leverPersonalC" style="display:none;">
+                    <p style="margin:6px 0 4px; font-size:15px;">
+                      For LifeMap C, <strong>credential + network + depth</strong> vs <strong>build + ship + earn</strong>
+                      is the real comparison.
+                    </p>
+                    <ul class="lever-list">
+                      <li><span class="rank">1</span><span><strong>Map credibility gaps</strong> – where a degree unlocks rooms you can’t enter yet.</span></li>
+                      <li><span class="rank">2</span><span><strong>Weigh network & mentorship</strong> you’d get at specific schools or programs.</span></li>
+                      <li><span class="rank">3</span><span><strong>Compare opportunity cost</strong> vs 2–4 years of building, freelancing, or startup time.</span></li>
+                      <li><span class="rank">4</span><span><strong>Design a hybrid</strong> – degree + projects + income instead of either/or.</span></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- JOURNEYS -->
+          <div class="section">
+            <div class="section-header">
+              <div>
+                <div class="section-title">Journeys: default vs personalized</div>
+                <div class="section-subtitle">
+                  Default view has generic journeys. Personalized view adds “Recommended” and reshapes by age, money, and goals.
+                </div>
+              </div>
+              <div class="pill-tabs" id="journeyTabs">
+                <button id="tabRecommended">Recommended</button>
+                <button id="tabPopular" class="active">Most popular</button>
+                <button id="tabGentle">Gentle</button>
+                <button id="tabIntensive">More intensive</button>
+              </div>
+            </div>
+
+            <div class="journey-grid" id="journeyGrid">
+              <!-- Default view journeys -->
+              <div class="journey-card" data-view="default" data-tags="popular,gentle">
+                <div class="journey-header">
+                  <h4>7-Day “Do I Even Need College?” Check</h4>
+                  <div class="journey-meta-row">
+                    <span class="journey-meta-pill">🧪 Experiment</span>
+                    <span class="journey-meta-pill">7 days</span>
+                    <span class="journey-meta-pill">~15–20 min/day</span>
+                  </div>
+                </div>
+                <p style="margin:4px 0 2px;">
+                  Quickly explore whether college is the right lever for your goals, or if alternatives might be smarter
+                  for now.
+                </p>
+                <div class="journey-modules-label">Modules in this journey</div>
+                <div class="journey-modules-strip">
+                  <div class="module-tile module-color-1">
+                    <div>
+                      <div class="module-name">Future You Snapshots</div>
+                      <div class="module-meta">
+                        <span class="module-tag">Vision</span>
+                        <span class="module-tag">One-time</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="module-tile module-color-7">
+                    <div>
+                      <div class="module-name">Degree vs No-Degree Map</div>
+                      <div class="module-meta">
+                        <span class="module-tag">Compare</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="module-tile module-color-6">
+                    <div>
+                      <div class="module-name">Small Experiment Ideas</div>
+                      <div class="module-meta">
+                        <span class="module-tag">Action</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="journey-stats-footnote">
+                  Often used before committing to big applications, loans, or quitting a job.
+                </div>
+              </div>
+
+              <div class="journey-card" data-view="default" data-tags="popular,intensive">
+                <div class="journey-header">
+                  <h4>30-Day Career & Major Exploration</h4>
+                  <div class="journey-meta-row">
+                    <span class="journey-meta-pill">🌱 Foundation</span>
+                    <span class="journey-meta-pill">30 days</span>
+                    <span class="journey-meta-pill">~20–30 min/day</span>
+                  </div>
+                </div>
+                <p style="margin:4px 0 2px;">
+                  A structured month of exploring careers, majors, and learning paths with real conversations and basic money math.
+                </p>
+                <div class="journey-modules-label">Modules in this journey</div>
+                <div class="journey-modules-strip">
+                  <div class="module-tile module-color-2">
+                    <div>
+                      <div class="module-name">Strengths & Interests Scan</div>
+                      <div class="module-meta">
+                        <span class="module-tag">Self-knowledge</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="module-tile module-color-9">
+                    <div>
+                      <div class="module-name">Talk to 3 People Doing It</div>
+                      <div class="module-meta">
+                        <span class="module-tag">Conversations</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="module-tile module-color-3">
+                    <div>
+                      <div class="module-name">Net Cost Rough Math</div>
+                      <div class="module-meta">
+                        <span class="module-tag">Money</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="journey-stats-footnote">
+                  Good generic journey for teens and adults who haven’t done serious exploration yet.
+                </div>
+              </div>
+
+              <!-- Personalized view journeys -->
+              <div class="journey-card" data-view="personal" data-tags="recommended,gentle" data-lifemap="A">
+                <div class="journey-header">
+                  <h4>30-Day Senior Year College Map</h4>
+                  <div class="journey-meta-row">
+                    <span class="journey-meta-pill">🎓 High school flow</span>
+                    <span class="journey-meta-pill">30 days</span>
+                    <span class="journey-meta-pill">~20–30 min/day</span>
+                  </div>
+                </div>
+                <p style="margin:4px 0 2px;">
+                  For LifeMap A: find 2–3 majors and colleges that fit your strengths, budget, and how you actually want to live.
+                </p>
+                <div class="journey-modules-label">Modules in this journey</div>
+                <div class="journey-modules-strip">
+                  <div class="module-tile module-color-1">
+                    <div>
+                      <div class="module-name">Future You Snapshots</div>
+                      <div class="module-meta">
+                        <span class="module-tag">Vision</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="module-tile module-color-4">
+                    <div>
+                      <div class="module-name">Majors Shortlist</div>
+                      <div class="module-meta">
+                        <span class="module-tag">Options</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="module-tile module-color-9">
+                    <div>
+                      <div class="module-name">Talk to 3 Students</div>
+                      <div class="module-meta">
+                        <span class="module-tag">Conversations</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="journey-stats-footnote">
+                  Reduces “I have no idea” into “I’m choosing between a few good enough paths.”
+                </div>
+              </div>
+
+              <div class="journey-card" data-view="personal" data-tags="recommended,popular,intensive" data-lifemap="B">
+                <div class="journey-header">
+                  <h4>60-Day Career Change Degree Plan</h4>
+                  <div class="journey-meta-row">
+                    <span class="journey-meta-pill">💼 Adult learner</span>
+                    <span class="journey-meta-pill">60 days</span>
+                    <span class="journey-meta-pill">~30–45 min/week</span>
+                  </div>
+                </div>
+                <p style="margin:4px 0 2px;">
+                  For LifeMap B: define your target role, map the education paths to get there, and decide if a degree is the right lever.
+                </p>
+                <div class="journey-modules-label">Modules in this journey</div>
+                <div class="journey-modules-strip">
+                  <div class="module-tile module-color-5">
+                    <div>
+                      <div class="module-name">Target Role Deep Dive</div>
+                      <div class="module-meta">
+                        <span class="module-tag">Career</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="module-tile module-color-8">
+                    <div>
+                      <div class="module-name">Degree vs Cert vs Bootcamp</div>
+                      <div class="module-meta">
+                        <span class="module-tag">Compare</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="module-tile module-color-2">
+                    <div>
+                      <div class="module-name">Schedule & Energy Fit</div>
+                      <div class="module-meta">
+                        <span class="module-tag">Life fit</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="journey-stats-footnote">
+                  Helps avoid both “I never went back” and “I went back and regretted the debt.”
+                </div>
+              </div>
+
+              <div class="journey-card" data-view="personal" data-tags="recommended,popular,intensive" data-lifemap="A,C">
+                <div class="journey-header">
+                  <h4>90-Day Degree + Skill Stack Plan</h4>
+                  <div class="journey-meta-row">
+                    <span class="journey-meta-pill">🛠 Hybrid route</span>
+                    <span class="journey-meta-pill">90 days</span>
+                    <span class="journey-meta-pill">~30–45 min/week</span>
+                  </div>
+                </div>
+                <p style="margin:4px 0 2px;">
+                  For LifeMap A or C: decide how college, projects, internships, and self-directed learning fit together into a real plan.
+                </p>
+                <div class="journey-modules-label">Modules in this journey</div>
+                <div class="journey-modules-strip">
+                  <div class="module-tile module-color-3">
+                    <div>
+                      <div class="module-name">Skill Stack Map</div>
+                      <div class="module-meta">
+                        <span class="module-tag">Skills</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="module-tile module-color-6">
+                    <div>
+                      <div class="module-name">Projects & Portfolio Plan</div>
+                      <div class="module-meta">
+                        <span class="module-tag">Portfolio</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="module-tile module-color-10">
+                    <div>
+                      <div class="module-name">Network & Mentors</div>
+                      <div class="module-meta">
+                        <span class="module-tag">People</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="journey-stats-footnote">
+                  Common outcome: a clear mix of school, work, and making things that feels like your path, not generic advice.
+                </div>
+              </div>
+            </div>
+
+            <div id="journeyEmpty" class="journeyEmpty" style="display:none;">
+              No journeys in this category for this view yet.
+            </div>
+
+            <div style="margin-top:10px;">
+              <button class="small-button">
+                🧩 Build my own journey
+              </button>
+              <button class="small-button secondary" style="margin-left:6px;">
+                ✏️ Start from a template
+              </button>
+            </div>
+          </div>
+
+          <!-- MODULES – horizontal carousel with arrows + tabs -->
+          <div class="section">
+            <div class="section-header">
+              <div>
+                <div class="section-title">Modules: building blocks you can mix & match</div>
+                <div class="section-subtitle">
+                  Each module is a small, concrete step in exploring majors, careers, and money in a structured way.
+                </div>
+              </div>
+              <div class="pill-tabs" id="moduleTabs">
+                <button id="moduleTabRecommended">Recommended</button>
+                <button id="moduleTabPopular" class="active">Most popular</button>
+                <button id="moduleTabGentle">Gentle</button>
+                <button id="moduleTabIntensive">More intensive</button>
+              </div>
+            </div>
+
+            <!-- Default view modules -->
+            <div class="modules-wrapper" id="modulesWrapperDefault">
+              <button class="modules-arrow left" type="button">
+                <span>◂</span>
+              </button>
+              <div class="modules-carousel" id="modulesDefault">
+                <div class="module-tile modules-base-tile module-color-9" data-view="default" data-tags="popular,gentle">
+                  <div>
+                    <div class="module-name">Strengths & Interests Scan</div>
+                    <div class="module-meta">
+                      <span class="module-tag">Self-knowledge</span>
+                      <span class="module-tag">1–2 sessions</span>
+                    </div>
+                    <div class="module-desc">
+                      Reflective prompts and a quick test or two to see what you naturally lean toward.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="module-tile modules-base-tile module-color-2" data-view="default" data-tags="popular,intensive">
+                  <div>
+                    <div class="module-name">Net Cost Rough Math</div>
+                    <div class="module-meta">
+                      <span class="module-tag">Money</span>
+                    </div>
+                    <div class="module-desc">
+                      Estimate tuition, living costs, aid, and likely loans for a few options.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="module-tile modules-base-tile module-color-3" data-view="default" data-tags="popular,intensive">
+                  <div>
+                    <div class="module-name">Job Market Snapshot</div>
+                    <div class="module-meta">
+                      <span class="module-tag">Career</span>
+                    </div>
+                    <div class="module-desc">
+                      Look up demand, pay bands, and common paths into roles you’re curious about.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="module-tile modules-base-tile module-color-1" data-view="default" data-tags="popular,gentle">
+                  <div>
+                    <div class="module-name">Future You Snapshots</div>
+                    <div class="module-meta">
+                      <span class="module-tag">Vision</span>
+                      <span class="module-tag">One-time</span>
+                    </div>
+                    <div class="module-desc">
+                      Imagine a few versions of your life 10 years out and what a “good day” looks like.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="module-tile modules-base-tile module-color-7" data-view="default" data-tags="gentle">
+                  <div>
+                    <div class="module-name">Talk to 3 People Doing It</div>
+                    <div class="module-meta">
+                      <span class="module-tag">Conversations</span>
+                    </div>
+                    <div class="module-desc">
+                      Simple outreach scripts and questions for informational interviews.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="module-tile modules-base-tile module-color-6" data-view="default" data-tags="popular,gentle">
+                  <div>
+                    <div class="module-name">Campus / Program Vibes Check</div>
+                    <div class="module-meta">
+                      <span class="module-tag">Fit</span>
+                    </div>
+                    <div class="module-desc">
+                      Ways to sense if you’d actually like the environment and structure of a program.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="module-tile modules-base-tile module-color-4" data-view="default" data-tags="gentle">
+                  <div>
+                    <div class="module-name">Community College First?</div>
+                    <div class="module-meta">
+                      <span class="module-tag">Path design</span>
+                    </div>
+                    <div class="module-desc">
+                      Compare a two-step route (community → university) vs direct enrollment.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="module-tile modules-base-tile module-color-5" data-view="default" data-tags="popular,intensive">
+                  <div>
+                    <div class="module-name">Alternatives Scan</div>
+                    <div class="module-meta">
+                      <span class="module-tag">Options</span>
+                    </div>
+                    <div class="module-desc">
+                      Bootcamps, apprenticeships, online certs, and “build-first” paths side by side.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="module-tile modules-base-tile module-color-8" data-view="default" data-tags="gentle">
+                  <div>
+                    <div class="module-name">Stress & Expectations Check</div>
+                    <div class="module-meta">
+                      <span class="module-tag">Mindset</span>
+                    </div>
+                    <div class="module-desc">
+                      Unpack family pressure, perfectionism, and what “success” actually means to you.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="module-tile modules-base-tile module-color-10" data-view="default" data-tags="intensive">
+                  <div>
+                    <div class="module-name">Plan B If You Don’t Finish</div>
+                    <div class="module-meta">
+                      <span class="module-tag">Safety</span>
+                    </div>
+                    <div class="module-desc">
+                      Design what happens if you don’t complete the degree so it’s not all-or-nothing.
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button class="modules-arrow right" type="button">
+                <span>▸</span>
+              </button>
+            </div>
+
+            <!-- Personalized view modules (LifeMap aware) -->
+            <div class="modules-wrapper" id="modulesWrapperPersonal" style="display:none;">
+              <button class="modules-arrow left" type="button">
+                <span>◂</span>
+              </button>
+              <div class="modules-carousel" id="modulesPersonal">
+                <div class="module-tile modules-base-tile module-color-2" data-view="personal" data-tags="recommended,popular,intensive" data-lifemap="A,B">
+                  <div>
+                    <div class="module-name">Net Cost Rough Math</div>
+                    <div class="module-meta">
+                      <span class="module-tag">Money</span>
+                    </div>
+                    <div class="module-desc">
+                      Uses your LifeMap region, likely aid, and time-to-graduate to compare cost scenarios.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="module-tile modules-base-tile module-color-9" data-view="personal" data-tags="recommended,popular,gentle" data-lifemap="A,B,C">
+                  <div>
+                    <div class="module-name">Strengths & Interests Scan</div>
+                    <div class="module-meta">
+                      <span class="module-tag">Self-knowledge</span>
+                    </div>
+                    <div class="module-desc">
+                      Adjusts prompts based on your reported school experiences, work, and hobbies.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="module-tile modules-base-tile module-color-1" data-view="personal" data-tags="popular,gentle" data-lifemap="A,B,C">
+                  <div>
+                    <div class="module-name">Future You Snapshots</div>
+                    <div class="module-meta">
+                      <span class="module-tag">Vision</span>
+                    </div>
+                    <div class="module-desc">
+                      Narrows scenarios to ones that match your financial reality and life responsibilities.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="module-tile modules-base-tile module-color-4" data-view="personal" data-tags="recommended,gentle" data-lifemap="A">
+                  <div>
+                    <div class="module-name">Majors Shortlist</div>
+                    <div class="module-meta">
+                      <span class="module-tag">Options</span>
+                    </div>
+                    <div class="module-desc">
+                      Uses your strengths and interests to suggest 4–8 majors worth exploring in depth.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="module-tile modules-base-tile module-color-5" data-view="personal" data-tags="popular,intensive" data-lifemap="B">
+                  <div>
+                    <div class="module-name">Degree vs Cert vs Bootcamp</div>
+                    <div class="module-meta">
+                      <span class="module-tag">Compare</span>
+                    </div>
+                    <div class="module-desc">
+                      Compares education paths that people in your target role actually took, filtered by your LifeMap.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="module-tile modules-base-tile module-color-3" data-view="personal" data-tags="popular,intensive" data-lifemap="C">
+                  <div>
+                    <div class="module-name">Skill Stack Map</div>
+                    <div class="module-meta">
+                      <span class="module-tag">Skills</span>
+                    </div>
+                    <div class="module-desc">
+                      Builds a “stack” of skills to layer over your current ones, with or without a degree.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="module-tile modules-base-tile module-color-10" data-view="personal" data-tags="recommended,intensive" data-lifemap="A,C">
+                  <div>
+                    <div class="module-name">Projects & Portfolio Plan</div>
+                    <div class="module-meta">
+                      <span class="module-tag">Portfolio</span>
+                    </div>
+                    <div class="module-desc">
+                      Connects classes or self-study to real projects you can show employers or collaborators.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="module-tile modules-base-tile module-color-8" data-view="personal" data-tags="gentle" data-lifemap="A,B">
+                  <div>
+                    <div class="module-name">Stress & Expectations Check</div>
+                    <div class="module-meta">
+                      <span class="module-tag">Mindset</span>
+                    </div>
+                    <div class="module-desc">
+                      Calibrates questions around your family culture, past school experiences, and fear of failing.
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button class="modules-arrow right" type="button">
+                <span>▸</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- EVIDENCE & CONSENSUS -->
+          <div class="section">
+            <div class="section-header">
+              <div>
+                <div class="section-title">Evidence & what’s debated</div>
+                <div class="section-subtitle">
+                  College isn’t just vibes. There’s data on earnings, completion, debt, and alternative paths.
+                </div>
+              </div>
+              <span class="badge">Nerd lane available</span>
+            </div>
+
+            <div class="consensus-grid">
+              <div class="consensus-col">
+                <h4>What’s broadly agreed on</h4>
+                <ul>
+                  <li>On average, finishing college is associated with higher earnings and lower unemployment.</li>
+                  <li>Differences between majors and fields are large – not all degrees have similar ROI.</li>
+                  <li>Completion matters more than “starting” – many costs are sunk if you don’t finish.</li>
+                  <li>Debt can be manageable or crushing depending on amount, field, and earnings.</li>
+                </ul>
+              </div>
+              <div class="consensus-col">
+                <h4>Where experts still debate</h4>
+                <ul>
+                  <li>How much of the “college earnings boost” is selection vs skill-building vs signaling.</li>
+                  <li>The value of degrees vs alternative credentials in fast-moving fields (tech, design, etc.).</li>
+                  <li>How to design college so first-gen and working students actually graduate.</li>
+                  <li>Long-term impact of high student debt on life choices (kids, home, career risk-taking).</li>
+                </ul>
+              </div>
+            </div>
+
+            <table class="evidence-table">
+              <thead>
+                <tr>
+                  <th>Study (link)</th>
+                  <th>Classification</th>
+                  <th>Funding source</th>
+                  <th>Population</th>
+                  <th>Control</th>
+                  <th>Size (n)</th>
+                  <th>Design</th>
+                  <th>Trust score</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <a href="https://www.bls.gov/careeroutlook/2019/data-on-display/education-pays.htm" target="_blank" rel="noopener">
+                      “Education pays” summary
+                    </a>
+                  </td>
+                  <td>Earnings by education level</td>
+                  <td>Public (BLS)</td>
+                  <td>U.S. workers 25+</td>
+                  <td>Comparison by education level</td>
+                  <td>National survey</td>
+                  <td>Descriptive statistics</td>
+                  <td>High</td>
+                </tr>
+                <tr>
+                  <td>
+                    <a href="https://doi.org/10.3386/w27005" target="_blank" rel="noopener">
+                      “Earnings Differences by Major”
+                    </a>
+                  </td>
+                  <td>Major-specific ROI</td>
+                  <td>Academic / research grants</td>
+                  <td>College graduates by major</td>
+                  <td>Field, school type, demographics</td>
+                  <td>100,000+</td>
+                  <td>Econometric analysis</td>
+                  <td>Moderate–High</td>
+                </tr>
+                <tr>
+                  <td>
+                    <a href="https://doi.org/10.1257/jep.26.1.129" target="_blank" rel="noopener">
+                      “The College Wage Premium” (review)
+                    </a>
+                  </td>
+                  <td>Review of returns to college</td>
+                  <td>Academic</td>
+                  <td>Multiple cohorts</td>
+                  <td>Various (time, policy, ability)</td>
+                  <td>Multi-study</td>
+                  <td>Review & synthesis</td>
+                  <td>High</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="text-sm" style="margin-top:4px;">
+              In a real product, this section would expand into a full evidence browser with filters by major, school type,
+              country, and funding source — so you can see where the data is strong, weak, or absent for your situation.
+            </div>
+          </div>
+
+          <!-- STORIES -->
+          <div class="section">
+            <div class="section-header">
+              <div>
+                <div class="section-title">Stories from people like you</div>
+                <div class="section-subtitle">
+                  Anonymized examples of how different LifeMaps navigated this decision.
+                </div>
+              </div>
+            </div>
+
+            <div class="story-card">
+              <h4>“Once I saw the money and the job paths together, the panic dropped.”</h4>
+              <div class="story-meta">
+                Sarah, 18 • LifeMap A • undecided high school senior
+              </div>
+              <p style="margin:4px 0 4px;">
+                Sarah was torn between psychology, business, and “something creative.” Through a 30-day exploration journey,
+                she talked to people in each field, did a simple cost and earnings comparison, and realized she cared most about
+                working with people in a business context. She picked a business major with a psych minor, plus a plan for internships
+                in people-facing roles.
+              </p>
+              <div class="text-sm">
+                Key levers: career conversations, strengths scan, moderate-cost school, broad major + targeted electives.
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ & RELATED -->
+          <div class="section">
+            <div class="section-header">
+              <div>
+                <div class="section-title">FAQ & related topics</div>
+                <div class="section-subtitle">
+                  Questions people actually ask when deciding what to go to college for.
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-q">
+                <span>Is college even worth it anymore?</span>
+                <span class="faq-toggle-icon">▸</span>
+              </div>
+              <div class="faq-a">
+                It depends on your LifeMap. On average, degrees still correlate with higher earnings and lower unemployment,
+                but there’s huge variation by field, cost, and whether you finish. Some people do much better with cheaper
+                or more targeted paths. This topic helps you see where you likely fall.
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-q">
+                <span>What if I pick the wrong major?</span>
+                <span class="faq-toggle-icon">▸</span>
+              </div>
+              <div class="faq-a">
+                Many people change majors. The bigger question is whether your early choices keep options open and whether
+                you’re learning transferable skills. A good plan makes it possible to pivot without throwing everything away.
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-q">
+                <span>Should I go to community college first?</span>
+                <span class="faq-toggle-icon">▸</span>
+              </div>
+              <div class="faq-a">
+                For many LifeMaps, starting at a community college can cut costs and buy time to explore. For some high-aid
+                or highly targeted programs, going straight to a four-year or specialized program makes more sense.
+                The right answer depends on your money, grades, and clarity.
+              </div>
+            </div>
+
+            <div class="section" style="margin-top:14px;">
+              <div class="section-title">Related topics that often matter here</div>
+              <div class="section-subtitle">
+                These topics often sit underneath the “what should I go to college for?” question.
+              </div>
+              <div class="related-grid">
+                <div class="related-card">
+                  <h4>Student Loans & Debt</h4>
+                  <div class="text-sm">
+                    How much borrowing is sensible for your field and LifeMap, and how repayment actually works.
+                  </div>
+                </div>
+                <div class="related-card">
+                  <h4>Career Direction</h4>
+                  <div class="text-sm">
+                    Untangling what you could do, what you want to do, and what the world will pay you for.
+                  </div>
+                </div>
+                <div class="related-card">
+                  <h4>Motivation & Study Habits</h4>
+                  <div class="text-sm">
+                    Finishing is a huge part of the value. This topic links to how you work and learn best.
+                  </div>
+                </div>
+                <div class="related-card">
+                  <h4>Family & Cultural Expectations</h4>
+                  <div class="text-sm">
+                    Parents, partners, or community beliefs can shape this decision heavily; worth surfacing explicitly.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="section" style="margin-top:14px;">
+              <div class="section-title">Safety / When to get professional advice</div>
+              <div class="section-subtitle">
+                LifeHub is not a replacement for financial aid officers, academic advisors, or legal/financial advice.
+              </div>
+              <div class="faq-item open" style="border-color: rgba(248,113,113,0.9); background: rgba(254,242,242,0.9);">
+                <div class="faq-q">
+                  <span style="color:#b91c1c;">If you’re considering large loans or complex aid packages</span>
+                  <span class="faq-toggle-icon">▸</span>
+                </div>
+                <div class="faq-a">
+                  Decisions about big student loans or complicated aid can affect your life for decades.
+                  A real product would remind you to talk with your school’s financial aid office and,
+                  when needed, an independent financial advisor. Don’t rely solely on an app for major
+                  debt decisions.
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- RIGHT COLUMN: PERSONALIZED MODE (STICKY) -->
+      <aside class="personal-panel" id="personalColumn">
+        <div class="view-toggle-shell">
+          <div class="view-toggle">
+            <button class="active" id="viewDefault">
+              <span>🌐</span> Default view
+            </button>
+            <button id="viewPersonal">
+              <span>✨</span> Personalized view
+            </button>
+          </div>
+          <div class="text-sm" style="margin-top:6px; max-width:320px;">
+            Toggle between a generic topic page and a version shaped by example LifeMaps. In a real app,
+            this would be <strong>your</strong> data.
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="side-header">LifeMap snapshot</div>
+          <div class="side-sub">
+            How this topic plugs into one of three example LifeMaps.
+          </div>
+
+          <div class="pill-tabs" id="lifeMapTabs">
+            <button id="lifeMapA" class="active">LifeMap A</button>
+            <button id="lifeMapB">LifeMap B</button>
+            <button id="lifeMapC">LifeMap C</button>
+          </div>
+
+          <div class="side-note" id="lifeMapSnapshot" style="margin-top:8px;">
+            <strong>Default view (no LifeMap loaded):</strong><br />
+            • Domains: age, education, work, money, family, and risk – but no specific data yet.<br />
+            • Traits: we assume you’re thoughtful, unsure, and don’t want to waste time or money.<br />
+            • Constraints: unknown grades, finances, dependents, or career goals.<br /><br />
+            Connect or create a LifeMap to see your school history, income, obligations, skills, and aspirations
+            populate here — and watch positions, levers, modules, and journeys reconfigure around you.
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <footer>
+      * Demo numbers are placeholders for design purposes only, not financial, legal, or educational advice.<br />
+      LifeHub Topic Demo • What should I go to college for? • 2025
+    </footer>
+  </div>
+
+  <script>
+    // --- DOM references ---
+    const viewDefaultBtn = document.getElementById("viewDefault");
+    const viewPersonalBtn = document.getElementById("viewPersonal");
+
+    const baselineDefault = document.getElementById("baselineDefault");
+    const baselinePersonal = document.getElementById("baselinePersonal");
+
+    const baselinePersonalA = document.getElementById("baselinePersonalA");
+    const baselinePersonalB = document.getElementById("baselinePersonalB");
+    const baselinePersonalC = document.getElementById("baselinePersonalC");
+
+    const leverPersonalDefault = document.getElementById("leverPersonalDefault");
+    const leverPersonalPersonal = document.getElementById("leverPersonalPersonal");
+    const leverPersonalA = document.getElementById("leverPersonalA");
+    const leverPersonalB = document.getElementById("leverPersonalB");
+    const leverPersonalC = document.getElementById("leverPersonalC");
+    const leverPersonalCard = document.getElementById("leverPersonalCard");
+
+    const lifeMapSnapshot = document.getElementById("lifeMapSnapshot");
+    const lifeMapATab = document.getElementById("lifeMapA");
+    const lifeMapBTab = document.getElementById("lifeMapB");
+    const lifeMapCTab = document.getElementById("lifeMapC");
+
+    const positionMedication = document.getElementById("positionMedication");
+    const positionCarb = document.getElementById("positionCarb");
+    const positionWhole = document.getElementById("positionWhole");
+    const positionWeight = document.getElementById("positionWeight");
+    const positionCards = document.querySelectorAll(".position-card");
+    const positionLabels = document.querySelectorAll(".position-card .recommended-label");
+
+    const tabRecommended = document.getElementById("tabRecommended");
+    const tabPopular = document.getElementById("tabPopular");
+    const tabGentle = document.getElementById("tabGentle");
+    const tabIntensive = document.getElementById("tabIntensive");
+
+    const journeyCards = document.querySelectorAll(".journey-card");
+    const journeyEmpty = document.getElementById("journeyEmpty");
+
+    const modulesWrapperDefault = document.getElementById("modulesWrapperDefault");
+    const modulesWrapperPersonal = document.getElementById("modulesWrapperPersonal");
+
+    const moduleTabRecommended = document.getElementById("moduleTabRecommended");
+    const moduleTabPopular = document.getElementById("moduleTabPopular");
+    const moduleTabGentle = document.getElementById("moduleTabGentle");
+    const moduleTabIntensive = document.getElementById("moduleTabIntensive");
+
+    const moduleTiles = document.querySelectorAll(".modules-base-tile");
+
+    const lifeMapTemplates = {
+      default:
+        "<strong>Default view (no LifeMap loaded):</strong><br />" +
+        "• Domains: age, education, work, money, family, and risk – but no specific data yet.<br />" +
+        "• Traits: we assume you’re thoughtful, unsure, and don’t want to waste time or money.<br />" +
+        "• Constraints: unknown grades, finances, dependents, or career goals.<br /><br />" +
+        "Connect or create a LifeMap to see your school history, income, obligations, skills, and aspirations " +
+        "populate here — and watch positions, levers, modules, and journeys reconfigure around you.",
+      A:
+        "<strong>LifeMap A • High school / early college, exploring</strong><br />" +
+        "• Stage: late high school or early college; plenty of time ahead.<br />" +
+        "• Academics: okay-to-good grades; some classes feel natural, others forced.<br />" +
+        "• Money: mix of family help, part-time work, and maybe future loans.<br />" +
+        "• Clarity: knows some things they like, but no single ‘obvious’ major.<br /><br />" +
+        "Implication for this topic: lean into exploration with low regret costs, keep options open, and " +
+        "use the structure to avoid drifting or picking based only on vibes.",
+      B:
+        "<strong>LifeMap B • Working adult / career changer with responsibilities</strong><br />" +
+        "• Stage: in the workforce, often with kids, partner, or other dependents.<br />" +
+        "• Money: bills and sometimes existing debt; can’t pause life easily.<br />" +
+        "• Time: limited energy after work; nights and weekends are precious.<br />" +
+        "• Clarity: wants something more sustainable, well-paid, or meaningful.<br /><br />" +
+        "Implication for this topic: focus on a specific target role, check that a degree truly helps, and " +
+        "choose programs that fit real life instead of ideal schedules.",
+      C:
+        "<strong>LifeMap C • Self-directed builder or early entrepreneur</strong><br />" +
+        "• Stage: already coding, designing, freelancing, or building projects.<br />" +
+        "• Money: might be scraping by or doing okay from projects; wants to grow.<br />" +
+        "• Network: some connections from online communities or past work.<br />" +
+        "• Clarity: knows they like building and learning fast; unsure how much college adds.<br /><br />" +
+        "Implication for this topic: compare the value of credentials and college networks vs just " +
+        "building, shipping, and collaborating – possibly designing a hybrid path."
+    };
+
+    let currentViewMode = "default";     // "default" | "personal"
+    let currentJourneyTab = "popular";   // "recommended" | "popular" | "gentle" | "intensive"
+    let currentModuleTab = "popular";    // "recommended" | "popular" | "gentle" | "intensive"
+    let currentLifeMap = "A";            // "A" | "B" | "C"
+
+    // --- Recommended position logic ---
+    function updateRecommendedPosition() {
+      positionCards.forEach(card => card.classList.remove("recommended"));
+      positionLabels.forEach(label => label.style.display = "none");
+
+      if (currentViewMode !== "personal") return;
+
+      let recommendedId;
+      // Mapping: A & B → practical blend; C → curiosity/skill stack
+      if (currentLifeMap === "C") {
+        recommendedId = "positionWhole";
+      } else {
+        recommendedId = "positionMedication";
+      }
+
+      const card = document.getElementById(recommendedId);
+      if (!card) return;
+
+      card.classList.add("recommended");
+      const label = card.querySelector(".recommended-label");
+      if (label) label.style.display = "inline-flex";
+    }
+
+    // --- Journeys display logic ---
+    function updateJourneysDisplay() {
+      let anyVisible = false;
+      journeyCards.forEach(card => {
+        const view = card.dataset.view || "default";
+        const tags = (card.dataset.tags || "").split(",").map(t => t.trim());
+        const lifemapAttr = card.dataset.lifemap || "all";
+        const lifemaps = lifemapAttr.split(",").map(t => t.trim());
+        const viewMatch = (view === currentViewMode || view === "both");
+        const tagMatch = tags.includes(currentJourneyTab);
+        const lifemapMatch = lifemapAttr === "all" || lifemaps.includes(currentLifeMap);
+
+        if (viewMatch && tagMatch && lifemapMatch) {
+          card.style.display = "";
+          anyVisible = true;
+        } else {
+          card.style.display = "none";
+        }
+      });
+
+      journeyEmpty.style.display = anyVisible ? "none" : "block";
+    }
+
+    function updateJourneyTabUI() {
+      const mapping = {
+        recommended: tabRecommended,
+        popular: tabPopular,
+        gentle: tabGentle,
+        intensive: tabIntensive
+      };
+
+      Object.entries(mapping).forEach(([name, btn]) => {
+        btn.classList.toggle("active", name === currentJourneyTab);
+      });
+
+      updateJourneysDisplay();
+    }
+
+    function setJourneyTab(tab) {
+      if (tab === "recommended" && currentViewMode === "default") {
+        return; // disabled in default view
+      }
+      currentJourneyTab = tab;
+      updateJourneyTabUI();
+    }
+
+    // --- Modules display logic ---
+    function updateModulesDisplay() {
+      moduleTiles.forEach(tile => {
+        const view = tile.dataset.view || "default";
+        const tags = (tile.dataset.tags || "").split(",").map(t => t.trim());
+        const lifemapAttr = tile.dataset.lifemap || "all";
+        const lifemaps = lifemapAttr.split(",").map(t => t.trim());
+        const viewMatch = (view === currentViewMode || view === "both");
+        const tagMatch = tags.includes(currentModuleTab);
+        const lifemapMatch = lifemapAttr === "all" || lifemaps.includes(currentLifeMap);
+
+        if (viewMatch && tagMatch && lifemapMatch) {
+          tile.style.display = "flex";
+        } else {
+          tile.style.display = "none";
+        }
+      });
+    }
+
+    function updateModuleTabUI() {
+      const mapping = {
+        recommended: moduleTabRecommended,
+        popular: moduleTabPopular,
+        gentle: moduleTabGentle,
+        intensive: moduleTabIntensive
+      };
+
+      Object.entries(mapping).forEach(([name, btn]) => {
+        btn.classList.toggle("active", name === currentModuleTab);
+      });
+
+      updateModulesDisplay();
+    }
+
+    function setModuleTab(tab) {
+      if (tab === "recommended" && currentViewMode === "default") {
+        return; // disabled in default view
+      }
+      currentModuleTab = tab;
+      updateModuleTabUI();
+    }
+
+    // --- LifeMap UI helpers ---
+    function updateLifeMapTabUI() {
+      const mapping = { A: lifeMapATab, B: lifeMapBTab, C: lifeMapCTab };
+      Object.entries(mapping).forEach(([name, btn]) => {
+        btn.classList.toggle("active", name === currentLifeMap);
+      });
+    }
+
+    function updateLifeMapDependentUI() {
+      if (currentViewMode !== "personal") return;
+
+      // Snapshot text
+      lifeMapSnapshot.innerHTML = lifeMapTemplates[currentLifeMap];
+
+      // Baseline variants
+      [baselinePersonalA, baselinePersonalB, baselinePersonalC].forEach(el => {
+        if (!el) return;
+        el.style.display = "none";
+      });
+      if (currentLifeMap === "A") baselinePersonalA.style.display = "grid";
+      if (currentLifeMap === "B") baselinePersonalB.style.display = "grid";
+      if (currentLifeMap === "C") baselinePersonalC.style.display = "grid";
+
+      // Lever variants
+      [leverPersonalA, leverPersonalB, leverPersonalC].forEach(el => {
+        if (!el) return;
+        el.style.display = "none";
+      });
+      if (currentLifeMap === "A") leverPersonalA.style.display = "block";
+      if (currentLifeMap === "B") leverPersonalB.style.display = "block";
+      if (currentLifeMap === "C") leverPersonalC.style.display = "block";
+
+      // Journeys + modules depend on LifeMap
+      updateJourneysDisplay();
+      updateModulesDisplay();
+    }
+
+    function setLifeMap(lm) {
+      if (currentViewMode === "default") return; // Only meaningful in personalized view
+      currentLifeMap = lm;
+      updateLifeMapTabUI();
+      updateLifeMapDependentUI();
+      updateRecommendedPosition();
+    }
+
+    // --- View toggle logic ---
+    function setView(mode) {
+      const isDefault = mode === "default";
+      currentViewMode = mode;
+
+      // Button states
+      viewDefaultBtn.classList.toggle("active", isDefault);
+      viewPersonalBtn.classList.toggle("active", !isDefault);
+
+      // Baseline
+      baselineDefault.style.display = isDefault ? "block" : "none";
+      baselinePersonal.style.display = isDefault ? "none" : "block";
+
+      // Lever column
+      leverPersonalDefault.style.display = isDefault ? "block" : "none";
+      leverPersonalPersonal.style.display = isDefault ? "none" : "block";
+
+      // Highlight personalized lever column only in personalized view
+      if (isDefault) {
+        leverPersonalCard.classList.remove("highlighted");
+      } else {
+        leverPersonalCard.classList.add("highlighted");
+      }
+
+      // LifeMap tabs enabled/disabled + snapshot text
+      const lifeMapButtons = [lifeMapATab, lifeMapBTab, lifeMapCTab];
+      if (isDefault) {
+        lifeMapButtons.forEach(btn => {
+          btn.classList.add("disabled");
+          btn.setAttribute("aria-disabled", "true");
+        });
+        lifeMapSnapshot.innerHTML = lifeMapTemplates.default;
+      } else {
+        lifeMapButtons.forEach(btn => {
+          btn.classList.remove("disabled");
+          btn.removeAttribute("aria-disabled");
+        });
+        updateLifeMapTabUI();
+        updateLifeMapDependentUI();
+      }
+
+      // Modules section switching (wrap both carousel + arrows)
+      if (isDefault) {
+        modulesWrapperDefault.style.display = "block";
+        modulesWrapperPersonal.style.display = "none";
+      } else {
+        modulesWrapperDefault.style.display = "none";
+        modulesWrapperPersonal.style.display = "block";
+      }
+
+      // Journey tabs: enable/disable "Recommended"
+      if (isDefault) {
+        tabRecommended.classList.add("disabled");
+        tabRecommended.setAttribute("aria-disabled", "true");
+        if (currentJourneyTab === "recommended") {
+          currentJourneyTab = "popular";
+        }
+      } else {
+        tabRecommended.classList.remove("disabled");
+        tabRecommended.removeAttribute("aria-disabled");
+        currentJourneyTab = "recommended";
+      }
+      updateJourneyTabUI();
+
+      // Module tabs: enable/disable "Recommended"
+      if (isDefault) {
+        moduleTabRecommended.classList.add("disabled");
+        moduleTabRecommended.setAttribute("aria-disabled", "true");
+        if (currentModuleTab === "recommended") {
+          currentModuleTab = "popular";
+        }
+      } else {
+        moduleTabRecommended.classList.remove("disabled");
+        moduleTabRecommended.removeAttribute("aria-disabled");
+        currentModuleTab = "recommended";
+      }
+      updateModuleTabUI();
+
+      // Recommended position card highlight
+      updateRecommendedPosition();
+    }
+
+    // --- Modules carousel arrow logic ---
+    const moduleWrappers = document.querySelectorAll(".modules-wrapper");
+    moduleWrappers.forEach(wrapper => {
+      const carousel = wrapper.querySelector(".modules-carousel");
+      const leftBtn = wrapper.querySelector(".modules-arrow.left");
+      const rightBtn = wrapper.querySelector(".modules-arrow.right");
+      const scrollAmount = 260;
+
+      if (!carousel || !leftBtn || !rightBtn) return;
+
+      leftBtn.addEventListener("click", () => {
+        carousel.scrollBy({ left: -scrollAmount, behavior: "smooth" });
+      });
+
+      rightBtn.addEventListener("click", () => {
+        carousel.scrollBy({ left: scrollAmount, behavior: "smooth" });
+      });
+    });
+
+    // --- Event listeners ---
+    viewDefaultBtn.addEventListener("click", () => setView("default"));
+    viewPersonalBtn.addEventListener("click", () => setView("personal"));
+
+    tabRecommended.addEventListener("click", () => setJourneyTab("recommended"));
+    tabPopular.addEventListener("click", () => setJourneyTab("popular"));
+    tabGentle.addEventListener("click", () => setJourneyTab("gentle"));
+    tabIntensive.addEventListener("click", () => setJourneyTab("intensive"));
+
+    moduleTabRecommended.addEventListener("click", () => setModuleTab("recommended"));
+    moduleTabPopular.addEventListener("click", () => setModuleTab("popular"));
+    moduleTabGentle.addEventListener("click", () => setModuleTab("gentle"));
+    moduleTabIntensive.addEventListener("click", () => setModuleTab("intensive"));
+
+    lifeMapATab.addEventListener("click", () => setLifeMap("A"));
+    lifeMapBTab.addEventListener("click", () => setLifeMap("B"));
+    lifeMapCTab.addEventListener("click", () => setLifeMap("C"));
+
+    // FAQ accordions
+    const faqItems = document.querySelectorAll(".faq-item");
+    faqItems.forEach(item => {
+      const question = item.querySelector(".faq-q");
+      question.addEventListener("click", () => {
+        item.classList.toggle("open");
+      });
+    });
+
+    // Initialize in default mode
+    setView("default");
+  </script>
+</body>
+</html>

@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>LifeHub Topic • Type 2 Diabetes</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-100 text-slate-900">
+  <!-- Page shell -->
+  <div class="min-h-screen flex flex-col">
+    <!-- Top nav -->
+    <header class="border-b border-slate-200 bg-white/70 backdrop-blur">
+      <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-3xl bg-emerald-500 flex items-center justify-center text-white font-bold">
+            LH
+          </div>
+          <div>
+            <p class="text-xl font-semibold tracking-tight">LifeHub</p>
+            <p class="text-xs text-slate-500">Topic guide</p>
+          </div>
+        </div>
+        <div class="hidden sm:flex items-center gap-3 text-sm">
+          <span class="px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-100">
+            🔬 Evidence-aware
+          </span>
+          <span class="px-3 py-1 rounded-full bg-slate-100 text-slate-700 border border-slate-200">
+            🤖 AI-assisted
+          </span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main content -->
+    <main class="flex-1">
+      <div class="max-w-6xl mx-auto px-4 py-6 lg:py-10 flex flex-col lg:flex-row gap-8">
+        <!-- Left: content -->
+        <div class="flex-1 space-y-6 lg:space-y-8">
+          <!-- Hero -->
+          <section id="overview" class="bg-white rounded-3xl shadow-sm p-5 sm:p-7 lg:p-8">
+            <div class="flex flex-col lg:flex-row gap-6 lg:gap-10">
+              <div class="flex-1 space-y-4">
+                <p class="text-sm font-semibold uppercase tracking-wide text-emerald-600">
+                  Topic • Metabolic health
+                </p>
+                <h1 class="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight">
+                  Type 2 diabetes, in plain language.
+                </h1>
+                <p class="text-base sm:text-lg text-slate-700 max-w-xl">
+                  What it is, what actually moves the needle, and how LifeHub can help you
+                  turn “I should really fix this” into a tiny, testable plan.
+                </p>
+
+                <!-- Quick chips -->
+                <div class="flex flex-wrap gap-2 mt-2">
+                  <span class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-xs sm:text-sm bg-emerald-50 text-emerald-700 border border-emerald-100">
+                    🩺 Focus: blood sugar & insulin resistance
+                  </span>
+                  <span class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-xs sm:text-sm bg-slate-100 text-slate-700 border border-slate-200">
+                    ⏱ Best for 3–12 month experiments
+                  </span>
+                  <span class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-xs sm:text-sm bg-slate-100 text-slate-700 border border-slate-200">
+                    🙋 Not medical advice — info only
+                  </span>
+                </div>
+
+                <!-- Hero CTA bar -->
+                <div class="mt-4 border border-emerald-100 bg-emerald-50/80 rounded-2xl px-4 py-3 flex flex-col sm:flex-row sm:items-center gap-3">
+                  <div class="flex-1">
+                    <p class="text-sm font-semibold text-emerald-900">
+                      Start with a tiny 7-day experiment
+                    </p>
+                    <p class="text-xs sm:text-sm text-emerald-800">
+                      Answer a few questions, and LifeHub turns this topic into a plan you can
+                      realistically follow for a week.
+                    </p>
+                  </div>
+                  <button class="inline-flex items-center justify-center px-4 py-2 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-medium shadow">
+                    Build my 7-day T2D experiment
+                  </button>
+                </div>
+              </div>
+
+              <!-- Hero side panel -->
+              <div class="w-full lg:w-72 flex flex-col gap-4">
+                <div class="rounded-2xl bg-slate-900 text-slate-50 p-4 space-y-3 shadow-sm">
+                  <p class="text-xs uppercase tracking-wide text-emerald-300 font-semibold">
+                    At a glance (US adults)
+                  </p>
+                  <div class="space-y-2 text-sm">
+                    <div class="flex items-baseline justify-between">
+                      <span>Prediabetes or T2D</span>
+                      <span class="font-semibold text-lg">~1 in 3</span>
+                    </div>
+                    <div class="flex items-baseline justify-between">
+                      <span>Strong lifestyle leverage</span>
+                      <span class="font-semibold text-lg">✅ High</span>
+                    </div>
+                    <div class="flex items-baseline justify-between">
+                      <span>Typical timeline</span>
+                      <span class="font-semibold text-lg">3–12 mo</span>
+                    </div>
+                  </div>
+                  <p class="text-[11px] leading-snug text-slate-400">
+                    Numbers are approximate and for education only. Always work with a clinician
+                    for diagnosis, medication, and medical decisions.
+                  </p>
+                </div>
+
+                <!-- Mini “journey card” preview -->
+                <div class="rounded-2xl bg-white border border-slate-200 p-4 shadow-sm space-y-3">
+                  <p class="text-xs uppercase tracking-wide font-semibold text-slate-500">
+                    Journey preview
+                  </p>
+                  <p class="text-sm font-semibold text-slate-900">
+                    “From 180s to 120s”: a starter T2D journey
+                  </p>
+                  <ul class="text-xs text-slate-700 space-y-1.5">
+                    <li>• Swap sugary drinks → zero-sugar or water</li>
+                    <li>• Add 1 short post-meal walk per day</li>
+                    <li>• Track 2–3 finger-stick readings / day</li>
+                    <li>• Weekly reflection: stress / sleep / cravings</li>
+                  </ul>
+                  <button class="mt-1 text-xs font-medium text-emerald-700 hover:underline">
+                    View full example journey →
+                  </button>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- What actually moves the needle -->
+          <section id="needle" class="bg-white rounded-3xl shadow-sm p-5 sm:p-7">
+            <div class="flex items-center justify-between mb-4">
+              <h2 class="text-xl sm:text-2xl font-semibold tracking-tight">
+                What actually moves the needle?
+              </h2>
+              <span class="text-xs px-2.5 py-1 rounded-full bg-slate-100 text-slate-600">
+                Big levers • lifestyle + meds
+              </span>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-4">
+              <!-- Lever card -->
+              <div class="border border-slate-200 rounded-2xl p-4 flex flex-col gap-2">
+                <p class="text-sm font-semibold text-slate-900 flex items-center gap-2">
+                  🍽 Food pattern
+                </p>
+                <p class="text-xs text-slate-600">
+                  Total carbs, timing, and ultra-processed foods all affect blood sugar.
+                  Different approaches (low-carb, Mediterranean, higher-fiber plant-based)
+                  can work — the key is one you can actually stick with.
+                </p>
+                <p class="text-[11px] text-slate-500 mt-auto">
+                  LifeHub goal: match you with a realistic pattern, not a perfect one.
+                </p>
+              </div>
+
+              <div class="border border-slate-200 rounded-2xl p-4 flex flex-col gap-2">
+                <p class="text-sm font-semibold text-slate-900 flex items-center gap-2">
+                  🚶 Movement & muscle
+                </p>
+                <p class="text-xs text-slate-600">
+                  Muscles act like a sponge for glucose. Even light walks after meals and
+                  2–3 short strength sessions per week can improve insulin sensitivity.
+                </p>
+                <p class="text-[11px] text-slate-500 mt-auto">
+                  LifeHub goal: micro-habits, not a complete gym overhaul.
+                </p>
+              </div>
+
+              <div class="border border-slate-200 rounded-2xl p-4 flex flex-col gap-2">
+                <p class="text-sm font-semibold text-slate-900 flex items-center gap-2">
+                  💊 Meds, stress, & sleep
+                </p>
+                <p class="text-xs text-slate-600">
+                  Medication, chronic stress, and poor sleep can all swing blood sugar.
+                  LifeHub nudges you to talk with your clinician, not change meds on your own.
+                </p>
+                <p class="text-[11px] text-slate-500 mt-auto">
+                  LifeHub goal: help you ask better questions at appointments.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Multiple lenses / sides -->
+          <section id="lenses" class="bg-white rounded-3xl shadow-sm p-5 sm:p-7">
+            <div class="flex items-center justify-between mb-4">
+              <h2 class="text-xl sm:text-2xl font-semibold tracking-tight">
+                See the main approaches side-by-side
+              </h2>
+              <span class="text-xs text-slate-500">
+                Different philosophies • You stay in charge
+              </span>
+            </div>
+
+            <!-- Tabs (static for mock) -->
+            <div class="flex flex-wrap gap-2 mb-4 text-sm">
+              <button class="px-3 py-1.5 rounded-full bg-emerald-600 text-white font-medium">
+                Standard medical view
+              </button>
+              <button class="px-3 py-1.5 rounded-full bg-slate-100 text-slate-700">
+                Lower-carb / keto-leaning
+              </button>
+              <button class="px-3 py-1.5 rounded-full bg-slate-100 text-slate-700">
+                Plant-forward / higher-fiber
+              </button>
+              <button class="px-3 py-1.5 rounded-full bg-slate-100 text-slate-700">
+                Meds-first, lifestyle-later
+              </button>
+            </div>
+
+            <!-- Tab content: standard view (example) -->
+            <div class="grid md:grid-cols-3 gap-4 text-xs sm:text-sm">
+              <div class="border border-slate-200 rounded-2xl p-4 space-y-2">
+                <p class="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                  Core story
+                </p>
+                <p class="text-slate-700">
+                  Type 2 is a progressive condition driven by insulin resistance and high
+                  blood sugar. The usual goal is to bring A1C and fasting glucose into a
+                  safer range and protect heart, kidneys, nerves, and eyes.
+                </p>
+              </div>
+              <div class="border border-slate-200 rounded-2xl p-4 space-y-2">
+                <p class="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                  Typical plan
+                </p>
+                <ul class="list-disc list-inside space-y-1 text-slate-700">
+                  <li>Gradual weight loss if needed</li>
+                  <li>Moderate-carb, lower-sugar eating pattern</li>
+                  <li>Regular movement & basic strength work</li>
+                  <li>Medication as needed (e.g. metformin, GLP-1s)</li>
+                </ul>
+              </div>
+              <div class="border border-slate-200 rounded-2xl p-4 space-y-2">
+                <p class="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                  Pros & tradeoffs
+                </p>
+                <ul class="space-y-1 text-slate-700">
+                  <li>✅ Strong evidence base</li>
+                  <li>✅ Fits most clinic workflows</li>
+                  <li>⚠️ Can feel slow or generic</li>
+                  <li>⚠️ Doesn’t always lean into more aggressive lifestyle change</li>
+                </ul>
+              </div>
+            </div>
+
+            <p class="mt-4 text-[11px] text-slate-500">
+              LifeHub’s goal is not to pick a “winner”, but to help you understand
+              approaches, weigh evidence & tradeoffs, and then personalize a plan with your
+              own priorities and medical team.
+            </p>
+          </section>
+
+          <!-- Levers visualization (static mock) -->
+          <section id="levers" class="bg-white rounded-3xl shadow-sm p-5 sm:p-7">
+            <div class="flex items-center justify-between mb-4">
+              <h2 class="text-xl sm:text-2xl font-semibold tracking-tight">
+                Key levers LifeHub tracks with you
+              </h2>
+              <span class="text-xs text-slate-500">
+                Not real data • demo only
+              </span>
+            </div>
+
+            <div class="space-y-4">
+              <!-- Lever row -->
+              <div class="space-y-1">
+                <div class="flex justify-between text-xs sm:text-sm">
+                  <span class="font-medium text-slate-800">
+                    Weight / waist trend
+                  </span>
+                  <span class="text-slate-600">
+                    Example: -6 lb, -2 cm over 12 weeks
+                  </span>
+                </div>
+                <div class="h-2 rounded-full bg-slate-200 overflow-hidden">
+                  <div class="h-full w-1/3 bg-emerald-500"></div>
+                </div>
+              </div>
+
+              <div class="space-y-1">
+                <div class="flex justify-between text-xs sm:text-sm">
+                  <span class="font-medium text-slate-800">
+                    A1C trend
+                  </span>
+                  <span class="text-slate-600">
+                    Example: 8.2 → 6.9 over 9 months (with meds + lifestyle)
+                  </span>
+                </div>
+                <div class="h-2 rounded-full bg-slate-200 overflow-hidden">
+                  <div class="h-full w-2/3 bg-emerald-500"></div>
+                </div>
+              </div>
+
+              <div class="space-y-1">
+                <div class="flex justify-between text-xs sm:text-sm">
+                  <span class="font-medium text-slate-800">
+                    Blood pressure
+                  </span>
+                  <span class="text-slate-600">
+                    Example: 148/92 → 128/80
+                  </span>
+                </div>
+                <div class="h-2 rounded-full bg-slate-200 overflow-hidden">
+                  <div class="h-full w-1/2 bg-emerald-500"></div>
+                </div>
+              </div>
+
+              <p class="text-[11px] text-slate-500">
+                In the real product, these bars would be powered by your actual data (from
+                manual check-ins, lab values, connected devices, etc.) and show ranges,
+                not just single numbers.
+              </p>
+            </div>
+          </section>
+
+          <!-- AI mini-widgets -->
+          <section id="ai" class="bg-white rounded-3xl shadow-sm p-5 sm:p-7 space-y-4">
+            <div class="flex items-center justify-between">
+              <h2 class="text-xl sm:text-2xl font-semibold tracking-tight">
+                How AI fits in on this page
+              </h2>
+              <span class="text-xs text-slate-500">
+                These are placeholder cards you can wire up later
+              </span>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-4">
+              <!-- AI intake / journey -->
+              <div class="border border-slate-200 rounded-2xl p-4 flex flex-col gap-3">
+                <div class="flex items-center gap-2">
+                  <div class="w-8 h-8 rounded-2xl bg-emerald-100 flex items-center justify-center text-emerald-700">
+                    🤖
+                  </div>
+                  <div>
+                    <p class="text-sm font-semibold text-slate-900">
+                      7-day experiment builder
+                    </p>
+                    <p class="text-xs text-slate-500">
+                      AI-assisted, human-reviewed (for now)
+                    </p>
+                  </div>
+                </div>
+                <p class="text-xs text-slate-700">
+                  Short intake → LifeHub suggests a tiny 7-day plan based on this topic
+                  (food, movement, tracking). You keep or reject steps before starting.
+                </p>
+                <ul class="text-xs text-slate-700 space-y-1">
+                  <li>• Asks about your current pattern & constraints</li>
+                  <li>• Prioritizes smallest steps with highest payoff</li>
+                  <li>• Avoids medical directives — nudges questions for your doctor instead</li>
+                </ul>
+                <button class="mt-auto inline-flex items-center justify-center px-3 py-1.5 rounded-full text-xs font-medium bg-emerald-600 text-white hover:bg-emerald-700">
+                  Try the 7-day builder
+                </button>
+              </div>
+
+              <!-- AI Q&A -->
+              <div class="border border-slate-200 rounded-2xl p-4 flex flex-col gap-3">
+                <div class="flex items-center gap-2">
+                  <div class="w-8 h-8 rounded-2xl bg-slate-900 flex items-center justify-center text-white text-sm">
+                    ?
+                  </div>
+                  <div>
+                    <p class="text-sm font-semibold text-slate-900">
+                      Ask LifeHub about this topic
+                    </p>
+                    <p class="text-xs text-slate-500">
+                      Guardrails: info, not diagnosis
+                    </p>
+                  </div>
+                </div>
+                <p class="text-xs text-slate-700">
+                  A focused Q&A box, tuned just for Type 2 diabetes. It can summarize
+                  evidence, compare approaches, and help you think through tradeoffs —
+                  but won’t tell you to start/stop meds.
+                </p>
+                <div class="mt-1 bg-slate-50 border border-slate-200 rounded-2xl p-3 text-xs text-slate-700 space-y-2">
+                  <p class="font-medium text-slate-800">Example conversation</p>
+                  <div class="space-y-1">
+                    <p class="font-semibold text-slate-800">You:</p>
+                    <p>“If I cut carbs a lot, do I also need to exercise to see a difference?”</p>
+                    <p class="font-semibold text-slate-800 mt-1">LifeHub:</p>
+                    <p>
+                      “Both help. Cutting refined carbs can reduce glucose spikes on its own.
+                      Adding even light movement usually improves insulin sensitivity further.
+                      Together, they tend to work better than either one alone.”
+                    </p>
+                  </div>
+                </div>
+                <button class="mt-auto inline-flex items-center justify-center px-3 py-1.5 rounded-full text-xs font-medium bg-slate-900 text-white hover:bg-slate-800">
+                  Open T2D chat
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- CTA section -->
+          <section id="cta" class="bg-slate-900 rounded-3xl shadow-md p-5 sm:p-7 lg:p-8 text-slate-50">
+            <div class="flex flex-col lg:flex-row gap-5 lg:gap-8 items-start">
+              <div class="flex-1 space-y-2">
+                <p class="text-xs uppercase tracking-wide text-emerald-300 font-semibold">
+                  From reading → doing
+                </p>
+                <h2 class="text-2xl sm:text-3xl font-semibold tracking-tight">
+                  Turn this topic into your next small experiment.
+                </h2>
+                <p class="text-sm sm:text-base text-slate-200 max-w-xl">
+                  LifeHub doesn’t expect you to rebuild your life all at once. It helps you
+                  choose a realistic slice — like a 7-day T2D experiment — and then learn from
+                  what actually happens.
+                </p>
+              </div>
+              <div class="w-full lg:w-72 space-y-3">
+                <div class="bg-slate-800 rounded-2xl p-4 text-xs space-y-2">
+                  <p class="font-semibold text-slate-50">
+                    What a T2D experiment might track
+                  </p>
+                  <ul class="space-y-1 text-slate-200">
+                    <li>• 1–2 specific food swaps</li>
+                    <li>• A tiny step-goal or walk rule</li>
+                    <li>• 2–3 finger-stick checks / day (if you already test)</li>
+                    <li>• How you feel: energy, sleep, stress, cravings</li>
+                  </ul>
+                  <p class="text-[11px] text-slate-400">
+                    You stay in control of what you share and what you try.
+                  </p>
+                </div>
+                <button class="w-full inline-flex items-center justify-center px-4 py-2.5 rounded-full bg-emerald-500 hover:bg-emerald-400 text-slate-900 font-semibold text-sm">
+                  Start a T2D journey with LifeHub
+                </button>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <!-- Right: sticky sidebar -->
+        <aside class="w-full lg:w-64 lg:pt-2 lg:sticky lg:top-20 space-y-4">
+          <!-- Mini TOC -->
+          <nav class="bg-white rounded-3xl shadow-sm border border-slate-200 p-4 text-sm">
+            <p class="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-2">
+              On this page
+            </p>
+            <ul class="space-y-1.5">
+              <li><a href="#overview" class="text-slate-800 hover:text-emerald-600">Overview & quick stats</a></li>
+              <li><a href="#needle" class="text-slate-800 hover:text-emerald-600">What moves the needle</a></li>
+              <li><a href="#lenses" class="text-slate-800 hover:text-emerald-600">Multiple lenses</a></li>
+              <li><a href="#levers" class="text-slate-800 hover:text-emerald-600">Levers & example trends</a></li>
+              <li><a href="#ai" class="text-slate-800 hover:text-emerald-600">AI on this topic</a></li>
+              <li><a href="#cta" class="text-slate-800 hover:text-emerald-600">Start a journey</a></li>
+            </ul>
+          </nav>
+
+          <!-- “Trust / safety” box -->
+          <div class="bg-slate-900 text-slate-50 rounded-3xl p-4 text-xs space-y-2 shadow-sm">
+            <p class="text-[11px] uppercase tracking-wide text-emerald-300 font-semibold">
+              Safety & responsibility
+            </p>
+            <p>
+              LifeHub is an educational tool. It can help you understand topics, explore
+              options, and design small life experiments — not diagnose, treat, or replace
+              your clinician.
+            </p>
+            <p class="text-slate-300">
+              Always talk to your doctor before changing medications, exercise, or diet in a
+              major way, especially if you use insulin or have other conditions.
+            </p>
+          </div>
+        </aside>
+      </div>
+    </main>
+
+    <!-- Bottom sticky CTA (mobile) -->
+    <footer class="lg:hidden sticky bottom-0 bg-white/90 backdrop-blur border-t border-slate-200">
+      <div class="max-w-6xl mx-auto px-4 py-3 flex items-center gap-3">
+        <div class="flex-1">
+          <p class="text-xs font-semibold text-slate-800">
+            Ready to turn this into a plan?
+          </p>
+          <p class="text-[11px] text-slate-500">
+            Take a short intake and preview a 7-day T2D experiment.
+          </p>
+        </div>
+        <button class="px-3 py-1.5 rounded-full bg-emerald-600 text-white text-xs font-semibold">
+          Start journey
+        </button>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

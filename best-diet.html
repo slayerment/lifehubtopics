@@ -1,0 +1,2735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>LifeHub Topic Demo – What’s the best diet?</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --bg-alt: #ffffff;
+      --bg-soft: #edf1fc;
+      --border-subtle: #d7d9e5;
+      --primary: #3046ff;
+      --primary-soft: rgba(48, 70, 255, 0.12);
+      --primary-strong: #1d2bcc;
+      --text-main: #111322;
+      --text-muted: #666a80;
+      --accent: #10b981;
+      --danger: #ef4444;
+      --radius-lg: 18px;
+      --radius-xl: 26px;
+      --shadow-soft: 0 18px 60px rgba(15, 23, 42, 0.12);
+      --sidebar-width: 484px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top left, #eef2ff 0, #f5f7fb 36%, #f9fafb 100%);
+      color: var(--text-main);
+      font-size: 18px;
+      line-height: 1.6;
+    }
+
+    .page {
+      max-width: 1580px;
+      margin: 0 auto;
+      padding: 32px 18px 60px;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+
+    .brand {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .brand-title {
+      font-size: 32px;
+      font-weight: 750;
+      letter-spacing: -0.04em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .brand-title span.dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 20%, #4ade80, #22c55e);
+      box-shadow: 0 0 0 8px rgba(34, 197, 94, 0.18);
+    }
+
+    .brand-sub {
+      font-size: 17px;
+      color: var(--text-muted);
+    }
+
+    .top-meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      font-size: 15px;
+      color: var(--text-muted);
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.85);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      font-size: 14px;
+      gap: 6px;
+    }
+
+    .pill-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #22c55e;
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: minmax(0, calc(100% - var(--sidebar-width) - 22px)) minmax(0, var(--sidebar-width));
+      gap: 22px;
+      align-items: flex-start;
+    }
+
+    @media (max-width: 980px) {
+      main {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    .panel {
+      background: var(--bg-alt);
+      border-radius: var(--radius-xl);
+      padding: 20px 20px 22px;
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      box-shadow: 0 18px 50px rgba(15, 23, 42, 0.08);
+    }
+
+    .panel + .panel {
+      margin-top: 16px;
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .panel-subtitle {
+      font-size: 15px;
+      color: var(--text-muted);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: var(--bg-soft);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      font-size: 13px;
+      color: var(--text-muted);
+      gap: 6px;
+    }
+
+    h1.topic-title {
+      font-size: 40px;
+      letter-spacing: -0.05em;
+      margin: 4px 0 4px;
+    }
+
+    .topic-subtitle {
+      font-size: 18px;
+      color: var(--text-muted);
+      max-width: 640px;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .chip {
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.04);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      font-size: 14px;
+      color: var(--text-muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .metric-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+      font-size: 15px;
+    }
+
+    .metric-pill {
+      border-radius: 999px;
+      padding: 6px 12px;
+      background: rgba(15, 23, 42, 0.03);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .metric-pill strong {
+      font-weight: 600;
+    }
+
+    .baseline-card {
+      background: radial-gradient(circle at 0 0, #dcfce7 0, #ecfdf5 36%, #ffffff 100%);
+      border-radius: var(--radius-xl);
+      padding: 18px 18px 16px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 4px;
+    }
+
+    .baseline-card::after {
+      content: "";
+      position: absolute;
+      right: -40px;
+      top: -40px;
+      width: 180px;
+      height: 180px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 20%, rgba(52, 211, 153, 0.8), rgba(5, 150, 105, 0.1));
+      opacity: 0.5;
+      filter: blur(2px);
+    }
+
+    .baseline-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.4fr);
+      gap: 14px;
+      position: relative;
+      z-index: 1;
+    }
+
+    @media (max-width: 840px) {
+      .baseline-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .baseline-main-title {
+      font-size: 20px;
+      font-weight: 650;
+      letter-spacing: -0.03em;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .band-tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 13px;
+      gap: 6px;
+      background: rgba(34, 197, 94, 0.1);
+      color: #15803d;
+      border: 1px solid rgba(74, 222, 128, 0.7);
+    }
+
+    .archetype-tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 13px;
+      gap: 6px;
+      background: rgba(59, 130, 246, 0.1);
+      color: #1d4ed8;
+      border: 1px solid rgba(96, 165, 250, 0.7);
+    }
+
+    .lever-list {
+      list-style: none;
+      padding: 0;
+      margin: 8px 0 0;
+      font-size: 15px;
+    }
+
+    .lever-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+
+    .lever-list li span.rank {
+      width: 22px;
+      height: 22px;
+      border-radius: 999px;
+      background: var(--bg-alt);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+
+    .journeys-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .journey-pill {
+      border-radius: 999px;
+      padding: 6px 12px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(255, 255, 255, 0.9);
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+    }
+
+    .journey-pill span.label {
+      font-weight: 550;
+    }
+
+    .journey-pill span.meta {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .text-sm {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .section {
+      margin-top: 18px;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .section-title {
+      font-size: 20px;
+      font-weight: 650;
+      letter-spacing: -0.03em;
+    }
+
+    .section-subtitle {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .pill-tabs {
+      display: inline-flex;
+      gap: 6px;
+      background: rgba(15, 23, 42, 0.03);
+      border-radius: 999px;
+      padding: 3px;
+      border: 1px solid rgba(148, 163, 184, 0.45);
+    }
+
+    .pill-tabs button {
+      border-radius: 999px;
+      border: none;
+      padding: 4px 10px;
+      font-size: 13px;
+      background: transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+    }
+
+    .pill-tabs button.active {
+      background: white;
+      color: #020617;
+      font-weight: 550;
+      box-shadow: 0 1px 6px rgba(15, 23, 42, 0.18);
+    }
+
+    .pill-tabs button.disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    .positions-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .position-card {
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: rgba(255, 255, 255, 0.95);
+      padding: 10px 12px;
+      font-size: 15px;
+      transition: box-shadow 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+    }
+
+    .position-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 2px;
+    }
+
+    .position-name {
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+    .confidence-chip {
+      padding: 2px 7px;
+      border-radius: 999px;
+      border: 1px solid rgba(34, 197, 94, 0.4);
+      background: rgba(22, 163, 74, 0.06);
+      color: #15803d;
+      font-size: 12px;
+    }
+
+    .position-meta {
+      font-size: 13px;
+      color: var(--text-muted);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 3px;
+    }
+
+    .recommended-label {
+      display: none;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 12px;
+      background: rgba(34, 197, 94, 0.1);
+      border: 1px solid rgba(34, 197, 94, 0.6);
+      color: #15803d;
+      margin-left: 8px;
+      white-space: nowrap;
+    }
+
+    .position-card.recommended {
+      border-color: rgba(34, 197, 94, 0.9);
+      box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.35);
+      background: linear-gradient(135deg, #f0fdf4, #ffffff);
+    }
+
+    .lever-columns {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 840px) {
+      .lever-columns {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .lever-card {
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: rgba(255, 255, 255, 0.97);
+      padding: 10px 12px;
+      font-size: 15px;
+      transition: box-shadow 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+    }
+
+    .lever-card.highlighted {
+      border-color: rgba(34, 197, 94, 0.9);
+      box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.35);
+      background: linear-gradient(135deg, #f0fdf4, #ffffff);
+    }
+
+    .lever-card h4 {
+      margin: 0 0 3px;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .lever-tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 6px;
+      border-radius: 999px;
+      font-size: 12px;
+      color: var(--text-muted);
+      background: rgba(15, 23, 42, 0.03);
+      border: 1px solid rgba(148, 163, 184, 0.45);
+    }
+
+    /* JOURNEYS */
+
+    .journey-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .journey-card {
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.75);
+      background: radial-gradient(circle at 0 0, #fee2e2, #f9fafb);
+      padding: 10px 12px;
+      font-size: 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 16px 40px rgba(15, 23, 42, 0.18);
+      border-left: 4px solid var(--primary);
+    }
+
+    .journey-card::after {
+      content: "";
+      position: absolute;
+      right: -40px;
+      top: -40px;
+      width: 140px;
+      height: 140px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 20%, rgba(248, 113, 113, 0.6), rgba(248, 171, 104, 0.05));
+      opacity: 0.5;
+    }
+
+    .journey-card > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .journey-header {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .journey-card h4 {
+      margin: 0;
+      font-size: 17px;
+      font-weight: 650;
+      letter-spacing: -0.02em;
+    }
+
+    .journey-meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .journey-meta-pill {
+      border-radius: 999px;
+      padding: 3px 8px;
+      background: rgba(15, 23, 42, 0.03);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+    }
+
+    .journey-modules-label {
+      font-size: 12px;
+      font-weight: 600;
+      margin-top: 4px;
+      color: rgba(15, 23, 42, 0.8);
+    }
+
+    .journey-modules-strip {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      margin-top: 4px;
+    }
+
+    .journey-modules-strip::-webkit-scrollbar {
+      height: 5px;
+    }
+
+    .journey-modules-strip::-webkit-scrollbar-thumb {
+      background: rgba(148, 163, 184, 0.7);
+      border-radius: 999px;
+    }
+
+    .journey-modules-strip::-webkit-scrollbar-track {
+      background: rgba(148, 163, 184, 0.2);
+      border-radius: 999px;
+    }
+
+    .journey-modules-strip .module-tile {
+      flex: 0 0 160px;
+      height: 100px;
+      font-size: 12px;
+      box-shadow: 0 6px 16px rgba(15, 23, 42, 0.16);
+    }
+
+    .journey-modules-strip .module-name {
+      font-size: 13px;
+    }
+
+    .journey-modules-strip .module-desc {
+      display: none;
+    }
+
+    .journey-stats-footnote {
+      margin-top: 4px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .journeyEmpty {
+      margin-top: 6px;
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .small-button {
+      border-radius: 999px;
+      border: none;
+      padding: 5px 10px;
+      font-size: 13px;
+      cursor: pointer;
+      background: var(--primary);
+      color: white;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 10px 24px rgba(37, 99, 235, 0.3);
+    }
+
+    .small-button.secondary {
+      background: white;
+      color: #020617;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      box-shadow: none;
+    }
+
+    /* MODULE CAROUSEL */
+
+    .modules-wrapper {
+      position: relative;
+      margin-top: 8px;
+    }
+
+    .modules-carousel {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding: 8px 36px 6px 36px;
+      scroll-snap-type: x mandatory;
+    }
+
+    .modules-carousel::-webkit-scrollbar {
+      height: 6px;
+    }
+
+    .modules-carousel::-webkit-scrollbar-thumb {
+      background: rgba(148, 163, 184, 0.7);
+      border-radius: 999px;
+    }
+
+    .modules-carousel::-webkit-scrollbar-track {
+      background: rgba(148, 163, 184, 0.2);
+      border-radius: 999px;
+    }
+
+    .module-tile {
+      flex: 0 0 190px;
+      height: 150px;
+      border-radius: 18px;
+      padding: 10px 11px;
+      font-size: 14px;
+      color: #020617;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.18);
+      scroll-snap-align: start;
+      border: 1px solid rgba(15, 23, 42, 0.08);
+    }
+
+    .module-name {
+      font-weight: 600;
+      font-size: 15px;
+      margin-bottom: 3px;
+    }
+
+    .module-meta {
+      font-size: 12px;
+      color: rgba(15, 23, 42, 0.8);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 2px;
+    }
+
+    .module-tag {
+      border-radius: 999px;
+      padding: 2px 7px;
+      background: rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.58);
+      font-size: 11px;
+      color: #020617;
+    }
+
+    .module-desc {
+      font-size: 12px;
+      color: rgba(15, 23, 42, 0.85);
+      margin-top: 4px;
+    }
+
+    .module-usage {
+      font-size: 11px;
+      color: rgba(15, 23, 42, 0.8);
+      margin-top: 4px;
+    }
+
+    /* Color variants */
+
+    .module-color-1 {
+      background: radial-gradient(circle at 0 0, #bfdbfe, #60a5fa);
+      color: #02172f;
+    }
+
+    .module-color-2 {
+      background: radial-gradient(circle at 0 0, #bbf7d0, #22c55e);
+      color: #022c22;
+    }
+
+    .module-color-3 {
+      background: radial-gradient(circle at 0 0, #fee2e2, #f97373);
+      color: #450a0a;
+    }
+
+    .module-color-4 {
+      background: radial-gradient(circle at 0 0, #fef3c7, #facc15);
+      color: #422006;
+    }
+
+    .module-color-5 {
+      background: radial-gradient(circle at 0 0, #fae8ff, #e879f9);
+      color: #4a044e;
+    }
+
+    .module-color-6 {
+      background: radial-gradient(circle at 0 0, #e0e7ff, #6366f1);
+      color: #020617;
+    }
+
+    .module-color-7 {
+      background: radial-gradient(circle at 0 0, #cffafe, #22d3ee);
+      color: #083344;
+    }
+
+    .module-color-8 {
+      background: radial-gradient(circle at 0 0, #fce7f3, #ec4899);
+      color: #4a044e;
+    }
+
+    .module-color-9 {
+      background: radial-gradient(circle at 0 0, #dcfce7, #16a34a);
+      color: #052e16;
+    }
+
+    .module-color-10 {
+      background: radial-gradient(circle at 0 0, #fee2e2, #fb923c);
+      color: #431407;
+    }
+
+    .modules-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 28px;
+      height: 56px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      background: rgba(15, 23, 42, 0.75);
+      color: white;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.4);
+      z-index: 2;
+    }
+
+    .modules-arrow.left {
+      left: 4px;
+    }
+
+    .modules-arrow.right {
+      right: 4px;
+    }
+
+    .modules-arrow span {
+      font-size: 20px;
+      line-height: 1;
+    }
+
+    @media (max-width: 640px) {
+      .modules-arrow {
+        width: 24px;
+        height: 48px;
+      }
+    }
+
+    /* EVIDENCE TABLE & CONSENSUS */
+
+    .evidence-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      margin-top: 6px;
+    }
+
+    .evidence-table th,
+    .evidence-table td {
+      padding: 7px 8px;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.35);
+      text-align: left;
+    }
+
+    .evidence-table th {
+      font-weight: 600;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .evidence-table a {
+      color: var(--primary-strong);
+      text-decoration: none;
+    }
+
+    .evidence-table a:hover {
+      text-decoration: underline;
+    }
+
+    .consensus-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 10px;
+      margin-top: 6px;
+      font-size: 14px;
+    }
+
+    @media (max-width: 840px) {
+      .consensus-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .consensus-col {
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(255, 255, 255, 0.97);
+      padding: 8px 10px;
+    }
+
+    .consensus-col h4 {
+      margin: 0 0 4px;
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .consensus-col ul {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    .story-card {
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(255, 255, 255, 0.98);
+      padding: 10px 12px;
+      font-size: 15px;
+    }
+
+    .story-card h4 {
+      margin: 0 0 4px;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .story-meta {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    /* FAQ accordion */
+
+    .faq-item {
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: rgba(255, 255, 255, 0.96);
+      padding: 8px 10px;
+      margin-bottom: 6px;
+      font-size: 15px;
+    }
+
+    .faq-q {
+      font-weight: 600;
+      margin-bottom: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .faq-toggle-icon {
+      font-size: 14px;
+      color: var(--text-muted);
+      transition: transform 0.18s ease;
+      margin-left: 8px;
+    }
+
+    .faq-a {
+      display: none;
+      margin-top: 4px;
+    }
+
+    .faq-item.open .faq-a {
+      display: block;
+    }
+
+    .faq-item.open .faq-toggle-icon {
+      transform: rotate(90deg);
+    }
+
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    @media (max-width: 780px) {
+      .related-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .related-card {
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(255, 255, 255, 0.98);
+      padding: 8px 10px;
+      font-size: 15px;
+    }
+
+    .related-card h4 {
+      margin: 0 0 3px;
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    /* Personalized side panel – sticky */
+
+    .personal-panel {
+      position: sticky;
+      top: 24px;
+      align-self: flex-start;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    @media (max-width: 980px) {
+      .personal-panel {
+        position: static;
+      }
+    }
+
+    .view-toggle-shell {
+      margin-bottom: 8px;
+    }
+
+    .view-toggle {
+      display: inline-flex;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.96);
+      color: white;
+      padding: 4px;
+      font-size: 14px;
+      box-shadow: 0 16px 40px rgba(15, 23, 42, 0.4);
+    }
+
+    .view-toggle button {
+      border: none;
+      background: transparent;
+      color: rgba(255, 255, 255, 0.68);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 14px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 500;
+    }
+
+    .view-toggle button.active {
+      background: white;
+      color: #020617;
+    }
+
+    .side-header {
+      font-size: 18px;
+      font-weight: 650;
+      letter-spacing: -0.03em;
+      margin-bottom: 4px;
+    }
+
+    .side-sub {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .side-note {
+      font-size: 13px;
+      color: var(--text-muted);
+      border-radius: 14px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(15, 23, 42, 0.01);
+      padding: 8px 9px;
+    }
+
+    footer {
+      margin-top: 40px;
+      font-size: 13px;
+      color: var(--text-muted);
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="brand">
+        <div class="brand-title">
+          <span class="dot"></span>
+          <span>LifeHub</span>
+        </div>
+        <div class="brand-sub">
+          Topic demo • Personalized from your LifeMap
+        </div>
+        <div class="top-meta">
+          <span class="pill"><span class="pill-dot"></span>Topic • What’s the best diet?</span>
+          <span class="pill">Updated 3 days ago</span>
+          <span class="pill">4,320 journeys • early access view</span>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- LEFT COLUMN -->
+      <div id="topicColumn">
+        <section class="panel">
+          <div class="panel-header">
+            <div>
+              <h1 class="topic-title">What’s the best diet?</h1>
+              <div class="topic-subtitle">
+                Not “keto vs vegan” hot takes — a clear view of what actually matters, what’s debated,
+                and how your LifeMap changes the answer.
+              </div>
+            </div>
+            <div>
+              <span class="badge">LifeMap-aware</span>
+            </div>
+          </div>
+
+          <div class="chips">
+            <span class="chip">🥗 Goal: better health without food obsession</span>
+            <span class="chip">🧪 Topics: weight, energy, labs, cravings, culture, budget</span>
+            <span class="chip">📊 Inputs: labs, body comp, history, time, money, mental health</span>
+          </div>
+
+          <!-- TL;DR -->
+          <div class="section" style="margin-top:18px;">
+            <div class="section-header">
+              <div>
+                <div class="section-title">TL;DR for this topic</div>
+                <div class="section-subtitle">
+                  There is no single “best diet” for every human. There are patterns that tend to work
+                  better — and patterns that are clearly harmful — plus your own constraints.
+                </div>
+              </div>
+            </div>
+            <p style="margin:4px 0 4px;">
+              This topic helps you move from “Which team should I join?” to
+              <strong>“What way of eating fits my body, life, and values — and keeps my markers in range?”</strong>
+            </p>
+            <div class="metric-row">
+              <div class="metric-pill">
+                <strong>4,320</strong> logged diet-related journeys
+              </div>
+              <div class="metric-pill">
+                <strong>~68%</strong> report better energy or digestion in 4–8 weeks
+              </div>
+              <div class="metric-pill">
+                <strong>Top levers:</strong> protein, ultra-processed load, fiber, timing, sustainability
+              </div>
+            </div>
+          </div>
+
+          <!-- BASELINE -->
+          <div class="section" style="margin-top:20px;">
+            <div class="section-header">
+              <div>
+                <div class="section-title">Baseline for this topic</div>
+                <div class="section-subtitle">
+                  Default view is generic. Personalized view uses your LifeMap: labs, weight history,
+                  mental health, budget, schedule, and preferences.
+                </div>
+              </div>
+            </div>
+
+            <!-- Default baseline -->
+            <div class="baseline-card" id="baselineDefault">
+              <div class="baseline-grid">
+                <div>
+                  <div class="baseline-main-title">
+                    <span>Where most people start</span>
+                  </div>
+                  <p style="margin:6px 0 8px; font-size:15px;">
+                    In Default view, we assume you’ve seen <strong>a lot</strong> of conflicting advice:
+                    “cut carbs,” “avoid meat,” “only eat whole foods,” “calories are all that matters,”
+                    “it’s all hormones,” etc.
+                  </p>
+                  <p style="margin:6px 0 8px; font-size:15px;">
+                    We don’t assume your weight, health status, or food budget. You’ll see how most people
+                    move from chaos to a <strong>simple, repeatable pattern</strong>, whatever label it has.
+                  </p>
+                  <div class="text-sm">
+                    Connect a LifeMap to tune this baseline: metabolic markers, food environment,
+                    stress, mental health, cooking skills, and culture all change which diet is “best” for you.
+                  </div>
+                </div>
+                <div>
+                  <div style="font-size:15px; font-weight:600; margin-bottom:4px;">
+                    Generic starting levers
+                  </div>
+                  <ul class="lever-list">
+                    <li>
+                      <span class="rank">1</span>
+                      <span><strong>Ultra-processed load</strong> – how much of your intake is packaged, sugary, or fast food.</span>
+                    </li>
+                    <li>
+                      <span class="rank">2</span>
+                      <span><strong>Protein & fiber</strong> – whether your meals keep you full and stable.</span>
+                    </li>
+                    <li>
+                      <span class="rank">3</span>
+                      <span><strong>Portions & timing</strong> – how much and when you eat relative to hunger and sleep.</span>
+                    </li>
+                  </ul>
+                  <div style="margin-top:10px;">
+                    <div style="font-size:15px; font-weight:600; margin-bottom:3px;">
+                      Generic starting journeys
+                    </div>
+                    <div class="journeys-list">
+                      <div class="journey-pill">
+                        <span class="label">7-Day Food Awareness Reset</span>
+                        <span class="meta">Track, notice, change nothing</span>
+                      </div>
+                      <div class="journey-pill">
+                        <span class="label">30-Day Whole-Food Baseline</span>
+                        <span class="meta">Simple upgrade without extremes</span>
+                      </div>
+                    </div>
+                    <div class="text-sm" style="margin-top:6px;">
+                      In Default view, these journeys are built for “average” visitors. Personalized view reshapes them
+                      for insulin resistance, gut issues, athletes, or history of disordered eating differently.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Personalized baseline -->
+            <div class="baseline-card" id="baselinePersonal" style="display:none;">
+              <!-- LifeMap A -->
+              <div class="baseline-grid lifemap-baseline" id="baselinePersonalA">
+                <div>
+                  <div class="baseline-main-title">
+                    <span>Where you fit – LifeMap A</span>
+                  </div>
+                  <div style="display:flex; flex-wrap:wrap; gap:6px; margin-bottom:4px;">
+                    <span class="band-tag">
+                      <span>🧑‍🎓</span> Band: Younger / generally healthy
+                    </span>
+                    <span class="archetype-tag">
+                      <span>🤯</span> Archetype: Confused by diet noise
+                    </span>
+                  </div>
+                  <p style="margin:6px 0 8px; font-size:15px;">
+                    You’re not diagnosed with major metabolic issues. You care about looks, energy,
+                    and doing “the right thing” but feel pulled between trends and hot takes.
+                  </p>
+                  <div class="text-sm">
+                    Baseline built from: weight trend, basic labs, food environment, cooking ability,
+                    and how easily you spiral into overthinking or restriction.
+                  </div>
+                </div>
+                <div>
+                  <div style="font-size:15px; font-weight:600; margin-bottom:4px;">
+                    Top 3 levers for this LifeMap
+                  </div>
+                  <ul class="lever-list">
+                    <li>
+                      <span class="rank">1</span>
+                      <span><strong>Ultra-processed cut</strong> – lowering junk without rigid rules.</span>
+                    </li>
+                    <li>
+                      <span class="rank">2</span>
+                      <span><strong>Protein anchor</strong> – including enough protein at each meal.</span>
+                    </li>
+                    <li>
+                      <span class="rank">3</span>
+                      <span><strong>Simple defaults</strong> – 1–2 go-to breakfasts, lunches, and dinners you like.</span>
+                    </li>
+                  </ul>
+                  <div style="margin-top:10px;">
+                    <div style="font-size:15px; font-weight:600; margin-bottom:3px;">
+                      Suggested starting journeys
+                    </div>
+                    <div class="journeys-list">
+                      <div class="journey-pill">
+                        <span class="label">30-Day “Boring Good” Pattern</span>
+                        <span class="meta">Stable meals, flexible life</span>
+                      </div>
+                      <div class="journey-pill">
+                        <span class="label">14-Day Snacking & Energy Check</span>
+                        <span class="meta">Find your crash triggers</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- LifeMap B -->
+              <div class="baseline-grid lifemap-baseline" id="baselinePersonalB" style="display:none;">
+                <div>
+                  <div class="baseline-main-title">
+                    <span>Where you fit – LifeMap B</span>
+                  </div>
+                  <div style="display:flex; flex-wrap:wrap; gap:6px; margin-bottom:4px;">
+                    <span class="band-tag">
+                      <span>❤️‍🩹</span> Band: Metabolic risk / history
+                    </span>
+                    <span class="archetype-tag">
+                      <span>🔄</span> Archetype: Yo-yo dieting survivor
+                    </span>
+                  </div>
+                  <p style="margin:6px 0 8px; font-size:15px;">
+                    You have markers like elevated A1C, triglycerides, fatty liver, PCOS,
+                    or repeated weight cycling. You’re wary of both extremes and “just eat less” advice.
+                  </p>
+                  <div class="text-sm">
+                    Baseline built from: labs, medication, weight history, diet attempts, emotional eating,
+                    and whether restriction tends to backfire.
+                  </div>
+                </div>
+                <div>
+                  <div style="font-size:15px; font-weight:600; margin-bottom:4px;">
+                    Top 3 levers for this LifeMap
+                  </div>
+                  <ul class="lever-list">
+                    <li>
+                      <span class="rank">1</span>
+                      <span><strong>Carb quality & timing</strong> – especially refined starches and sugar.</span>
+                    </li>
+                    <li>
+                      <span class="rank">2</span>
+                      <span><strong>Satiety & protein</strong> – staying full enough to avoid rebound eating.</span>
+                    </li>
+                    <li>
+                      <span class="rank">3</span>
+                      <span><strong>Gentle deficit / maintenance</strong> – aiming at markers, not crash dieting.</span>
+                    </li>
+                  </ul>
+                  <div style="margin-top:10px;">
+                    <div style="font-size:15px; font-weight:600; margin-bottom:3px;">
+                      Suggested starting journeys
+                    </div>
+                    <div class="journeys-list">
+                      <div class="journey-pill">
+                        <span class="label">30-Day Blood Sugar Friendly Pattern</span>
+                        <span class="meta">Lower spikes, same life</span>
+                      </div>
+                      <div class="journey-pill">
+                        <span class="label">8-Week Weight & Labs Reset</span>
+                        <span class="meta">With your clinician’s input</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- LifeMap C -->
+              <div class="baseline-grid lifemap-baseline" id="baselinePersonalC" style="display:none;">
+                <div>
+                  <div class="baseline-main-title">
+                    <span>Where you fit – LifeMap C</span>
+                  </div>
+                  <div style="display:flex; flex-wrap:wrap; gap:6px; margin-bottom:4px;">
+                    <span class="band-tag">
+                      <span>🏋️‍♂️</span> Band: Athlete / builder / optimizer
+                    </span>
+                    <span class="archetype-tag">
+                      <span>📈</span> Archetype: Performance & data geek
+                    </span>
+                  </div>
+                  <p style="margin:6px 0 8px; font-size:15px;">
+                    You’re training, building, or otherwise using your body hard. You care about performance,
+                    body composition, and longevity markers — and you’re willing to experiment.
+                  </p>
+                  <div class="text-sm">
+                    Baseline built from: training load, muscle mass, recovery, labs, and how tightly
+                    you already track food or macros.
+                  </div>
+                </div>
+                <div>
+                  <div style="font-size:15px; font-weight:600; margin-bottom:4px;">
+                    Top 3 levers for this LifeMap
+                  </div>
+                  <ul class="lever-list">
+                    <li>
+                      <span class="rank">1</span>
+                      <span><strong>Protein & total energy</strong> – enough to support training and muscle.</span>
+                    </li>
+                    <li>
+                      <span class="rank">2</span>
+                      <span><strong>Carb timing around training</strong> – or low-carb phases if appropriate.</span>
+                    </li>
+                    <li>
+                      <span class="rank">3</span>
+                      <span><strong>Food quality</strong> – micronutrients, gut, long-term health.</span>
+                    </li>
+                  </ul>
+                  <div style="margin-top:10px;">
+                    <div style="font-size:15px; font-weight:600; margin-bottom:3px;">
+                      Suggested starting journeys
+                    </div>
+                    <div class="journeys-list">
+                      <div class="journey-pill">
+                        <span class="label">8-Week Performance & Health Diet</span>
+                        <span class="meta">Lift, recover, protect</span>
+                      </div>
+                      <div class="journey-pill">
+                        <span class="label">6-Week Macro & Marker Check</span>
+                        <span class="meta">Align intake with labs</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- POSITIONS -->
+          <div class="section">
+            <div class="section-header">
+              <div>
+                <div class="section-title">Different ways people answer “best diet”</div>
+                <div class="section-subtitle">
+                  A few common positions. In practice, many people end up with a hybrid of these.
+                </div>
+              </div>
+              <div class="pill-tabs">
+                <button class="active">Plain view</button>
+                <button>Evidence & nuance</button>
+              </div>
+            </div>
+
+            <div class="positions-grid">
+              <div class="position-card" id="positionMedication">
+                <div class="position-card-header">
+                  <div>
+                    <span class="position-name">Best diet = one you can sustain (mostly whole food)</span>
+                    <span class="recommended-label" id="positionRecommendLabel">Recommended for you</span>
+                  </div>
+                  <div class="confidence-chip">Strong default for many</div>
+                </div>
+                <div class="panel-subtitle">
+                  Focus on a pattern you enjoy and can stick with for years: mostly whole foods,
+                  enough protein and fiber, not obsessively strict, room for life.
+                </div>
+                <div class="position-meta">
+                  <span>✅ Fits real life & social eating</span>
+                  <span>⚠️ May change slower; needs patience</span>
+                  <span>🎯 Great for: LifeMap A and many B</span>
+                </div>
+              </div>
+
+              <div class="position-card" id="positionCarb">
+                <div class="position-card-header">
+                  <div>
+                    <span class="position-name">Best diet = one that fixes your markers & symptoms</span>
+                    <span class="recommended-label">Recommended for you</span>
+                  </div>
+                  <div class="confidence-chip">High-impact, more structured</div>
+                </div>
+                <div class="panel-subtitle">
+                  Choose diet structure based on your lab profile and symptoms: often lower in refined carbs
+                  and ultra-processed foods when insulin resistance or metabolic issues show up.
+                </div>
+                <div class="position-meta">
+                  <span>✅ Directly tied to A1C, lipids, blood pressure, etc.</span>
+                  <span>⚠️ May feel restrictive if not well-designed</span>
+                  <span>🎯 Great for: many LifeMap B, some A & C</span>
+                </div>
+              </div>
+
+              <div class="position-card" id="positionWhole">
+                <div class="position-card-header">
+                  <div>
+                    <span class="position-name">Best diet = plant-forward, minimally processed</span>
+                    <span class="recommended-label">Recommended for you</span>
+                  </div>
+                  <div class="confidence-chip">Supported by many population studies</div>
+                </div>
+                <div class="panel-subtitle">
+                  Emphasis on vegetables, fruits, legumes, whole grains, nuts, seeds, and modest animal
+                  products (or none), with limited ultra-processed foods.
+                </div>
+                <div class="position-meta">
+                  <span>✅ Strong evidence for long-term health</span>
+                  <span>⚠️ Needs attention to protein, B12, iron, and practicality</span>
+                  <span>🎯 Great for: many A/B/C who like plants</span>
+                </div>
+              </div>
+
+              <div class="position-card" id="positionWeight">
+                <div class="position-card-header">
+                  <div>
+                    <span class="position-name">Best diet = one that keeps weight & food stress in check</span>
+                    <span class="recommended-label">Recommended for you</span>
+                  </div>
+                  <div class="confidence-chip">Underrated but critical</div>
+                </div>
+                <div class="panel-subtitle">
+                  Focus on an approach that keeps your weight and markers within agreed boundaries
+                  <em>and</em> doesn’t wreck your relationship with food.
+                </div>
+                <div class="position-meta">
+                  <span>✅ Balances physiology and psychology</span>
+                  <span>⚠️ Progress can be slow and less dramatic</span>
+                  <span>🎯 Great for: many LifeMaps, especially with past restriction</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- TOP LEVERS -->
+          <div class="section">
+            <div class="section-header">
+              <div>
+                <div class="section-title">Top levers: in general vs personalized</div>
+                <div class="section-subtitle">
+                  The core “knobs” of diet, and how a LifeMap changes their order and weight.
+                </div>
+              </div>
+            </div>
+
+            <div class="lever-columns">
+              <div class="lever-card">
+                <h4>For most people on this topic</h4>
+                <div class="panel-subtitle">
+                  These levers show up again and again, regardless of labels.
+                </div>
+                <ul class="lever-list">
+                  <li><span class="rank">1</span><span><strong>Food quality</strong> – ultra-processed vs whole / minimally processed.</span></li>
+                  <li><span class="rank">2</span><span><strong>Protein & fiber</strong> – hit basic needs so you’re not constantly hungry.</span></li>
+                  <li><span class="rank">3</span><span><strong>Energy balance</strong> – overall intake vs expenditure over time.</span></li>
+                  <li><span class="rank">4</span><span><strong>Carb & fat mix</strong> – especially relevant with metabolic issues.</span></li>
+                  <li><span class="rank">5</span><span><strong>Relationship with food</strong> – guilt, binge/restrict cycles, social context.</span></li>
+                </ul>
+              </div>
+              <div class="lever-card" id="leverPersonalCard">
+                <h4>Personalized column</h4>
+                <span class="lever-tag">LifeMap variants A / B / C</span>
+
+                <!-- Default (no LifeMap) -->
+                <div id="leverPersonalDefault">
+                  <p style="margin:6px 0 4px; font-size:15px;">
+                    In Default view, we don’t know your markers, meds, weight history, or mental health.
+                    This column stays generic and explains that LifeHub will <strong>reweight these levers</strong>
+                    once your LifeMap is connected.
+                  </p>
+                  <p class="text-sm">
+                    Example: a 22-year-old lifter, a 45-year-old with prediabetes, and someone recovering from
+                    disordered eating should not get the same diet advice. The labels might overlap;
+                    the <em>levers</em> are weighted very differently.
+                  </p>
+                </div>
+
+                <!-- Personalized view -->
+                <div id="leverPersonalPersonal" style="display:none;">
+                  <!-- LifeMap A -->
+                  <div class="lifemap-levers" id="leverPersonalA">
+                    <p style="margin:6px 0 4px; font-size:15px;">
+                      For LifeMap A, the biggest wins are <strong>quality upgrades and simple structure</strong>,
+                      without turning eating into a spreadsheet.
+                    </p>
+                    <ul class="lever-list">
+                      <li><span class="rank">1</span><span><strong>Ultra-processed reduction</strong> – especially sugary drinks, desserts, and fast food.</span></li>
+                      <li><span class="rank">2</span><span><strong>Protein anchor per meal</strong> – enough to support muscle and satiety.</span></li>
+                      <li><span class="rank">3</span><span><strong>Repeatable meals</strong> – 1–2 solid options for each meal slot.</span></li>
+                      <li><span class="rank">4</span><span><strong>Snack & alcohol boundaries</strong> – basic guardrails, not perfection.</span></li>
+                    </ul>
+                  </div>
+
+                  <!-- LifeMap B -->
+                  <div class="lifemap-levers" id="leverPersonalB" style="display:none;">
+                    <p style="margin:6px 0 4px; font-size:15px;">
+                      For LifeMap B, <strong>metabolic safety and binge prevention</strong> matter more than
+                      rapid weight loss or trend compliance.
+                    </p>
+                    <ul class="lever-list">
+                      <li><span class="rank">1</span><span><strong>Refined carb load</strong> – total and especially in the evening.</span></li>
+                      <li><span class="rank">2</span><span><strong>Protein & fiber per meal</strong> – to reduce cravings and rebounds.</span></li>
+                      <li><span class="rank">3</span><span><strong>Gentle calorie structure</strong> – small, steady changes over time.</span></li>
+                      <li><span class="rank">4</span><span><strong>Trigger foods & emotional patterns</strong> – identifying and defusing them.</span></li>
+                    </ul>
+                  </div>
+
+                  <!-- LifeMap C -->
+                  <div class="lifemap-levers" id="leverPersonalC" style="display:none;">
+                    <p style="margin:6px 0 4px; font-size:15px;">
+                      For LifeMap C, <strong>performance and long-term health</strong> both matter, so the levers
+                      are more precise.
+                    </p>
+                    <ul class="lever-list">
+                      <li><span class="rank">1</span><span><strong>Daily protein & total calories</strong> – matched to training cycles.</span></li>
+                      <li><span class="rank">2</span><span><strong>Carb timing / periodization</strong> – more around training, maybe less on off days.</span></li>
+                      <li><span class="rank">3</span><span><strong>Food quality & micronutrients</strong> – gut, inflammation, recovery.</span></li>
+                      <li><span class="rank">4</span><span><strong>Experiment safety rails</strong> – guardrails so experiments don’t wreck sleep, mood, or labs.</span></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- JOURNEYS -->
+          <div class="section">
+            <div class="section-header">
+              <div>
+                <div class="section-title">Journeys: default vs personalized</div>
+                <div class="section-subtitle">
+                  Default journeys are generic. Personalized journeys shift based on your LifeMap’s labs, weight history, and context.
+                </div>
+              </div>
+              <div class="pill-tabs" id="journeyTabs">
+                <button id="tabRecommended">Recommended</button>
+                <button id="tabPopular" class="active">Most popular</button>
+                <button id="tabGentle">Gentle</button>
+                <button id="tabIntensive">More intensive</button>
+              </div>
+            </div>
+
+            <div class="journey-grid" id="journeyGrid">
+              <!-- Default journeys -->
+              <div class="journey-card" data-view="default" data-tags="popular,gentle">
+                <div class="journey-header">
+                  <h4>7-Day Food Awareness Reset</h4>
+                  <div class="journey-meta-row">
+                    <span class="journey-meta-pill">🧪 Experiment</span>
+                    <span class="journey-meta-pill">7 days</span>
+                    <span class="journey-meta-pill">~10–15 min/day</span>
+                  </div>
+                </div>
+                <p style="margin:4px 0 2px;">
+                  A week of noticing: what you eat, when, how it feels, without changing anything yet.
+                  Designed to gently surface patterns without judgment.
+                </p>
+                <div class="journey-modules-label">Modules in this journey</div>
+                <div class="journey-modules-strip">
+                  <div class="module-tile module-color-1">
+                    <div>
+                      <div class="module-name">Non-Judgy Food Log</div>
+                      <div class="module-meta">
+                        <span class="module-tag">Awareness</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="module-tile module-color-7">
+                    <div>
+                      <div class="module-name">Hunger & Energy Check</div>
+                      <div class="module-meta">
+                        <span class="module-tag">Signals</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="module-tile module-color-6">
+                    <div>
+                      <div class="module-name">Pattern Highlights</div>
+                      <div class="module-meta">
+                        <span class="module-tag">Insight</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="journey-stats-footnote">
+                  Often used before any change plan, especially if your relationship with food is touchy.
+                </div>
+              </div>
+
+              <div class="journey-card" data-view="default" data-tags="popular,intensive">
+                <div class="journey-header">
+                  <h4>30-Day Whole-Food Baseline</h4>
+                  <div class="journey-meta-row">
+                    <span class="journey-meta-pill">🌱 Foundation</span>
+                    <span class="journey-meta-pill">30 days</span>
+                    <span class="journey-meta-pill">~20–30 min/day</span>
+                  </div>
+                </div>
+                <p style="margin:4px 0 2px;">
+                  A month focused on adding whole foods, improving protein and fiber,
+                  and reducing ultra-processed foods — without strict rules about carbs or fat labels.
+                </p>
+                <div class="journey-modules-label">Modules in this journey</div>
+                <div class="journey-modules-strip">
+                  <div class="module-tile module-color-2">
+                    <div>
+                      <div class="module-name">Whole-Food Swap List</div>
+                      <div class="module-meta">
+                        <span class="module-tag">Upgrades</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="module-tile module-color-9">
+                    <div>
+                      <div class="module-name">Protein Anchor Basics</div>
+                      <div class="module-meta">
+                        <span class="module-tag">Satiety</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="module-tile module-color-3">
+                    <div>
+                      <div class="module-name">Fiber & Plants Boost</div>
+                      <div class="module-meta">
+                        <span class="module-tag">Gut & health</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="journey-stats-footnote">
+                  Good generic journey for anyone who wants better health without picking a “team” yet.
+                </div>
+              </div>
+
+              <!-- Personalized journeys -->
+              <div class="journey-card" data-view="personal" data-tags="recommended,popular,gentle" data-lifemap="A">
+                <div class="journey-header">
+                  <h4>30-Day “Boring Good” Diet</h4>
+                  <div class="journey-meta-row">
+                    <span class="journey-meta-pill">🧑‍🎓 LifeMap A</span>
+                    <span class="journey-meta-pill">30 days</span>
+                    <span class="journey-meta-pill">~15–20 min/day</span>
+                  </div>
+                </div>
+                <p style="margin:4px 0 2px;">
+                  For LifeMap A: move from scrolling diet content to three simple, repeatable meals a day
+                  that support energy, training, and social life.
+                </p>
+                <div class="journey-modules-label">Modules in this journey</div>
+                <div class="journey-modules-strip">
+                  <div class="module-tile module-color-1">
+                    <div>
+                      <div class="module-name">Non-Judgy Food Log</div>
+                      <div class="module-meta">
+                        <span class="module-tag">Awareness</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="module-tile module-color-4">
+                    <div>
+                      <div class="module-name">Default Meal Builder</div>
+                      <div class="module-meta">
+                        <span class="module-tag">Structure</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="module-tile module-color-9">
+                    <div>
+                      <div class="module-name">Snack Guardrails</div>
+                      <div class="module-meta">
+                        <span class="module-tag">Boundaries</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="journey-stats-footnote">
+                  Common outcome: more stable energy, fewer “what do I eat?” spirals.
+                </div>
+              </div>
+
+              <div class="journey-card" data-view="personal" data-tags="recommended,popular,intensive" data-lifemap="B">
+                <div class="journey-header">
+                  <h4>8-Week Blood Sugar Friendly Reset</h4>
+                  <div class="journey-meta-row">
+                    <span class="journey-meta-pill">❤️‍🩹 LifeMap B</span>
+                    <span class="journey-meta-pill">8 weeks</span>
+                    <span class="journey-meta-pill">~20–30 min/day</span>
+                  </div>
+                </div>
+                <p style="margin:4px 0 2px;">
+                  For LifeMap B: lower spikes, improve satiety, and begin aligning food with lab goals
+                  (alongside your healthcare team).
+                </p>
+                <div class="journey-modules-label">Modules in this journey</div>
+                <div class="journey-modules-strip">
+                  <div class="module-tile module-color-5">
+                    <div>
+                      <div class="module-name">Carb Quality Scan</div>
+                      <div class="module-meta">
+                        <span class="module-tag">Glycemic load</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="module-tile module-color-8">
+                    <div>
+                      <div class="module-name">Protein & Fiber Targets</div>
+                      <div class="module-meta">
+                        <span class="module-tag">Satiety</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="module-tile module-color-2">
+                    <div>
+                      <div class="module-name">Gentle Deficit Planner</div>
+                      <div class="module-meta">
+                        <span class="module-tag">Weight trend</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="journey-stats-footnote">
+                  Common outcome: improved fasting glucose and energy, less rebound eating.
+                </div>
+              </div>
+
+              <div class="journey-card" data-view="personal" data-tags="recommended,popular,intensive" data-lifemap="C">
+                <div class="journey-header">
+                  <h4>8-Week Performance & Health Diet</h4>
+                  <div class="journey-meta-row">
+                    <span class="journey-meta-pill">🏋️‍♂️ LifeMap C</span>
+                    <span class="journey-meta-pill">8 weeks</span>
+                    <span class="journey-meta-pill">~30–45 min/week</span>
+                  </div>
+                </div>
+                <p style="margin:4px 0 2px;">
+                  For LifeMap C: align macros, timing, and food quality with training phases, sleep, and labs.
+                </p>
+                <div class="journey-modules-label">Modules in this journey</div>
+                <div class="journey-modules-strip">
+                  <div class="module-tile module-color-3">
+                    <div>
+                      <div class="module-name">Macro & Training Map</div>
+                      <div class="module-meta">
+                        <span class="module-tag">Strategy</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="module-tile module-color-6">
+                    <div>
+                      <div class="module-name">Pre/Post-Workout Fuel</div>
+                      <div class="module-meta">
+                        <span class="module-tag">Performance</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="module-tile module-color-10">
+                    <div>
+                      <div class="module-name">Labs & Feedback Loop</div>
+                      <div class="module-meta">
+                        <span class="module-tag">Iteration</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="journey-stats-footnote">
+                  Common outcome: better training output with stable markers.
+                </div>
+              </div>
+            </div>
+
+            <div id="journeyEmpty" class="journeyEmpty" style="display:none;">
+              No journeys in this category for this view yet.
+            </div>
+
+            <div style="margin-top:10px;">
+              <button class="small-button">
+                🧩 Build my own diet journey
+              </button>
+              <button class="small-button secondary" style="margin-left:6px;">
+                ✏️ Start from a template
+              </button>
+            </div>
+          </div>
+
+          <!-- MODULES -->
+          <div class="section">
+            <div class="section-header">
+              <div>
+                <div class="section-title">Modules: building blocks of your diet</div>
+                <div class="section-subtitle">
+                  Each module is a small, concrete step toward a pattern that works for you.
+                </div>
+              </div>
+              <div class="pill-tabs" id="moduleTabs">
+                <button id="moduleTabRecommended">Recommended</button>
+                <button id="moduleTabPopular" class="active">Most popular</button>
+                <button id="moduleTabGentle">Gentle</button>
+                <button id="moduleTabIntensive">More intensive</button>
+              </div>
+            </div>
+
+            <!-- Default modules -->
+            <div class="modules-wrapper" id="modulesWrapperDefault">
+              <button class="modules-arrow left" type="button">
+                <span>◂</span>
+              </button>
+              <div class="modules-carousel" id="modulesDefault">
+                <div class="module-tile modules-base-tile module-color-9" data-view="default" data-tags="popular,gentle">
+                  <div>
+                    <div class="module-name">Non-Judgy Food Log</div>
+                    <div class="module-meta">
+                      <span class="module-tag">Awareness</span>
+                      <span class="module-tag">7 days</span>
+                    </div>
+                    <div class="module-desc">
+                      Capture what, when, and roughly how much you eat, plus energy and mood — no calorie math required.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="module-tile modules-base-tile module-color-2" data-view="default" data-tags="popular,intensive">
+                  <div>
+                    <div class="module-name">Protein Anchor Basics</div>
+                    <div class="module-meta">
+                      <span class="module-tag">Satiety</span>
+                    </div>
+                    <div class="module-desc">
+                      Learn and apply a simple “protein per meal” target using foods you actually like.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="module-tile modules-base-tile module-color-3" data-view="default" data-tags="popular,intensive">
+                  <div>
+                    <div class="module-name">Ultra-Processed Swap List</div>
+                    <div class="module-meta">
+                      <span class="module-tag">Upgrades</span>
+                    </div>
+                    <div class="module-desc">
+                      Identify your major sources of ultra-processed foods and choose practical replacements.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="module-tile modules-base-tile module-color-1" data-view="default" data-tags="popular,gentle">
+                  <div>
+                    <div class="module-name">Default Meal Builder</div>
+                    <div class="module-meta">
+                      <span class="module-tag">Structure</span>
+                    </div>
+                    <div class="module-desc">
+                      Design 1–2 go-to meals per time of day that hit basics with minimal effort.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="module-tile modules-base-tile module-color-7" data-view="default" data-tags="gentle">
+                  <div>
+                    <div class="module-name">Hunger & Fullness Scale</div>
+                    <div class="module-meta">
+                      <span class="module-tag">Signals</span>
+                    </div>
+                    <div class="module-desc">
+                      Use a simple rating scale to tune into hunger and fullness before and after meals.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="module-tile modules-base-tile module-color-6" data-view="default" data-tags="popular,gentle">
+                  <div>
+                    <div class="module-name">Snack Guardrails</div>
+                    <div class="module-meta">
+                      <span class="module-tag">Boundaries</span>
+                    </div>
+                    <div class="module-desc">
+                      Create basic rules about snacking and late-night eating, while keeping flexibility.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="module-tile modules-base-tile module-color-4" data-view="default" data-tags="gentle">
+                  <div>
+                    <div class="module-name">Hydration & Sugary Drinks</div>
+                    <div class="module-meta">
+                      <span class="module-tag">Low-hanging fruit</span>
+                    </div>
+                    <div class="module-desc">
+                      Tackle sugary drinks, alcohol, and water intake as one of the easiest first levers.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="module-tile modules-base-tile module-color-5" data-view="default" data-tags="popular,intensive">
+                  <div>
+                    <div class="module-name">Basic Energy Estimate</div>
+                    <div class="module-meta">
+                      <span class="module-tag">Energy balance</span>
+                    </div>
+                    <div class="module-desc">
+                      Roughly estimate your intake vs needs to understand if weight changes make sense.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="module-tile modules-base-tile module-color-8" data-view="default" data-tags="gentle">
+                  <div>
+                    <div class="module-name">Food & Mood Check</div>
+                    <div class="module-meta">
+                      <span class="module-tag">Reflection</span>
+                    </div>
+                    <div class="module-desc">
+                      Notice how different foods and patterns relate to mood, focus, and sleep.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="module-tile modules-base-tile module-color-10" data-view="default" data-tags="intensive">
+                  <div>
+                    <div class="module-name">Metabolic Markers 101</div>
+                    <div class="module-meta">
+                      <span class="module-tag">Labs</span>
+                    </div>
+                    <div class="module-desc">
+                      Understand A1C, lipids, blood pressure, and how diet interacts with them.
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button class="modules-arrow right" type="button">
+                <span>▸</span>
+              </button>
+            </div>
+
+            <!-- Personalized modules -->
+            <div class="modules-wrapper" id="modulesWrapperPersonal" style="display:none;">
+              <button class="modules-arrow left" type="button">
+                <span>◂</span>
+              </button>
+              <div class="modules-carousel" id="modulesPersonal">
+                <div class="module-tile modules-base-tile module-color-2" data-view="personal" data-tags="recommended,popular,intensive" data-lifemap="B">
+                  <div>
+                    <div class="module-name">Carb Quality & Timing</div>
+                    <div class="module-meta">
+                      <span class="module-tag">Glycemic load</span>
+                    </div>
+                    <div class="module-desc">
+                      Uses your LifeMap (labs, meds, schedule) to suggest safer carb ranges and timing.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="module-tile modules-base-tile module-color-9" data-view="personal" data-tags="recommended,popular,gentle" data-lifemap="A,B,C">
+                  <div>
+                    <div class="module-name">Protein Target by LifeMap</div>
+                    <div class="module-meta">
+                      <span class="module-tag">Satiety</span>
+                    </div>
+                    <div class="module-desc">
+                      Adjusts recommended protein range based on body size, training, age, and goals.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="module-tile modules-base-tile module-color-1" data-view="personal" data-tags="popular,gentle" data-lifemap="A">
+                  <div>
+                    <div class="module-name">Student / Busy Worker Defaults</div>
+                    <div class="module-meta">
+                      <span class="module-tag">Structure</span>
+                    </div>
+                    <div class="module-desc">
+                      Builds 5–10 minute meals and snacks that fit your schedule, kitchen, and budget.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="module-tile modules-base-tile module-color-4" data-view="personal" data-tags="recommended,gentle" data-lifemap="B">
+                  <div>
+                    <div class="module-name">Trigger Food Mapping</div>
+                    <div class="module-meta">
+                      <span class="module-tag">Behavior</span>
+                    </div>
+                    <div class="module-desc">
+                      Identifies foods and situations that typically lead to overeating, with gentler alternatives.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="module-tile modules-base-tile module-color-5" data-view="personal" data-tags="popular,intensive" data-lifemap="C">
+                  <div>
+                    <div class="module-name">Macro & Training Alignment</div>
+                    <div class="module-meta">
+                      <span class="module-tag">Performance</span>
+                    </div>
+                    <div class="module-desc">
+                      Aligns carbs and total intake with training days, deloads, and recovery needs.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="module-tile modules-base-tile module-color-3" data-view="personal" data-tags="popular,intensive" data-lifemap="C">
+                  <div>
+                    <div class="module-name">Food Quality & Gut Health</div>
+                    <div class="module-meta">
+                      <span class="module-tag">Health span</span>
+                    </div>
+                    <div class="module-desc">
+                      Upgrades fats, fibers, and plant diversity while watching symptoms and markers.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="module-tile modules-base-tile module-color-8" data-view="personal" data-tags="gentle" data-lifemap="A,B">
+                  <div>
+                    <div class="module-name">Diet Culture Deprogramming</div>
+                    <div class="module-meta">
+                      <span class="module-tag">Mindset</span>
+                    </div>
+                    <div class="module-desc">
+                      Helps separate your goals from shame and all-or-nothing rules.
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button class="modules-arrow right" type="button">
+                <span>▸</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- EVIDENCE -->
+          <div class="section">
+            <div class="section-header">
+              <div>
+                <div class="section-title">Evidence & what’s debated</div>
+                <div class="section-subtitle">
+                  Diet research is messy, but some patterns are surprisingly consistent.
+                </div>
+              </div>
+              <span class="badge">Nerd lane available</span>
+            </div>
+
+            <div class="consensus-grid">
+              <div class="consensus-col">
+                <h4>What’s broadly agreed on</h4>
+                <ul>
+                  <li>Diets rich in minimally processed plants, with adequate protein, are generally linked with better long-term health.</li>
+                  <li>Ultra-processed foods and sugar-sweetened beverages are consistently associated with worse outcomes.</li>
+                  <li>Weight, body composition, and metabolic markers are influenced by overall intake and quality, not a single nutrient.</li>
+                  <li>Sustainability and adherence matter at least as much as specific diet branding.</li>
+                </ul>
+              </div>
+              <div class="consensus-col">
+                <h4>Where experts still debate</h4>
+                <ul>
+                  <li>Ideal carb vs fat split, especially for people with insulin resistance.</li>
+                  <li>How much red / processed meat is compatible with long-term health.</li>
+                  <li>The role of ultra-low carb or ketogenic diets beyond specific medical indications.</li>
+                  <li>How to interpret observational data with strong cultural and lifestyle confounders.</li>
+                </ul>
+              </div>
+            </div>
+
+            <table class="evidence-table">
+              <thead>
+                <tr>
+                  <th>Study (link)</th>
+                  <th>Classification</th>
+                  <th>Funding source</th>
+                  <th>Population</th>
+                  <th>Control</th>
+                  <th>Size (n)</th>
+                  <th>Design</th>
+                  <th>Trust score</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <a href="https://doi.org/10.1056/NEJMoa1803185" target="_blank" rel="noopener">
+                      Mediterranean pattern & cardiovascular risk
+                    </a>
+                  </td>
+                  <td>Whole-food dietary pattern</td>
+                  <td>Public / academic</td>
+                  <td>Adults at high cardiovascular risk</td>
+                  <td>Lower-fat comparison diet</td>
+                  <td>~7,000</td>
+                  <td>Randomized trial</td>
+                  <td>High</td>
+                </tr>
+                <tr>
+                  <td>
+                    <a href="https://doi.org/10.1001/jama.2018.0245" target="_blank" rel="noopener">
+                      Low-fat vs low-carb with behavior support
+                    </a>
+                  </td>
+                  <td>Macronutrient split</td>
+                  <td>Public / academic</td>
+                  <td>Adults with overweight/obesity</td>
+                  <td>Alternate diet arm (low-fat / low-carb)</td>
+                  <td>600+</td>
+                  <td>Randomized trial</td>
+                  <td>Moderate–High</td>
+                </tr>
+                <tr>
+                  <td>
+                    <a href="https://doi.org/10.1136/bmj.k3222" target="_blank" rel="noopener">
+                      Ultra-processed foods & health outcomes
+                    </a>
+                  </td>
+                  <td>Ultra-processed intake</td>
+                  <td>Public / academic</td>
+                  <td>General adult population</td>
+                  <td>Lower ultra-processed intake</td>
+                  <td>100,000+</td>
+                  <td>Prospective cohort</td>
+                  <td>Moderate</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="text-sm" style="margin-top:4px;">
+              In a real product, this section would expand into a full evidence browser, including subtopics
+              like vegetarian, Mediterranean, low-carb, intermittent fasting, and more — plus caveats for things
+              like eating disorders or specific medical conditions.
+            </div>
+          </div>
+
+          <!-- STORIES -->
+          <div class="section">
+            <div class="section-header">
+              <div>
+                <div class="section-title">Stories from people like you</div>
+                <div class="section-subtitle">
+                  Anonymized examples of how different LifeMaps found their “best diet”.
+                </div>
+              </div>
+            </div>
+
+            <div class="story-card">
+              <h4>“I stopped chasing labels and just built a diet that works.”</h4>
+              <div class="story-meta">
+                Maya, 39 • LifeMap B • history of yo-yo dieting & prediabetes
+              </div>
+              <p style="margin:4px 0 4px;">
+                Maya bounced between low-carb, plant-based, and “clean eating” for years.
+                Using a LifeHub journey, she charted patterns in her labs, cravings, and energy.
+                She ended up with a mostly whole-food pattern, lower in refined carbs, with
+                flexible calories and clear snack rules. It doesn’t have a flashy name,
+                but her A1C, weight trend, and mood all improved.
+              </p>
+              <div class="text-sm">
+                Key levers: refined carb reduction, protein per meal, snack boundaries, realistic calorie range.
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ & RELATED -->
+          <div class="section">
+            <div class="section-header">
+              <div>
+                <div class="section-title">FAQ & related topics</div>
+                <div class="section-subtitle">
+                  Questions people actually ask when trying to find a sustainable diet.
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-q">
+                <span>Do calories matter, or is it all hormones?</span>
+                <span class="faq-toggle-icon">▸</span>
+              </div>
+              <div class="faq-a">
+                Both energy balance and hormones matter, and they affect each other.
+                For many people, focusing on food quality, protein, fiber, sleep, and stress
+                indirectly improves hormones <em>and</em> makes it easier to naturally eat at
+                a level that fits their goals.
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-q">
+                <span>Should I cut out carbs completely?</span>
+                <span class="faq-toggle-icon">▸</span>
+              </div>
+              <div class="faq-a">
+                Some people benefit from lowering certain types of carbs, especially refined starches and sugar,
+                but that doesn’t always mean zero-carb. Your LifeMap (and clinician, if you have conditions)
+                matters here. Cutting carbs aggressively without a plan can backfire for some people.
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-q">
+                <span>Is keto / carnivore / vegan “the best”?</span>
+                <span class="faq-toggle-icon">▸</span>
+              </div>
+              <div class="faq-a">
+                Each of those patterns can help some people and be problematic for others.
+                What matters is how they intersect with your health status, labs, mental health,
+                environment, and preferences. This topic helps you see levers and evidence
+                instead of choosing a team by identity.
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-q">
+                <span>What if I have (or had) an eating disorder?</span>
+                <span class="faq-toggle-icon">▸</span>
+              </div>
+              <div class="faq-a">
+                If you have a history of disordered eating, any diet change is best done with support
+                from qualified professionals who understand that history. Some LifeHub modules and journeys
+                may be inappropriate or need modifying in that context.
+              </div>
+            </div>
+
+            <div class="section" style="margin-top:14px;">
+              <div class="section-title">Related topics that often matter here</div>
+              <div class="section-subtitle">
+                These topics frequently sit underneath “What’s the best diet?”.
+              </div>
+              <div class="related-grid">
+                <div class="related-card">
+                  <h4>Weight, Muscle & Body Image</h4>
+                  <div class="text-sm">
+                    Many people use diet to chase a look. That’s part of the picture, but not the whole story.
+                  </div>
+                </div>
+                <div class="related-card">
+                  <h4>Type 2 Diabetes & Metabolic Health</h4>
+                  <div class="text-sm">
+                    When blood sugar and lipids are off, diet becomes more than just aesthetics.
+                  </div>
+                </div>
+                <div class="related-card">
+                  <h4>Stress, Sleep & Cravings</h4>
+                  <div class="text-sm">
+                    A lot of “willpower” problems are actually sleep, stress, or environment problems.
+                  </div>
+                </div>
+                <div class="related-card">
+                  <h4>Money, Time & Food Access</h4>
+                  <div class="text-sm">
+                    Food choices are shaped by budget, neighborhood, and work schedule as much as will.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="section" style="margin-top:14px;">
+              <div class="section-title">Safety / When to get medical help</div>
+              <div class="section-subtitle">
+                LifeHub is not your doctor, dietitian, or emergency service.
+              </div>
+              <div class="faq-item open" style="border-color: rgba(248,113,113,0.9); background: rgba(254,242,242,0.9);">
+                <div class="faq-q">
+                  <span style="color:#b91c1c;">If you have significant health issues or rapid changes</span>
+                  <span class="faq-toggle-icon">▸</span>
+                </div>
+                <div class="faq-a">
+                  If you have diabetes, kidney disease, serious heart conditions, eating disorders,
+                  rapid unexplained weight loss, or are pregnant, you should work closely with qualified
+                  healthcare professionals. Diet changes can interact with medications and health conditions
+                  in ways this app cannot monitor in real time.
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- RIGHT COLUMN: PERSONALIZED MODE -->
+      <aside class="personal-panel" id="personalColumn">
+        <div class="view-toggle-shell">
+          <div class="view-toggle">
+            <button class="active" id="viewDefault">
+              <span>🌐</span> Default view
+            </button>
+            <button id="viewPersonal">
+              <span>✨</span> Personalized view
+            </button>
+          </div>
+          <div class="text-sm" style="margin-top:6px; max-width:320px;">
+            Toggle between a generic topic page and a version shaped by example LifeMaps. In a real app,
+            this would be <strong>your</strong> health data and history.
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="side-header">LifeMap snapshot</div>
+          <div class="side-sub">
+            How this diet topic plugs into three example LifeMaps.
+          </div>
+
+          <div class="pill-tabs" id="lifeMapTabs">
+            <button id="lifeMapA" class="active">LifeMap A</button>
+            <button id="lifeMapB">LifeMap B</button>
+            <button id="lifeMapC">LifeMap C</button>
+          </div>
+
+          <div class="side-note" id="lifeMapSnapshot" style="margin-top:8px;">
+            <strong>Default view (no LifeMap loaded):</strong><br />
+            • Domains: weight trend, labs, meds, training, food environment, mental health – but no specific data yet.<br />
+            • Traits: we assume you care about feeling and functioning better, not just numbers on a scale.<br />
+            • Constraints: unknown history of dieting, binge/restrict cycles, or medical conditions.<br /><br />
+            Connect or create a LifeMap to see your markers, schedule, budget, and past diet attempts populate here —
+            and watch positions, levers, modules, and journeys reconfigure around you.
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <footer>
+      * Demo numbers are placeholders for design purposes only. This page is educational only and not medical advice.<br />
+      LifeHub Topic Demo • What’s the best diet? • 2025
+    </footer>
+  </div>
+
+  <script>
+    // --- DOM references ---
+    const viewDefaultBtn = document.getElementById("viewDefault");
+    const viewPersonalBtn = document.getElementById("viewPersonal");
+
+    const baselineDefault = document.getElementById("baselineDefault");
+    const baselinePersonal = document.getElementById("baselinePersonal");
+
+    const baselinePersonalA = document.getElementById("baselinePersonalA");
+    const baselinePersonalB = document.getElementById("baselinePersonalB");
+    const baselinePersonalC = document.getElementById("baselinePersonalC");
+
+    const leverPersonalDefault = document.getElementById("leverPersonalDefault");
+    const leverPersonalPersonal = document.getElementById("leverPersonalPersonal");
+    const leverPersonalA = document.getElementById("leverPersonalA");
+    const leverPersonalB = document.getElementById("leverPersonalB");
+    const leverPersonalC = document.getElementById("leverPersonalC");
+    const leverPersonalCard = document.getElementById("leverPersonalCard");
+
+    const lifeMapSnapshot = document.getElementById("lifeMapSnapshot");
+    const lifeMapATab = document.getElementById("lifeMapA");
+    const lifeMapBTab = document.getElementById("lifeMapB");
+    const lifeMapCTab = document.getElementById("lifeMapC");
+
+    const positionMedication = document.getElementById("positionMedication");
+    const positionCarb = document.getElementById("positionCarb");
+    const positionWhole = document.getElementById("positionWhole");
+    const positionWeight = document.getElementById("positionWeight");
+    const positionCards = document.querySelectorAll(".position-card");
+    const positionLabels = document.querySelectorAll(".position-card .recommended-label");
+
+    const tabRecommended = document.getElementById("tabRecommended");
+    const tabPopular = document.getElementById("tabPopular");
+    const tabGentle = document.getElementById("tabGentle");
+    const tabIntensive = document.getElementById("tabIntensive");
+
+    const journeyCards = document.querySelectorAll(".journey-card");
+    const journeyEmpty = document.getElementById("journeyEmpty");
+
+    const modulesWrapperDefault = document.getElementById("modulesWrapperDefault");
+    const modulesWrapperPersonal = document.getElementById("modulesWrapperPersonal");
+
+    const moduleTabRecommended = document.getElementById("moduleTabRecommended");
+    const moduleTabPopular = document.getElementById("moduleTabPopular");
+    const moduleTabGentle = document.getElementById("moduleTabGentle");
+    const moduleTabIntensive = document.getElementById("moduleTabIntensive");
+
+    const moduleTiles = document.querySelectorAll(".modules-base-tile");
+
+    const lifeMapTemplates = {
+      default:
+        "<strong>Default view (no LifeMap loaded):</strong><br />" +
+        "• Domains: weight trend, labs, meds, training, food environment, mental health – but no specific data yet.<br />" +
+        "• Traits: we assume you care about feeling and functioning better, not just numbers on a scale.<br />" +
+        "• Constraints: unknown history of dieting, binge/restrict cycles, or medical conditions.<br /><br />" +
+        "Connect or create a LifeMap to see your markers, schedule, budget, and past diet attempts populate here — " +
+        "and watch positions, levers, modules, and journeys reconfigure around you.",
+      A:
+        "<strong>LifeMap A • Younger / generally healthy, confused by diet noise</strong><br />" +
+        "• Context: busy life, social eating, limited cooking time, no major diagnoses.<br />" +
+        "• Pattern: cycles between “trying to be good” and “forget it, I’ll start Monday.”<br />" +
+        "• Strengths: flexible schedule, capacity to exercise, ability to adapt quickly.<br /><br />" +
+        "Implication for this topic: emphasize whole-food upgrades, protein, and simple structure over strict labels.",
+      B:
+        "<strong>LifeMap B • Metabolic risk or history, yo-yo dieting survivor</strong><br />" +
+        "• Context: elevated A1C, lipids, or blood pressure, plus repeated attempts at weight loss.<br />" +
+        "• Pattern: has tried extremes; restriction often followed by rebound.<br />" +
+        "• Strengths: high motivation, real awareness of consequences, lived experience.<br /><br />" +
+        "Implication for this topic: prioritize metabolic safety, gentle consistency, and avoiding binge/restrict cycles.",
+      C:
+        "<strong>LifeMap C • Athlete / builder / optimizer</strong><br />" +
+        "• Context: regular training, higher muscle mass or goals, data interest.<br />" +
+        "• Pattern: willing to track or experiment; risk of over-optimization and stress.<br />" +
+        "• Strengths: structure tolerance, discipline, feedback loops (training, wearables, labs).<br /><br />" +
+        "Implication for this topic: align diet with training, recovery, and markers without losing the big picture."
+    };
+
+    let currentViewMode = "default";     // "default" | "personal"
+    let currentJourneyTab = "popular";   // "recommended" | "popular" | "gentle" | "intensive"
+    let currentModuleTab = "popular";    // same
+    let currentLifeMap = "A";            // "A" | "B" | "C"
+
+    // --- Recommended position logic ---
+    function updateRecommendedPosition() {
+      positionCards.forEach(card => card.classList.remove("recommended"));
+      positionLabels.forEach(label => label.style.display = "none");
+
+      if (currentViewMode !== "personal") return;
+
+      let recommendedId;
+      // Mapping: C → marker/structured view; A/B → sustainable whole-food pattern
+      if (currentLifeMap === "C") {
+        recommendedId = "positionCarb";
+      } else {
+        recommendedId = "positionMedication";
+      }
+
+      const card = document.getElementById(recommendedId);
+      if (!card) return;
+
+      card.classList.add("recommended");
+      const label = card.querySelector(".recommended-label");
+      if (label) label.style.display = "inline-flex";
+    }
+
+    // --- Journeys display logic ---
+    function updateJourneysDisplay() {
+      let anyVisible = false;
+      journeyCards.forEach(card => {
+        const view = card.dataset.view || "default";
+        const tags = (card.dataset.tags || "").split(",").map(t => t.trim());
+        const lifemapAttr = card.dataset.lifemap || "all";
+        const lifemaps = lifemapAttr.split(",").map(t => t.trim());
+        const viewMatch = (view === currentViewMode || view === "both");
+        const tagMatch = tags.includes(currentJourneyTab);
+        const lifemapMatch = lifemapAttr === "all" || lifemaps.includes(currentLifeMap);
+
+        if (viewMatch && tagMatch && lifemapMatch) {
+          card.style.display = "";
+          anyVisible = true;
+        } else {
+          card.style.display = "none";
+        }
+      });
+
+      journeyEmpty.style.display = anyVisible ? "none" : "block";
+    }
+
+    function updateJourneyTabUI() {
+      const mapping = {
+        recommended: tabRecommended,
+        popular: tabPopular,
+        gentle: tabGentle,
+        intensive: tabIntensive
+      };
+
+      Object.entries(mapping).forEach(([name, btn]) => {
+        btn.classList.toggle("active", name === currentJourneyTab);
+      });
+
+      updateJourneysDisplay();
+    }
+
+    function setJourneyTab(tab) {
+      if (tab === "recommended" && currentViewMode === "default") {
+        return; // disabled in default view
+      }
+      currentJourneyTab = tab;
+      updateJourneyTabUI();
+    }
+
+    // --- Modules display logic ---
+    function updateModulesDisplay() {
+      moduleTiles.forEach(tile => {
+        const view = tile.dataset.view || "default";
+        const tags = (tile.dataset.tags || "").split(",").map(t => t.trim());
+        const lifemapAttr = tile.dataset.lifemap || "all";
+        const lifemaps = lifemapAttr.split(",").map(t => t.trim());
+        const viewMatch = (view === currentViewMode || view === "both");
+        const tagMatch = tags.includes(currentModuleTab);
+        const lifemapMatch = lifemapAttr === "all" || lifemaps.includes(currentLifeMap);
+
+        if (viewMatch && tagMatch && lifemapMatch) {
+          tile.style.display = "flex";
+        } else {
+          tile.style.display = "none";
+        }
+      });
+    }
+
+    function updateModuleTabUI() {
+      const mapping = {
+        recommended: moduleTabRecommended,
+        popular: moduleTabPopular,
+        gentle: moduleTabGentle,
+        intensive: moduleTabIntensive
+      };
+
+      Object.entries(mapping).forEach(([name, btn]) => {
+        btn.classList.toggle("active", name === currentModuleTab);
+      });
+
+      updateModulesDisplay();
+    }
+
+    function setModuleTab(tab) {
+      if (tab === "recommended" && currentViewMode === "default") {
+        return; // disabled in default view
+      }
+      currentModuleTab = tab;
+      updateModuleTabUI();
+    }
+
+    // --- LifeMap UI helpers ---
+    function updateLifeMapTabUI() {
+      const mapping = { A: lifeMapATab, B: lifeMapBTab, C: lifeMapCTab };
+      Object.entries(mapping).forEach(([name, btn]) => {
+        btn.classList.toggle("active", name === currentLifeMap);
+      });
+    }
+
+    function updateLifeMapDependentUI() {
+      if (currentViewMode !== "personal") return;
+
+      // Snapshot text
+      lifeMapSnapshot.innerHTML = lifeMapTemplates[currentLifeMap];
+
+      // Baseline variants
+      [baselinePersonalA, baselinePersonalB, baselinePersonalC].forEach(el => {
+        if (!el) return;
+        el.style.display = "none";
+      });
+      if (currentLifeMap === "A") baselinePersonalA.style.display = "grid";
+      if (currentLifeMap === "B") baselinePersonalB.style.display = "grid";
+      if (currentLifeMap === "C") baselinePersonalC.style.display = "grid";
+
+      // Lever variants
+      [leverPersonalA, leverPersonalB, leverPersonalC].forEach(el => {
+        if (!el) return;
+        el.style.display = "none";
+      });
+      if (currentLifeMap === "A") leverPersonalA.style.display = "block";
+      if (currentLifeMap === "B") leverPersonalB.style.display = "block";
+      if (currentLifeMap === "C") leverPersonalC.style.display = "block";
+
+      // Journeys + modules depend on LifeMap
+      updateJourneysDisplay();
+      updateModulesDisplay();
+    }
+
+    function setLifeMap(lm) {
+      if (currentViewMode === "default") return; // Only meaningful in personalized view
+      currentLifeMap = lm;
+      updateLifeMapTabUI();
+      updateLifeMapDependentUI();
+      updateRecommendedPosition();
+    }
+
+    // --- View toggle logic ---
+    function setView(mode) {
+      const isDefault = mode === "default";
+      currentViewMode = mode;
+
+      // Button states
+      viewDefaultBtn.classList.toggle("active", isDefault);
+      viewPersonalBtn.classList.toggle("active", !isDefault);
+
+      // Baseline
+      baselineDefault.style.display = isDefault ? "block" : "none";
+      baselinePersonal.style.display = isDefault ? "none" : "block";
+
+      // Lever column
+      leverPersonalDefault.style.display = isDefault ? "block" : "none";
+      leverPersonalPersonal.style.display = isDefault ? "none" : "block";
+
+      // Highlight personalized lever column only in personalized view
+      if (isDefault) {
+        leverPersonalCard.classList.remove("highlighted");
+      } else {
+        leverPersonalCard.classList.add("highlighted");
+      }
+
+      // LifeMap tabs enabled/disabled + snapshot text
+      const lifeMapButtons = [lifeMapATab, lifeMapBTab, lifeMapCTab];
+      if (isDefault) {
+        lifeMapButtons.forEach(btn => {
+          btn.classList.add("disabled");
+          btn.setAttribute("aria-disabled", "true");
+        });
+        lifeMapSnapshot.innerHTML = lifeMapTemplates.default;
+      } else {
+        lifeMapButtons.forEach(btn => {
+          btn.classList.remove("disabled");
+          btn.removeAttribute("aria-disabled");
+        });
+        updateLifeMapTabUI();
+        updateLifeMapDependentUI();
+      }
+
+      // Modules wrapper switch
+      if (isDefault) {
+        modulesWrapperDefault.style.display = "block";
+        modulesWrapperPersonal.style.display = "none";
+      } else {
+        modulesWrapperDefault.style.display = "none";
+        modulesWrapperPersonal.style.display = "block";
+      }
+
+      // Journey tabs: enable/disable "Recommended"
+      if (isDefault) {
+        tabRecommended.classList.add("disabled");
+        tabRecommended.setAttribute("aria-disabled", "true");
+        if (currentJourneyTab === "recommended") {
+          currentJourneyTab = "popular";
+        }
+      } else {
+        tabRecommended.classList.remove("disabled");
+        tabRecommended.removeAttribute("aria-disabled");
+        currentJourneyTab = "recommended";
+      }
+      updateJourneyTabUI();
+
+      // Module tabs: enable/disable "Recommended"
+      if (isDefault) {
+        moduleTabRecommended.classList.add("disabled");
+        moduleTabRecommended.setAttribute("aria-disabled", "true");
+        if (currentModuleTab === "recommended") {
+          currentModuleTab = "popular";
+        }
+      } else {
+        moduleTabRecommended.classList.remove("disabled");
+        moduleTabRecommended.removeAttribute("aria-disabled");
+        currentModuleTab = "recommended";
+      }
+      updateModuleTabUI();
+
+      // Recommended position highlight
+      updateRecommendedPosition();
+    }
+
+    // --- Modules carousel arrow logic ---
+    const moduleWrappers = document.querySelectorAll(".modules-wrapper");
+    moduleWrappers.forEach(wrapper => {
+      const carousel = wrapper.querySelector(".modules-carousel");
+      const leftBtn = wrapper.querySelector(".modules-arrow.left");
+      const rightBtn = wrapper.querySelector(".modules-arrow.right");
+      const scrollAmount = 260;
+
+      if (!carousel || !leftBtn || !rightBtn) return;
+
+      leftBtn.addEventListener("click", () => {
+        carousel.scrollBy({ left: -scrollAmount, behavior: "smooth" });
+      });
+
+      rightBtn.addEventListener("click", () => {
+        carousel.scrollBy({ left: scrollAmount, behavior: "smooth" });
+      });
+    });
+
+    // FAQ accordions
+    const faqItems = document.querySelectorAll(".faq-item");
+    faqItems.forEach(item => {
+      const question = item.querySelector(".faq-q");
+      question.addEventListener("click", () => {
+        item.classList.toggle("open");
+      });
+    });
+
+    // --- Event listeners ---
+    viewDefaultBtn.addEventListener("click", () => setView("default"));
+    viewPersonalBtn.addEventListener("click", () => setView("personal"));
+
+    tabRecommended.addEventListener("click", () => setJourneyTab("recommended"));
+    tabPopular.addEventListener("click", () => setJourneyTab("popular"));
+    tabGentle.addEventListener("click", () => setJourneyTab("gentle"));
+    tabIntensive.addEventListener("click", () => setJourneyTab("intensive"));
+
+    moduleTabRecommended.addEventListener("click", () => setModuleTab("recommended"));
+    moduleTabPopular.addEventListener("click", () => setModuleTab("popular"));
+    moduleTabGentle.addEventListener("click", () => setModuleTab("gentle"));
+    moduleTabIntensive.addEventListener("click", () => setModuleTab("intensive"));
+
+    lifeMapATab.addEventListener("click", () => setLifeMap("A"));
+    lifeMapBTab.addEventListener("click", () => setLifeMap("B"));
+    lifeMapCTab.addEventListener("click", () => setLifeMap("C"));
+
+    // Initialize
+    setView("default");
+  </script>
+</body>
+</html>
